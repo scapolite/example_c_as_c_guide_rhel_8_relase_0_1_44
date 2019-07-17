@@ -1,0 +1,22 @@
+<ocil-group><questionnaire  id="ocil:ssg-sssd_memcache_timeout_ocil:questionnaire:1">
+          <title>Configure SSSD's Memory Cache to Expire</title>
+          <actions>
+            <test_action_ref>ocil:ssg-sssd_memcache_timeout_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-sssd_memcache_timeout_action:testaction:1" question_ref="ocil:ssg-sssd_memcache_timeout_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-sssd_memcache_timeout_question:question:1">
+          <question_text>To verify that SSSD's in-memory cache expires after a day, run the following command:
+$ sudo grep memcache_timeout /etc/sssd/sssd.conf
+If configured properly, output should be memcache_timeout = .
+      Is it the case that it does not exist or is not configured properly?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

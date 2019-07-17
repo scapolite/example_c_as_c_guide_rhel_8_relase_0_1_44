@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-securetty_root_login_console_only:def:1" version="1">
+    <metadata>
+      <title>Restrict Virtual Console Root Logins</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Preventing direct root login to virtual console devices
+      helps ensure accountability for actions taken on the system using the
+      root account.</description>
+      <reference ref_id="CCE-80864-2" source="CCE"/>
+      <reference ref_id="securetty_root_login_console_only" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="virtual consoles /etc/securetty" test_ref="oval:ssg-test_virtual_consoles_etc_securetty:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_object comment="virtual consoles /etc/securetty" id="oval:ssg-object_virtual_consoles_etc_securetty:obj:1" version="1">
+    <ind:filepath>/etc/securetty</ind:filepath>
+    <ind:pattern operation="pattern match">^vc/[0-9]+$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" check_existence="none_exist" comment="virtual consoles /etc/securetty" id="oval:ssg-test_virtual_consoles_etc_securetty:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_virtual_consoles_etc_securetty:obj:1"/>
+  </ind:textfilecontent54_test>
+</def-group>

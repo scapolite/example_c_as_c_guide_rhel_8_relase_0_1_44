@@ -1,0 +1,9 @@
+include install_ntp
+
+class install_ntp {
+  package { 'ntp':
+    ensure => 'installed',
+  }
+}
+
+            

@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-mount_option_dev_shm_nosuid:def:1" version="1">
+    <metadata>
+      <title>Add nosuid Option to /dev/shm</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>/dev/shm should be mounted with mount option nosuid.</description>
+      <reference ref_id="CCE-80839-4" source="CCE"/>
+      <reference ref_id="mount_option_dev_shm_nosuid" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="nosuid on /dev/shm" test_ref="oval:ssg-test_dev_shm_partition_nosuid:tst:1"/>
+    </criteria>
+  </definition>
+  <linux:partition_test check="all" check_existence="all_exist" comment="nosuid on /dev/shm" id="oval:ssg-test_dev_shm_partition_nosuid:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-object_dev_shm_partition_nosuid:obj:1"/>
+    <linux:state state_ref="oval:ssg-state_dev_shm_partition_nosuid:ste:1"/>
+  </linux:partition_test>
+  <linux:partition_object id="oval:ssg-object_dev_shm_partition_nosuid:obj:1" version="1">
+    <linux:mount_point>/dev/shm</linux:mount_point>
+  </linux:partition_object>
+  <linux:partition_state id="oval:ssg-state_dev_shm_partition_nosuid:ste:1" version="1">
+    <linux:mount_options datatype="string" entity_check="at least one" operation="equals">nosuid</linux:mount_options>
+  </linux:partition_state>
+</def-group>

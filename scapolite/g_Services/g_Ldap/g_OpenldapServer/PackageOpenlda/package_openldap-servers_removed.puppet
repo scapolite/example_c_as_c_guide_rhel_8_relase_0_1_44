@@ -1,0 +1,9 @@
+include remove_openldap-servers
+
+class remove_openldap-servers {
+  package { 'openldap-servers':
+    ensure => 'purged',
+  }
+}
+
+              

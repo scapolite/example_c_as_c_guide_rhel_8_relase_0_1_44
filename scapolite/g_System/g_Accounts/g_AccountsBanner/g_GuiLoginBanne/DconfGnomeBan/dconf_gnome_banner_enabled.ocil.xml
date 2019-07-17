@@ -1,0 +1,25 @@
+<ocil-group><questionnaire  id="ocil:ssg-dconf_gnome_banner_enabled_ocil:questionnaire:1">
+          <title>Enable GNOME3 Login Warning Banner</title>
+          <actions>
+            <test_action_ref>ocil:ssg-dconf_gnome_banner_enabled_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-dconf_gnome_banner_enabled_question:question:1">
+          <question_text>To ensure a login warning banner is enabled, run the following:
+$ grep banner-message-enable /etc/dconf/db/gdm.d/*
+If properly configured, the output should be true.
+To ensure a login warning banner is locked and cannot be changed by a user, run the following:
+$ grep banner-message-enable /etc/dconf/db/gdm.d/locks/*
+If properly configured, the output should be /org/gnome/login-screen/banner-message-enable.
+      Is it the case that it is not?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-dconf_gnome_banner_enabled_action:testaction:1" question_ref="ocil:ssg-dconf_gnome_banner_enabled_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

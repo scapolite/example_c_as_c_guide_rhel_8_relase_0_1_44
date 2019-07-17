@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-sebool_antivirus_can_scan_system_ocil:questionnaire:1">
+          <title>Enable the antivirus_can_scan_system SELinux Boolean</title>
+          <actions>
+            <test_action_ref>ocil:ssg-sebool_antivirus_can_scan_system_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-sebool_antivirus_can_scan_system_question:question:1">
+          <question_text>
+Run the following command to determine if the antivirus_can_scan_system SELinux boolean is enabled:
+$ getsebool antivirus_can_scan_system
+If properly configured, the output should show the following:
+antivirus_can_scan_system --&gt; on
+      Is it the case that antivirus_can_scan_system is not enabled?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-sebool_antivirus_can_scan_system_action:testaction:1" question_ref="ocil:ssg-sebool_antivirus_can_scan_system_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

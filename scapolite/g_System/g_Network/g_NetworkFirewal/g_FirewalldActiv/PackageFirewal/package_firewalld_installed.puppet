@@ -1,0 +1,9 @@
+include install_firewalld
+
+class install_firewalld {
+  package { 'firewalld':
+    ensure => 'installed',
+  }
+}
+
+                

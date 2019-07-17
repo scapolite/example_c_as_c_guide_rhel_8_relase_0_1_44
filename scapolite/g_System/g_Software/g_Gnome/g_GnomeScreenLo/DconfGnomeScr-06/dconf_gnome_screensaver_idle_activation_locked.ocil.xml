@@ -1,0 +1,22 @@
+<ocil-group><questionnaire  id="ocil:ssg-dconf_gnome_screensaver_idle_activation_locked_ocil:questionnaire:1">
+          <title>Ensure Users Cannot Change GNOME3 Screensaver Idle Activation</title>
+          <actions>
+            <test_action_ref>ocil:ssg-dconf_gnome_screensaver_idle_activation_locked_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-dconf_gnome_screensaver_idle_activation_locked_action:testaction:1" question_ref="ocil:ssg-dconf_gnome_screensaver_idle_activation_locked_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-dconf_gnome_screensaver_idle_activation_locked_question:question:1">
+          <question_text>To ensure that users cannot disable the screensaver idle inactivity setting, run the following:
+$ grep idle-activation-enabled /etc/dconf/db/local.d/locks/*
+If properly configured, the output should be /org/gnome/desktop/screensaver/idle-activation-enabled
+      Is it the case that idle_activation_enabled is not locked?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-sebool_xserver_object_manager_ocil:questionnaire:1">
+          <title>Disable the xserver_object_manager SELinux Boolean</title>
+          <actions>
+            <test_action_ref>ocil:ssg-sebool_xserver_object_manager_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-sebool_xserver_object_manager_action:testaction:1" question_ref="ocil:ssg-sebool_xserver_object_manager_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-sebool_xserver_object_manager_question:question:1">
+          <question_text>
+Run the following command to determine if the xserver_object_manager SELinux boolean is disabled:
+$ getsebool xserver_object_manager
+If properly configured, the output should show the following:
+xserver_object_manager --&gt; off
+      Is it the case that xserver_object_manager is not disabled?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

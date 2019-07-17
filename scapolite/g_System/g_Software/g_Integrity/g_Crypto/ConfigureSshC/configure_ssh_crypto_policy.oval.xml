@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-configure_ssh_crypto_policy:def:1" version="1">
+    <metadata>
+      <title>Configure SSH to use System Crypto Policy.</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>SSH should be configured to use the system-wide crypto policy setting.</description>
+      <reference ref_id="CCE-80939-2" source="CCE"/>
+      <reference ref_id="configure_ssh_crypto_policy" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="Check that the SSH configuration mandates usage of system-wide crypto policies." test_ref="oval:ssg-test_configure_ssh_crypto_policy:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_object id="oval:ssg-object_configure_ssh_crypto_policy:obj:1" version="1">
+    <ind:filepath>/etc/sysconfig/sshd</ind:filepath>
+    <ind:pattern operation="pattern match">^\s*CRYPTO_POLICY\s*=.*$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" check_existence="none_exist" comment="Check that the SSH configuration mandates usage of system-wide crypto policies." id="oval:ssg-test_configure_ssh_crypto_policy:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_configure_ssh_crypto_policy:obj:1"/>
+  </ind:textfilecontent54_test>
+</def-group>

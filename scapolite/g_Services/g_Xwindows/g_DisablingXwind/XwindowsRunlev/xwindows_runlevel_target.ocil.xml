@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-xwindows_runlevel_target_ocil:questionnaire:1">
+          <title>Disable X Windows Startup By Setting Default Target</title>
+          <actions>
+            <test_action_ref>ocil:ssg-xwindows_runlevel_target_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-xwindows_runlevel_target_question:question:1">
+          <question_text>To verify the default target is multi-user, run the following command:
+$ systemctl get-default
+The output should show the following:
+multi-user.target
+      Is it the case that the X windows display server is running and/or has not been disabled?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-xwindows_runlevel_target_action:testaction:1" question_ref="ocil:ssg-xwindows_runlevel_target_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

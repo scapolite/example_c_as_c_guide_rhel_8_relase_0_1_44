@@ -1,0 +1,27 @@
+<ocil-group><questionnaire  id="ocil:ssg-file_ownership_library_dirs_ocil:questionnaire:1">
+          <title>Verify that Shared Library Files Have Root Ownership</title>
+          <actions>
+            <test_action_ref>ocil:ssg-file_ownership_library_dirs_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-file_ownership_library_dirs_action:testaction:1" question_ref="ocil:ssg-file_ownership_library_dirs_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-file_ownership_library_dirs_question:question:1">
+          <question_text>Shared libraries are stored in the following directories:
+/lib
+/lib64
+/usr/lib
+/usr/lib64
+For each of these directories, run the following command to find files not
+owned by root:
+$ sudo find -L $DIR ! -user root -exec chown root {} \;
+      Is it the case that any of these files are not owned by root?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

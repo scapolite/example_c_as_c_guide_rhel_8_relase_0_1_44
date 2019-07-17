@@ -1,0 +1,15 @@
+- name: Ensure sssd is installed
+  package:
+    name: sssd
+    state: present
+  when: ansible_virtualization_role != "guest" or ansible_virtualization_type != "docker"
+  tags:
+    - package_sssd_installed
+    - medium_severity
+    - enable_strategy
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+    - NIST-800-53-IA-5(10)
+
+            

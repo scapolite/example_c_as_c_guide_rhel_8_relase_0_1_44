@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-mcafee_antivirus_definitions_updated:def:1" version="1">
+    <metadata>
+      <title>McAfee AntiVirus Definitions Updated</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Verify that McAfee AntiVirus definitions have been updated.</description>
+      <reference ref_id="mcafee_antivirus_definitions_updated" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="Check if McAfee AntiVirus definitions have been updated" test_ref="oval:ssg-test_mcafee_antivirus_definitions_updated:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:variable_state id="oval:ssg-state_mcafee_definitions_max_age:ste:1" version="1">
+    <ind:value datatype="int" operation="less than or equal" var_check="all" var_ref="oval:ssg-var_mcafee_antivirus_definition_expire:var:1"/>
+  </ind:variable_state>
+  <ind:variable_object comment="McAfee AntiVirus definitions age" id="oval:ssg-object_mcafee_definitions_modified_time:obj:1" version="1">
+    <ind:var_ref>oval:ssg-variable_mcafee_dat_files_mtime:var:1</ind:var_ref>
+  </ind:variable_object>
+  <ind:variable_test check="all" check_existence="all_exist" comment="McAfee AntiVirus definitions have been updated" id="oval:ssg-test_mcafee_antivirus_definitions_updated:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_mcafee_definitions_modified_time:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_mcafee_definitions_max_age:ste:1"/>
+  </ind:variable_test>
+  <external_variable comment="defintions age" datatype="int" id="oval:ssg-var_mcafee_antivirus_definition_expire:var:1" version="1"/>
+  <local_variable comment="Age of file for each McAfee definition file." datatype="int" id="oval:ssg-variable_mcafee_dat_files_mtime:var:1" version="1">
+    <time_difference format_2="seconds_since_epoch">
+      <object_component item_field="m_time" object_ref="oval:ssg-mcafee_dat_files_mtime:obj:1"/>
+    </time_difference>
+  </local_variable>
+  <unix:file_object comment="McAfee definition files" id="oval:ssg-mcafee_dat_files_mtime:obj:1" version="1">
+    <unix:path datatype="string">/opt/NAI/LinuxShield/engine/dat</unix:path>
+    <unix:filename datatype="string" operation="pattern match">^.*\.dat$</unix:filename>
+  </unix:file_object>
+</def-group>

@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-firewalld_sshd_disabled:def:1" version="1">
+    <metadata>
+      <title>Disallow inbound firewall access to the SSH Server port</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>If inbound SSH access is not needed, the firewall should disallow or reject access to
+      the SSH port (22).</description>
+      <reference ref_id="firewalld_sshd_disabled" source="ssg"/>
+    </metadata>
+    <criteria operator="AND">
+      <criterion comment="ssh service is not enabled in services" test_ref="oval:ssg-test_firewalld_service_sshd:tst:1"/>
+      <criterion comment="ssh port is not enabled in services" test_ref="oval:ssg-test_firewalld_service_sshd_port:tst:1"/>
+      <criterion comment="ssh service is not enabled in zones" test_ref="oval:ssg-test_firewalld_zone_sshd:tst:1"/>
+      <criterion comment="ssh port is not enabled in zones" test_ref="oval:ssg-test_firewalld_zone_sshd_port:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:xmlfilecontent_test check="all" check_existence="none_exist" comment="ssh port is not enabled in services" id="oval:ssg-test_firewalld_service_sshd_port:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_firewalld_service_sshd_port:obj:1"/>
+  </ind:xmlfilecontent_test>
+  <ind:xmlfilecontent_test check="all" check_existence="none_exist" comment="ssh port is not enabled in zones" id="oval:ssg-test_firewalld_zone_sshd_port:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_firewalld_zone_sshd_port:obj:1"/>
+  </ind:xmlfilecontent_test>
+  <ind:xmlfilecontent_test check="all" check_existence="none_exist" comment="ssh service is not enabled in zones" id="oval:ssg-test_firewalld_zone_sshd:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_firewalld_zone_sshd:obj:1"/>
+  </ind:xmlfilecontent_test>
+  <ind:xmlfilecontent_test check="all" check_existence="none_exist" comment="ssh service is not enabled in services" id="oval:ssg-test_firewalld_service_sshd:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_firewalld_service_sshd:obj:1"/>
+  </ind:xmlfilecontent_test>
+  <ind:xmlfilecontent_object id="oval:ssg-object_firewalld_service_sshd_port:obj:1" version="1">
+    <ind:path>/etc/firewalld/services</ind:path>
+    <ind:filename operation="pattern match">^.*\.xml$</ind:filename>
+    <ind:xpath>/service/port[@port='22']</ind:xpath>
+  </ind:xmlfilecontent_object>
+  <ind:xmlfilecontent_object id="oval:ssg-object_firewalld_service_sshd:obj:1" version="1">
+    <ind:path>/etc/firewalld/services</ind:path>
+    <ind:filename operation="pattern match">^.*\.xml$</ind:filename>
+    <ind:xpath>/service/service[@name='ssh']</ind:xpath>
+  </ind:xmlfilecontent_object>
+  <ind:xmlfilecontent_object id="oval:ssg-object_firewalld_zone_sshd_port:obj:1" version="1">
+    <ind:path>/etc/firewalld/zones</ind:path>
+    <ind:filename operation="pattern match">^.*\.xml$</ind:filename>
+    <ind:xpath>/zone/port[@port='22']</ind:xpath>
+  </ind:xmlfilecontent_object>
+  <ind:xmlfilecontent_object id="oval:ssg-object_firewalld_zone_sshd:obj:1" version="1">
+    <ind:path>/etc/firewalld/zones</ind:path>
+    <ind:filename operation="pattern match">^.*\.xml$</ind:filename>
+    <ind:xpath>/zone/service[@name='ssh']</ind:xpath>
+  </ind:xmlfilecontent_object>
+</def-group>

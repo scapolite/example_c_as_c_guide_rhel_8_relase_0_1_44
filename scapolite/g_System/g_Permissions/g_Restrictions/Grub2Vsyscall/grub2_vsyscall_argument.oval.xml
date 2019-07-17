@@ -1,0 +1,80 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-object_bootloader_disable_recovery_argument:obj:1'
+- 'oval:ssg-bootloader_disable_recovery_set_to_true:def:1'
+- 'oval:ssg-test_bootloader_disable_recovery_set_to_true:tst:1'
+- 'oval:ssg-state_bootloader_disable_recovery_argument:ste:1'  -->
+  <definition class="compliance" id="oval:ssg-grub2_vsyscall_argument:def:1" version="2">
+    <metadata>
+      <title>Ensure GRUB 2 is configured to run Linux operating system with argument vsyscall=none</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Look for argument vsyscall=none in the kernel line in /etc/default/grub.</description>
+      <reference ref_id="CCE-80946-7" source="CCE"/>
+      <reference ref_id="grub2_vsyscall_argument" source="ssg"/>
+    </metadata>
+    <criteria operator="OR">
+      <criterion comment="check for vsyscall=none in /etc/default/grub via GRUB_CMDLINE_LINUX" test_ref="oval:ssg-test_grub2_vsyscall_argument:tst:1"/>
+      <criteria operator="AND">
+        <criterion comment="check for vsyscall=none in /etc/default/grub via GRUB_CMDLINE_LINUX_DEFAULT" test_ref="oval:ssg-test_grub2_vsyscall_argument_default:tst:1"/>
+        <extend_definition comment="Check GRUB_DISABLE_RECOVERY=true in /etc/default/grub" definition_ref="oval:ssg-bootloader_disable_recovery_set_to_true:def:1"/>
+      </criteria>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_state id="oval:ssg-state_grub2_vsyscall_argument:ste:1" version="1">
+    <ind:subexpression datatype="string" operation="pattern match">^.*vsyscall=none.*$</ind:subexpression>
+  </ind:textfilecontent54_state>
+  <ind:textfilecontent54_object id="oval:ssg-object_bootloader_disable_recovery_argument:obj:1" version="1">
+    <ind:filepath>/etc/default/grub</ind:filepath>
+    <ind:pattern operation="pattern match">^\s*GRUB_DISABLE_RECOVERY=(.*)$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <definition class="compliance" id="oval:ssg-bootloader_disable_recovery_set_to_true:def:1" version="1">
+    <metadata>
+      <title>Verify GRUB_DISABLE_RECOVERY Set to true</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>GRUB_DISABLE_RECOVERY set to 'true' in
+      /etc/default/grub</description>
+      <reference ref_id="bootloader_disable_recovery_set_to_true" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="Check GRUB_DISABLE_RECOVERY=true in /etc/default/grub" test_ref="oval:ssg-test_bootloader_disable_recovery_set_to_true:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_object id="oval:ssg-object_grub2_vsyscall_argument_default:obj:1" version="1">
+    <ind:filepath>/etc/default/grub</ind:filepath>
+    <ind:pattern operation="pattern match">^\s*GRUB_CMDLINE_LINUX_DEFAULT=&quot;(.*)&quot;$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_object id="oval:ssg-object_grub2_vsyscall_argument:obj:1" version="1">
+    <ind:filepath>/etc/default/grub</ind:filepath>
+    <ind:pattern operation="pattern match">^\s*GRUB_CMDLINE_LINUX=&quot;(.*)&quot;$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="check for vsyscall=none in /etc/default/grub via GRUB_CMDLINE_LINUX" id="oval:ssg-test_grub2_vsyscall_argument:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_grub2_vsyscall_argument:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_grub2_vsyscall_argument:ste:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="Check for GRUB_DISABLE_RECOVERY=true in /etc/default/grub" id="oval:ssg-test_bootloader_disable_recovery_set_to_true:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_bootloader_disable_recovery_argument:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_bootloader_disable_recovery_argument:ste:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_state id="oval:ssg-state_bootloader_disable_recovery_argument:ste:1" version="1">
+    <ind:subexpression datatype="string" operation="pattern match">^true|&quot;true&quot;$</ind:subexpression>
+  </ind:textfilecontent54_state>
+  <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="check for vsyscall=none in /etc/default/grub via GRUB_CMDLINE_LINUX_DEFAULT" id="oval:ssg-test_grub2_vsyscall_argument_default:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_grub2_vsyscall_argument_default:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_grub2_vsyscall_argument:ste:1"/>
+  </ind:textfilecontent54_test>
+</def-group>

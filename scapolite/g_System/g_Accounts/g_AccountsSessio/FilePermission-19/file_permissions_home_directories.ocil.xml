@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-file_permissions_home_directories_ocil:questionnaire:1">
+          <title>All Interactive User Home Directories Must Have mode 0750 Or Less Permissive</title>
+          <actions>
+            <test_action_ref>ocil:ssg-file_permissions_home_directories_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-file_permissions_home_directories_action:testaction:1" question_ref="ocil:ssg-file_permissions_home_directories_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-file_permissions_home_directories_question:question:1">
+          <question_text>To verify the assigned home directory of all interactive user home directories
+have a mode of 0750 or less permissive, run the following command:
+$ sudo ls -l /home
+Inspect the output for any directories with incorrect permissions.
+      Is it the case that they are more permissive?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

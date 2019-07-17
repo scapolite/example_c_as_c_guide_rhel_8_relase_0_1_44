@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-install_mcafee_antivirus_ocil:questionnaire:1">
+          <title>Install McAfee Virus Scanning Software</title>
+          <actions>
+            <test_action_ref>ocil:ssg-install_mcafee_antivirus_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-install_mcafee_antivirus_question:question:1">
+          <question_text>To verify that McAfee VirusScan Enterprise for Linux is installed
+and running, run the following command(s):
+$ sudo systemctl status nails
+$ rpm -q McAfeeVSEForLinux
+      Is it the case that virus scanning software is not installed or running?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-install_mcafee_antivirus_action:testaction:1" question_ref="ocil:ssg-install_mcafee_antivirus_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

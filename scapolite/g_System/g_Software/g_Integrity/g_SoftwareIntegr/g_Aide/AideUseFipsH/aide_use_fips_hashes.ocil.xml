@@ -1,0 +1,22 @@
+<ocil-group><questionnaire  id="ocil:ssg-aide_use_fips_hashes_ocil:questionnaire:1">
+          <title>Configure AIDE to Use FIPS 140-2 for Validating Hashes</title>
+          <actions>
+            <test_action_ref>ocil:ssg-aide_use_fips_hashes_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-aide_use_fips_hashes_question:question:1">
+          <question_text>To determine that AIDE is configured for FIPS 140-2 file hashing, run the following command:
+$ grep sha512 /etc/aide.conf
+Verify that the sha512 option is added to the correct ruleset.
+      Is it the case that the sha512 option is missing or not added to the correct ruleset?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-aide_use_fips_hashes_action:testaction:1" question_ref="ocil:ssg-aide_use_fips_hashes_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

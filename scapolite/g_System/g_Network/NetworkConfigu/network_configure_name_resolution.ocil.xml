@@ -1,0 +1,22 @@
+<ocil-group><questionnaire  id="ocil:ssg-network_configure_name_resolution_ocil:questionnaire:1">
+          <title>Configure Multiple DNS Servers in /etc/resolv.conf</title>
+          <actions>
+            <test_action_ref>ocil:ssg-network_configure_name_resolution_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-network_configure_name_resolution_question:question:1">
+          <question_text>To verify that DNS servers have been configured properly, perform the following:
+$ sudo grep nameserver /etc/resolv.conf
+The output should return more than one nameserver entry.
+      Is it the case that it does not exist or is not properly configured or less than 2 'nameserver' entries exist?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-network_configure_name_resolution_action:testaction:1" question_ref="ocil:ssg-network_configure_name_resolution_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

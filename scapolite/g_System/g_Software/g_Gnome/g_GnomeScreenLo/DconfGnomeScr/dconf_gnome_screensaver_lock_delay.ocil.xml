@@ -1,0 +1,26 @@
+<ocil-group><questionnaire  id="ocil:ssg-dconf_gnome_screensaver_lock_delay_ocil:questionnaire:1">
+          <title>Set GNOME3 Screensaver Lock Delay After Activation Period</title>
+          <actions>
+            <test_action_ref>ocil:ssg-dconf_gnome_screensaver_lock_delay_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-dconf_gnome_screensaver_lock_delay_question:question:1">
+          <question_text>To check that the screen locks immediately when activated, run the following command:
+$ gsettings get org.gnome.desktop.screensaver lock-delay
+If properly configured, the output should be 'uint32 '.
+
+To ensure that users cannot change how long until the the screensaver locks, run the following:
+$ grep lock-delay /etc/dconf/db/local.d/locks/*
+If properly configured, the output for lock-delay should be /org/gnome/desktop/screensaver/lock-delay
+      Is it the case that the screensaver lock delay is missing, or is set to a value greater than 5?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-dconf_gnome_screensaver_lock_delay_action:testaction:1" question_ref="ocil:ssg-dconf_gnome_screensaver_lock_delay_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

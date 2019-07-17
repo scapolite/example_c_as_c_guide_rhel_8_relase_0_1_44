@@ -1,0 +1,28 @@
+<ocil-group><questionnaire  id="ocil:ssg-grub2_slub_debug_argument_ocil:questionnaire:1">
+          <title>Enable SLUB/SLAB allocator poisoning</title>
+          <actions>
+            <test_action_ref>ocil:ssg-grub2_slub_debug_argument_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-grub2_slub_debug_argument_question:question:1">
+          <question_text>Inspect the form of default GRUB 2 command line for the Linux operating system
+in /etc/default/grub. If they include slub_debug=P,
+then SLUB/SLAB poisoning is enabled at boot time.
+
+To ensure slub_debug=P is configured on all installed kernels, the
+following command may be used:
+
+$ sudo /sbin/grubby --update-kernel=ALL --args="slub_debug=P
+
+      Is it the case that SLUB/SLAB poisoning is not enabled?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-grub2_slub_debug_argument_action:testaction:1" question_ref="ocil:ssg-grub2_slub_debug_argument_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

@@ -1,0 +1,9 @@
+include install_aide
+
+class install_aide {
+  package { 'aide':
+    ensure => 'installed',
+  }
+}
+
+                  

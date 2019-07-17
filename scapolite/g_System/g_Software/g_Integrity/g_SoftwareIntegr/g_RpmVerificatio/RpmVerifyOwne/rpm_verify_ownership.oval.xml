@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-rpm_verify_ownership:def:1" version="3">
+    <metadata>
+      <title>Verify File Ownership Using RPM</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Verify ownership of installed packages
+      by comparing the installed files with information about the
+      files taken from the package metadata stored in the RPM
+      database.</description>
+      <reference ref_id="rpm_verify_ownership" source="ssg"/>
+    </metadata>
+    <criteria operator="AND">
+      <criterion comment="user ownership of all files matches local rpm database" test_ref="oval:ssg-test_verify_all_rpms_user_ownership:tst:1"/>
+      <criterion comment="group ownership of all files matches local rpm database" test_ref="oval:ssg-test_verify_all_rpms_group_ownership:tst:1"/>
+    </criteria>
+  </definition>
+  <linux:rpmverifyfile_state id="oval:ssg-state_files_fail_user_ownership:ste:1" version="1">
+    <linux:ownership_differs>fail</linux:ownership_differs>
+  </linux:rpmverifyfile_state>
+  <linux:rpmverifyfile_object comment="rpm verify of all files" id="oval:ssg-object_files_fail_user_ownership:obj:1" version="1">
+    <linux:behaviors noghostfiles="true" nomd5="true"/>
+    <linux:name operation="pattern match">.*</linux:name>
+    <linux:epoch operation="pattern match">.*</linux:epoch>
+    <linux:version operation="pattern match">.*</linux:version>
+    <linux:release operation="pattern match">.*</linux:release>
+    <linux:arch operation="pattern match">.*</linux:arch>
+    <linux:filepath operation="pattern match">.*</linux:filepath>
+    <filter action="include">oval:ssg-state_files_fail_user_ownership:ste:1</filter>
+  </linux:rpmverifyfile_object>
+  <linux:rpmverifyfile_object comment="rpm verify of all files" id="oval:ssg-object_files_fail_group_ownership:obj:1" version="1">
+    <linux:behaviors noghostfiles="true" nomd5="true"/>
+    <linux:name operation="pattern match">.*</linux:name>
+    <linux:epoch operation="pattern match">.*</linux:epoch>
+    <linux:version operation="pattern match">.*</linux:version>
+    <linux:release operation="pattern match">.*</linux:release>
+    <linux:arch operation="pattern match">.*</linux:arch>
+    <linux:filepath operation="pattern match">.*</linux:filepath>
+    <filter action="include">oval:ssg-state_files_fail_group_ownership:ste:1</filter>
+  </linux:rpmverifyfile_object>
+  <linux:rpmverifyfile_state id="oval:ssg-state_files_fail_group_ownership:ste:1" version="1">
+    <linux:group_differs>fail</linux:group_differs>
+  </linux:rpmverifyfile_state>
+  <linux:rpmverifyfile_test check="all" check_existence="none_exist" comment="user ownership of all files matches local rpm database" id="oval:ssg-test_verify_all_rpms_user_ownership:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-object_files_fail_user_ownership:obj:1"/>
+  </linux:rpmverifyfile_test>
+  <linux:rpmverifyfile_test check="all" check_existence="none_exist" comment="group ownership of all files matches local rpm database" id="oval:ssg-test_verify_all_rpms_group_ownership:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-object_files_fail_group_ownership:obj:1"/>
+  </linux:rpmverifyfile_test>
+</def-group>

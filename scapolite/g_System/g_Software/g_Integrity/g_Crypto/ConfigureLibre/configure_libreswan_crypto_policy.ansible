@@ -1,0 +1,15 @@
+- name: Configure Libreswan to use System Crypto Policy
+  lineinfile:
+    path: /etc/ipsec.conf
+    line: include /etc/crypto-policies/back-ends/libreswan.config
+    create: true
+  tags:
+    - configure_libreswan_crypto_policy
+    - medium_severity
+    - restrict_strategy
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+    - CCE-80937-6
+
+                

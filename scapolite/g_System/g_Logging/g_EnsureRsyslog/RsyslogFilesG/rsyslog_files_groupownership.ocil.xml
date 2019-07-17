@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-rsyslog_files_groupownership_ocil:questionnaire:1">
+          <title>Ensure Log Files Are Owned By Appropriate Group</title>
+          <actions>
+            <test_action_ref>ocil:ssg-rsyslog_files_groupownership_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-rsyslog_files_groupownership_action:testaction:1" question_ref="ocil:ssg-rsyslog_files_groupownership_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-rsyslog_files_groupownership_question:question:1">
+          <question_text>The group-owner of all log files written by rsyslog should be .
+These log files are determined by the second part of each Rule line in
+/etc/rsyslog.conf and typically all appear in /var/log.
+To see the group-owner of a given log file, run the following command:
+$ ls -l LOGFILE
+      Is it the case that the group-owner is not correct?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

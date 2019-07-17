@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-sebool_httpd_use_gpg_ocil:questionnaire:1">
+          <title>Disable the httpd_use_gpg SELinux Boolean</title>
+          <actions>
+            <test_action_ref>ocil:ssg-sebool_httpd_use_gpg_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-sebool_httpd_use_gpg_action:testaction:1" question_ref="ocil:ssg-sebool_httpd_use_gpg_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-sebool_httpd_use_gpg_question:question:1">
+          <question_text>
+Run the following command to determine if the httpd_use_gpg SELinux boolean is disabled:
+$ getsebool httpd_use_gpg
+If properly configured, the output should show the following:
+httpd_use_gpg --&gt; off
+      Is it the case that httpd_use_gpg is not disabled?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

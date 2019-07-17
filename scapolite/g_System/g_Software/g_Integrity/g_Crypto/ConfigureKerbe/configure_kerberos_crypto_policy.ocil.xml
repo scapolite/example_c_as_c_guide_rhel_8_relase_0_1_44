@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-configure_kerberos_crypto_policy_ocil:questionnaire:1">
+          <title>Configure Kerberos to use System Crypto Policy</title>
+          <actions>
+            <test_action_ref>ocil:ssg-configure_kerberos_crypto_policy_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-configure_kerberos_crypto_policy_question:question:1">
+          <question_text>Check that the symlink exists and target the correct kerberos crypto policy, with the following command:
+file /etc/krb5.conf.d/crypto-policies
+If command ouput shows the following line, kerberos is configured to use the system-wide crypto policy.
+/etc/krb5.conf.d/crypto-policies: symbolic link to /etc/crypto-policies/back-ends/krb5.config
+      Is it the case that the symlink does not exist or points to a different target?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-configure_kerberos_crypto_policy_action:testaction:1" question_ref="ocil:ssg-configure_kerberos_crypto_policy_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

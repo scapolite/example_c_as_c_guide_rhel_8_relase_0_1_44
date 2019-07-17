@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-sssd_enable_pam_services_ocil:questionnaire:1">
+          <title>Configure PAM in SSSD Services</title>
+          <actions>
+            <test_action_ref>ocil:ssg-sssd_enable_pam_services_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-sssd_enable_pam_services_action:testaction:1" question_ref="ocil:ssg-sssd_enable_pam_services_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-sssd_enable_pam_services_question:question:1">
+          <question_text>To verify that SSSD is configured for PAM services, run the following command:
+$ sudo grep services /etc/sssd/sssd.conf
+If configured properly, output should be similar to
+services = pam
+      Is it the case that it does not exist or 'pam' is not added to the 'services' option under the 'sssd' section?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

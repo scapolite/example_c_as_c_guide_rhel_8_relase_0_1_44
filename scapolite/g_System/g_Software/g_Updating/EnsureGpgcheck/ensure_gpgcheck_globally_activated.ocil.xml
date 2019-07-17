@@ -1,0 +1,26 @@
+<ocil-group><questionnaire  id="ocil:ssg-ensure_gpgcheck_globally_activated_ocil:questionnaire:1">
+          <title>Ensure gpgcheck Enabled In Main yum Configuration</title>
+          <actions>
+            <test_action_ref>ocil:ssg-ensure_gpgcheck_globally_activated_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-ensure_gpgcheck_globally_activated_question:question:1">
+          <question_text>To determine whether yum is configured to use gpgcheck,
+inspect /etc/yum.conf and ensure the following appears in the
+[main] section:
+gpgcheck=1
+A value of 1 indicates that gpgcheck is enabled. Absence of a
+gpgcheck line or a setting of 0 indicates that it is
+disabled.
+      Is it the case that GPG checking is not enabled?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-ensure_gpgcheck_globally_activated_action:testaction:1" question_ref="ocil:ssg-ensure_gpgcheck_globally_activated_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

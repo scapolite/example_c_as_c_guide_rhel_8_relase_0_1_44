@@ -1,0 +1,72 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-obj_package_openssh-server_removed:obj:1'
+- 'oval:ssg-unit_sshd_state_symlink:ste:1'
+- 'oval:ssg-test_sshd_socket_disabled_sockets_target:tst:1'
+- 'oval:ssg-object_sshd_disabled_multi_user_target:obj:1'
+- 'oval:ssg-object_sshd_socket_disabled_sockets_target:obj:1'
+- 'oval:ssg-test_package_openssh-server_removed:tst:1'
+- 'oval:ssg-package_openssh-server_removed:def:1'
+- 'oval:ssg-test_sshd_disabled_multi_user_target:tst:1'  -->
+  <definition class="compliance" id="oval:ssg-service_sshd_disabled:def:1" version="2">
+    <metadata>
+      <title>Service sshd Disabled</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The sshd service should be disabled if possible.</description>
+      <reference ref_id="service_sshd_disabled" source="ssg"/>
+    </metadata>
+    <criteria comment="package openssh-server removed or service and socket sshd are not configured to start" operator="OR">
+      <extend_definition comment="openssh-server removed" definition_ref="oval:ssg-package_openssh-server_removed:def:1"/>
+      <criteria comment="service and socket sshd are disabled" operator="AND">
+        <criterion comment="sshd disabled in multi-user.target" test_ref="oval:ssg-test_sshd_disabled_multi_user_target:tst:1"/>
+        <criterion comment="sshd socket disabled in sockets.target" test_ref="oval:ssg-test_sshd_socket_disabled_sockets_target:tst:1"/>
+      </criteria>
+    </criteria>
+  </definition>
+  <linux:rpminfo_object id="oval:ssg-obj_package_openssh-server_removed:obj:1" version="1">
+    <linux:name>openssh-server</linux:name>
+  </linux:rpminfo_object>
+  <unix:file_state id="oval:ssg-unit_sshd_state_symlink:ste:1" version="1">
+    <unix:type operation="equals">symbolic link</unix:type>
+  </unix:file_state>
+  <unix:file_test check="all" check_existence="none_exist" comment="look for sshd.socket in /etc/systemd/system/sockets.target.wants" id="oval:ssg-test_sshd_socket_disabled_sockets_target:tst:1" version="1">
+    <unix:object object_ref="oval:ssg-object_sshd_socket_disabled_sockets_target:obj:1"/>
+  </unix:file_test>
+  <unix:file_object comment="look for sshd.service in /etc/systemd/system/multi-user.target.wants" id="oval:ssg-object_sshd_disabled_multi_user_target:obj:1" version="1">
+    <unix:filepath>/etc/systemd/system/multi-user.target.wants/sshd.service</unix:filepath>
+    <filter action="include">oval:ssg-unit_sshd_state_symlink:ste:1</filter>
+  </unix:file_object>
+  <unix:file_object comment="look for sshd.socket in /etc/systemd/system/sockets.target.wants" id="oval:ssg-object_sshd_socket_disabled_sockets_target:obj:1" version="1">
+    <unix:filepath>/etc/systemd/system/sockets.target.wants/sshd.socket</unix:filepath>
+    <filter action="include">oval:ssg-unit_sshd_state_symlink:ste:1</filter>
+  </unix:file_object>
+  <linux:rpminfo_test check="all" check_existence="none_exist" comment="package openssh-server is removed" id="oval:ssg-test_package_openssh-server_removed:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_package_openssh-server_removed:obj:1"/>
+  </linux:rpminfo_test>
+  <definition class="compliance" id="oval:ssg-package_openssh-server_removed:def:1" version="1">
+    <metadata>
+      <title>Package openssh-server Removed</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The RPM package openssh-server should be removed.</description>
+      <reference ref_id="package_openssh-server_removed" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="package openssh-server is removed" test_ref="oval:ssg-test_package_openssh-server_removed:tst:1"/>
+    </criteria>
+  </definition>
+  <unix:file_test check="all" check_existence="none_exist" comment="look for sshd.service in /etc/systemd/system/multi-user.target.wants" id="oval:ssg-test_sshd_disabled_multi_user_target:tst:1" version="1">
+    <unix:object object_ref="oval:ssg-object_sshd_disabled_multi_user_target:obj:1"/>
+  </unix:file_test>
+</def-group>

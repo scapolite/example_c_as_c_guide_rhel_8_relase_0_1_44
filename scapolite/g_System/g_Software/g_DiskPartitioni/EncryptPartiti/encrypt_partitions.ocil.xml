@@ -1,0 +1,29 @@
+<ocil-group><questionnaire  id="ocil:ssg-encrypt_partitions_ocil:questionnaire:1">
+          <title>Encrypt Partitions</title>
+          <actions>
+            <test_action_ref>ocil:ssg-encrypt_partitions_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-encrypt_partitions_action:testaction:1" question_ref="ocil:ssg-encrypt_partitions_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-encrypt_partitions_question:question:1">
+          <question_text>Check the system partitions to determine if they are encrypted with the following command:
+blkid
+
+Output will be similar to:
+/dev/sda1: UUID=" ab12c3de-4f56-789a-8f33-3850cc8ce3a2
+" TYPE="crypto_LUKS"
+/dev/sda2: UUID=" bc98d7ef-6g54-321h-1d24-9870de2ge1a2
+" TYPE="crypto_LUKS"
+
+Pseudo-file systems, such as /proc, /sys, and tmpfs, are not required to use disk encryption and are not a finding.
+      Is it the case that partitions do not have a type of crypto_LUKS?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

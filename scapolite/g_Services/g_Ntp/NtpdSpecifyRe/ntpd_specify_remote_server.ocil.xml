@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-ntpd_specify_remote_server_ocil:questionnaire:1">
+          <title>Specify a Remote NTP Server</title>
+          <actions>
+            <test_action_ref>ocil:ssg-ntpd_specify_remote_server_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-ntpd_specify_remote_server_question:question:1">
+          <question_text>To verify that a remote NTP service is configured for time synchronization,
+open the following file:
+/etc/ntp.conf
+In the file, there should be a section similar to the following:
+server ntpserver
+      Is it the case that this is not the case?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-ntpd_specify_remote_server_action:testaction:1" question_ref="ocil:ssg-ntpd_specify_remote_server_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-dir_perms_var_log_httpd_ocil:questionnaire:1">
+          <title>Set Permissions on the /var/log/httpd/ Directory</title>
+          <actions>
+            <test_action_ref>ocil:ssg-dir_perms_var_log_httpd_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-dir_perms_var_log_httpd_question:question:1">
+          <question_text>Run the following command to check the mode of the httpd log
+directory:
+$ ls -l /var/log/ | grep httpd
+Log directory must be mode 0700 or less permissive.
+      Is it the case that it is more permissive?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-dir_perms_var_log_httpd_action:testaction:1" question_ref="ocil:ssg-dir_perms_var_log_httpd_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

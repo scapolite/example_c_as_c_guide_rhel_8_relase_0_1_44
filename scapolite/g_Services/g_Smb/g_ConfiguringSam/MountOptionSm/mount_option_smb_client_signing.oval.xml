@@ -1,0 +1,89 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-test_package_samba-common_installed:tst:1'
+- 'oval:ssg-obj_package_samba-common_installed:obj:1'
+- 'oval:ssg-package_samba-common_installed:def:1'  -->
+  <definition class="compliance" id="oval:ssg-mount_option_smb_client_signing:def:1" version="1">
+    <metadata>
+      <title>Require Client SMB Packet Signing, if using
+      mount.cifs</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Require packet signing of clients who mount
+      Samba shares using the mount.cifs program (e.g., those who
+      specify shares in /etc/fstab). To do so, ensure that signing
+      options (either sec=krb5i or sec=ntlmv2i) are
+      used.</description>
+      <reference ref_id="mount_option_smb_client_signing" source="ssg"/>
+    </metadata>
+    <criteria operator="OR">
+      <criteria operator="AND">
+        <extend_definition comment="samba-common installed" definition_ref="oval:ssg-package_samba-common_installed:def:1"/>
+        <criteria operator="OR">
+          <criterion comment="check for no cifs in /etc/fstab" test_ref="oval:ssg-test_20340111:tst:1"/>
+          <criterion comment="check for sec=krb5i or sec=ntlmv2i in /etc/fstab" test_ref="oval:ssg-test_20340112:tst:1"/>
+        </criteria>
+        <criteria operator="OR">
+          <criterion comment="check for no cifs in /etc/mtab" test_ref="oval:ssg-test_20340113:tst:1"/>
+          <criterion comment="check for sec=krb5i or sec=ntlmv2i in /etc/mtab" test_ref="oval:ssg-test_20340114:tst:1"/>
+        </criteria>
+      </criteria>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_test check="all" check_existence="at_least_one_exists" comment="check for sec=krb5i or sec=ntlmv2i in /etc/fstab" id="oval:ssg-test_20340112:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-obj_20340111:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_20340112:ste:1"/>
+  </ind:textfilecontent54_test>
+  <linux:rpminfo_test check="all" check_existence="all_exist" comment="package samba-common is installed" id="oval:ssg-test_package_samba-common_installed:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_package_samba-common_installed:obj:1"/>
+  </linux:rpminfo_test>
+  <ind:textfilecontent54_object id="oval:ssg-obj_20340111:obj:1" version="1">
+    <ind:filepath>/etc/fstab</ind:filepath>
+    <ind:pattern operation="pattern match">^[\s]*[\S]+[\s]+[\S]+[\s]+cifs[\s]+([\S]+)</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_state id="oval:ssg-state_20340112:ste:1" version="1">
+    <ind:instance datatype="int">2</ind:instance>
+    <ind:subexpression operation="pattern match">sec=(krb5i|ntlmv2i)</ind:subexpression>
+  </ind:textfilecontent54_state>
+  <ind:textfilecontent54_test check="all" check_existence="at_least_one_exists" comment="check for sec=krb5i or sec=ntlmv2i in /etc/mtab" id="oval:ssg-test_20340114:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-obj_20340112:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_20340112:ste:1"/>
+  </ind:textfilecontent54_test>
+  <linux:rpminfo_object id="oval:ssg-obj_package_samba-common_installed:obj:1" version="1">
+    <linux:name>samba-common</linux:name>
+  </linux:rpminfo_object>
+  <definition class="compliance" id="oval:ssg-package_samba-common_installed:def:1" version="1">
+    <metadata>
+      <title>Package samba-common Installed</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The RPM package samba-common should be installed.</description>
+      <reference ref_id="package_samba-common_installed" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="package samba-common is installed" test_ref="oval:ssg-test_package_samba-common_installed:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_test check="all" check_existence="none_exist" comment="check for no cifs in /etc/fstab" id="oval:ssg-test_20340111:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-obj_20340111:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object id="oval:ssg-obj_20340112:obj:1" version="1">
+    <ind:filepath>/etc/mtab</ind:filepath>
+    <ind:pattern operation="pattern match">^[\s]*[\S]+[\s]+[\S]+[\s]+cifs[\s]+([\S]+)</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" check_existence="none_exist" comment="check for no cifs in /etc/mtab" id="oval:ssg-test_20340113:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-obj_20340112:obj:1"/>
+  </ind:textfilecontent54_test>
+</def-group>

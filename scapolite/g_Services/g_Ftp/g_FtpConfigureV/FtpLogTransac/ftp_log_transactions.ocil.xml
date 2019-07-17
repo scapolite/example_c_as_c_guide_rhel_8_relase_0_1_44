@@ -1,0 +1,29 @@
+<ocil-group><questionnaire  id="ocil:ssg-ftp_log_transactions_ocil:questionnaire:1">
+          <title>Enable Logging of All FTP Transactions</title>
+          <actions>
+            <test_action_ref>ocil:ssg-ftp_log_transactions_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-ftp_log_transactions_action:testaction:1" question_ref="ocil:ssg-ftp_log_transactions_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-ftp_log_transactions_question:question:1">
+          <question_text>Find if logging is applied to the FTP daemon.
+
+Procedures:
+
+If vsftpd is started by xinetd the following command will indicate the xinetd.d startup file:
+$ grep vsftpd /etc/xinetd.d/*
+$ grep server_args vsftpd xinetd.d startup file
+This will indicate the vsftpd config file used when starting through xinetd.
+If the server_args line is missing or does not include the vsftpd configuration file, then the default config file (/etc/vsftpd/vsftpd.conf) is used.
+$ sudo grep xferlog_enable vsftpd config file
+      Is it the case that xferlog_enable is missing, or is not set to yes?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

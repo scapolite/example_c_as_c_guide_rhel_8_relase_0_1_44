@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-mount_option_tmp_nodev:def:1" version="1">
+    <metadata>
+      <title>Add nodev Option to /tmp</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>/tmp should be mounted with mount option nodev.</description>
+      <reference ref_id="mount_option_tmp_nodev" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="nodev on /tmp" test_ref="oval:ssg-test_tmp_partition_nodev:tst:1"/>
+    </criteria>
+  </definition>
+  <linux:partition_test check="all" check_existence="all_exist" comment="nodev on /tmp" id="oval:ssg-test_tmp_partition_nodev:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-object_tmp_partition_nodev:obj:1"/>
+    <linux:state state_ref="oval:ssg-state_tmp_partition_nodev:ste:1"/>
+  </linux:partition_test>
+  <linux:partition_state id="oval:ssg-state_tmp_partition_nodev:ste:1" version="1">
+    <linux:mount_options datatype="string" entity_check="at least one" operation="equals">nodev</linux:mount_options>
+  </linux:partition_state>
+  <linux:partition_object id="oval:ssg-object_tmp_partition_nodev:obj:1" version="1">
+    <linux:mount_point>/tmp</linux:mount_point>
+  </linux:partition_object>
+</def-group>

@@ -1,0 +1,36 @@
+- name: Remove the existing "use textfile backend" directive from the config - it
+    may not be at the file's very top
+  lineinfile:
+    path: /etc/dconf/profile/user
+    regexp: ^service-db:keyfile/user.*
+    state: absent
+  check_mode: false
+  when: ansible_virtualization_role != "guest" or ansible_virtualization_type != "docker"
+  tags:
+    - dconf_use_text_backend
+    - high_severity
+    - unknown_strategy
+    - low_complexity
+    - medium_disruption
+    - no_reboot_needed
+    - CCE-80782-6
+
+- name: Insert the " use textfiles backend" directive at the top of the config file
+  lineinfile:
+    path: /etc/dconf/profile/user
+    regexp: ^service-db:keyfile/user$
+    line: service-db:keyfile/user
+    insertbefore: BOF
+    create: true
+  check_mode: false
+  when: ansible_virtualization_role != "guest" or ansible_virtualization_type != "docker"
+  tags:
+    - dconf_use_text_backend
+    - high_severity
+    - unknown_strategy
+    - low_complexity
+    - medium_disruption
+    - no_reboot_needed
+    - CCE-80782-6
+
+              

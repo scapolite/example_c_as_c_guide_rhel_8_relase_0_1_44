@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-obj_mcafee_management_agent:obj:1'
+- 'oval:ssg-obj_linuxshield_install_antivirus:obj:1'
+- 'oval:ssg-test_mcafee_runtime_installed:tst:1'
+- 'oval:ssg-test_linuxshield_install_antivirus:tst:1'
+- 'oval:ssg-test_mcafee_management_agent:tst:1'
+- 'oval:ssg-obj_mcafee_runtime_installed:obj:1'
+- 'oval:ssg-install_mcafee_cma_rt:def:1'  -->
+  <definition class="compliance" id="oval:ssg-install_mcafee_antivirus:def:1" version="1">
+    <metadata>
+      <title>Package McAfeeVSEForLinux Installed</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>McAfee Antivirus software should be installed.</description>
+      <reference ref_id="install_mcafee_antivirus" source="ssg"/>
+    </metadata>
+    <criteria comment="Antivirus is not being used or conditions are met" operator="AND">
+      <extend_definition comment="McAfee Runtime Libraries and Agent" definition_ref="oval:ssg-install_mcafee_cma_rt:def:1"/>
+      <criterion comment="Linuxshield AntiVirus package is installed" test_ref="oval:ssg-test_linuxshield_install_antivirus:tst:1"/>
+    </criteria>
+  </definition>
+  <linux:rpminfo_object id="oval:ssg-obj_mcafee_management_agent:obj:1" version="1">
+    <linux:name>MFEcma</linux:name>
+  </linux:rpminfo_object>
+  <linux:rpminfo_object id="oval:ssg-obj_linuxshield_install_antivirus:obj:1" version="1">
+    <linux:name>McAfeeVSEForLinux</linux:name>
+  </linux:rpminfo_object>
+  <linux:rpminfo_test check="all" check_existence="all_exist" comment="Runtime Libraries package is installed" id="oval:ssg-test_mcafee_runtime_installed:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_mcafee_runtime_installed:obj:1"/>
+  </linux:rpminfo_test>
+  <linux:rpminfo_test check="all" check_existence="all_exist" comment="AntiVirus package is installed" id="oval:ssg-test_linuxshield_install_antivirus:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_linuxshield_install_antivirus:obj:1"/>
+  </linux:rpminfo_test>
+  <linux:rpminfo_test check="all" check_existence="all_exist" comment="Agent package is installed" id="oval:ssg-test_mcafee_management_agent:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_mcafee_management_agent:obj:1"/>
+  </linux:rpminfo_test>
+  <linux:rpminfo_object id="oval:ssg-obj_mcafee_runtime_installed:obj:1" version="1">
+    <linux:name>MFErt</linux:name>
+  </linux:rpminfo_object>
+  <definition class="compliance" id="oval:ssg-install_mcafee_cma_rt:def:1" version="1">
+    <metadata>
+      <title>Install the McAfee Runtime Libraries and Linux Agent</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Install the McAfee Runtime Libraries (MFErt) and Linux Agent (MFEcma).</description>
+      <reference ref_id="install_mcafee_cma_rt" source="ssg"/>
+    </metadata>
+    <criteria operator="AND">
+      <criterion comment="McAfee runtime library package installed" test_ref="oval:ssg-test_mcafee_runtime_installed:tst:1"/>
+      <criterion comment="McAfee management agent package installed" test_ref="oval:ssg-test_mcafee_management_agent:tst:1"/>
+    </criteria>
+  </definition>
+</def-group>

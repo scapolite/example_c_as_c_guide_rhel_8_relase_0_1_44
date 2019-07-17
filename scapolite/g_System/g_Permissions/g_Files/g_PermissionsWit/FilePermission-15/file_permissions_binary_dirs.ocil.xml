@@ -1,0 +1,30 @@
+<ocil-group><questionnaire  id="ocil:ssg-file_permissions_binary_dirs_ocil:questionnaire:1">
+          <title>Verify that System Executables Have Restrictive Permissions</title>
+          <actions>
+            <test_action_ref>ocil:ssg-file_permissions_binary_dirs_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-file_permissions_binary_dirs_question:question:1">
+          <question_text>System executables are stored in the following directories by default:
+/bin
+/sbin
+/usr/bin
+/usr/libexec
+/usr/local/bin
+/usr/local/sbin
+/usr/sbin
+To find system executables that are group-writable or world-writable,
+run the following command for each directory DIR which contains system executables:
+$ sudo find -L DIR -perm /022 -type f
+      Is it the case that any system executables are found to be group or world writable?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-file_permissions_binary_dirs_action:testaction:1" question_ref="ocil:ssg-file_permissions_binary_dirs_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-obj_package_prelink_removed:obj:1'
+- 'oval:ssg-test_package_prelink_removed:tst:1'  -->
+  <definition class="compliance" id="oval:ssg-disable_prelink:def:1" version="3">
+    <metadata>
+      <title>Disable Prelinking</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The prelinking feature can interfere with the operation of
+      checksum integrity tools (e.g. AIDE), mitigates the protection provided
+      by ASLR, and requires additional CPU cycles by software upgrades.
+      </description>
+      <reference ref_id="CCE-80787-5" source="CCE"/>
+      <reference ref_id="disable_prelink" source="ssg"/>
+    </metadata>
+    <criteria comment="Conditions for prelinking disabled are satisfied" operator="OR">
+      <extend_definition comment="prelink RPM package not installed" definition_ref="oval:ssg-package_prelink_removed:def:1"/>
+      <criterion comment="Prelinking is disabled" test_ref="oval:ssg-test_prelinking_disabled:tst:1"/>
+    </criteria>
+  </definition>
+  <definition class="compliance" id="oval:ssg-package_prelink_removed:def:1" version="1">
+    <metadata>
+      <title>Package prelink Removed</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The RPM package prelink should be removed.</description>
+      <reference ref_id="package_prelink_removed" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="package prelink is removed" test_ref="oval:ssg-test_package_prelink_removed:tst:1"/>
+    </criteria>
+  </definition>
+  <linux:rpminfo_object id="oval:ssg-obj_package_prelink_removed:obj:1" version="1">
+    <linux:name>prelink</linux:name>
+  </linux:rpminfo_object>
+  <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="Tests whether prelinking is disabled" id="oval:ssg-test_prelinking_disabled:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_prelinking_disabled:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object id="oval:ssg-object_prelinking_disabled:obj:1" version="2">
+    <ind:filepath>/etc/sysconfig/prelink</ind:filepath>
+    <ind:pattern operation="pattern match">^[\s]*PRELINKING=no[\s]*</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <linux:rpminfo_test check="all" check_existence="none_exist" comment="package prelink is removed" id="oval:ssg-test_package_prelink_removed:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_package_prelink_removed:obj:1"/>
+  </linux:rpminfo_test>
+</def-group>

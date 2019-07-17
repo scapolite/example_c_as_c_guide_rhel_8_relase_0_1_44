@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-install_mcafee_cma_rt_ocil:questionnaire:1">
+          <title>Install the McAfee Runtime Libraries and Linux Agent</title>
+          <actions>
+            <test_action_ref>ocil:ssg-install_mcafee_cma_rt_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-install_mcafee_cma_rt_question:question:1">
+          <question_text>To verify that McAfee Runtime Libraries (MFErt) and Linux Agent (MFEcma)
+are installed, run the following command(s):
+$ rpm -q MFEcma
+$ rpm -q MFErt
+      Is it the case that the HBSS HIPS module is not installed?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-install_mcafee_cma_rt_action:testaction:1" question_ref="ocil:ssg-install_mcafee_cma_rt_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

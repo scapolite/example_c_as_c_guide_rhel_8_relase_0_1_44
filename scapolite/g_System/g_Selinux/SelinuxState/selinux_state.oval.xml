@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-selinux_state:def:1" version="1">
+    <metadata>
+      <title>SELinux Enforcing</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The SELinux state should be enforcing the local policy.</description>
+      <reference ref_id="CCE-80869-1" source="CCE"/>
+      <reference ref_id="selinux_state" source="ssg"/>
+    </metadata>
+    <criteria operator="AND">
+      <criterion comment="enforce is disabled" test_ref="oval:ssg-test_etc_selinux_config:tst:1"/>
+    </criteria>
+  </definition>
+  <external_variable comment="external variable for selinux state" datatype="string" id="oval:ssg-var_selinux_state:var:1" version="1"/>
+  <ind:textfilecontent54_state id="oval:ssg-state_etc_selinux_config:ste:1" version="1">
+    <ind:subexpression datatype="string" operation="equals" var_check="all" var_ref="oval:ssg-var_selinux_state:var:1"/>
+  </ind:textfilecontent54_state>
+  <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="/selinux/enforce is 1" id="oval:ssg-test_etc_selinux_config:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_etc_selinux_config:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_etc_selinux_config:ste:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object id="oval:ssg-object_etc_selinux_config:obj:1" version="1">
+    <ind:filepath>/etc/selinux/config</ind:filepath>
+    <ind:pattern operation="pattern match">^[\s]*SELINUX[\s]*=[\s]*(.*)[\s]*$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+</def-group>

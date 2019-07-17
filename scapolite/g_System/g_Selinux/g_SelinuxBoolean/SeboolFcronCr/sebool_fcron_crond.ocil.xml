@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-sebool_fcron_crond_ocil:questionnaire:1">
+          <title>Disable the fcron_crond SELinux Boolean</title>
+          <actions>
+            <test_action_ref>ocil:ssg-sebool_fcron_crond_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-sebool_fcron_crond_action:testaction:1" question_ref="ocil:ssg-sebool_fcron_crond_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-sebool_fcron_crond_question:question:1">
+          <question_text>
+Run the following command to determine if the fcron_crond SELinux boolean is disabled:
+$ getsebool fcron_crond
+If properly configured, the output should show the following:
+fcron_crond --&gt; off
+      Is it the case that fcron_crond is not disabled?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

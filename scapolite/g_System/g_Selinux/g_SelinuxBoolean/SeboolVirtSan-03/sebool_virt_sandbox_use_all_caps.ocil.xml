@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-sebool_virt_sandbox_use_all_caps_ocil:questionnaire:1">
+          <title>Disable the virt_sandbox_use_all_caps SELinux Boolean</title>
+          <actions>
+            <test_action_ref>ocil:ssg-sebool_virt_sandbox_use_all_caps_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-sebool_virt_sandbox_use_all_caps_action:testaction:1" question_ref="ocil:ssg-sebool_virt_sandbox_use_all_caps_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-sebool_virt_sandbox_use_all_caps_question:question:1">
+          <question_text>
+Run the following command to determine if the virt_sandbox_use_all_caps SELinux boolean is disabled:
+$ getsebool virt_sandbox_use_all_caps
+If properly configured, the output should show the following:
+virt_sandbox_use_all_caps --&gt; off
+      Is it the case that virt_sandbox_use_all_caps is not disabled?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

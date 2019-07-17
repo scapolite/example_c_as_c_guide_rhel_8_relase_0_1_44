@@ -1,0 +1,189 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-removable_partition_doesnt_exist:def:1'
+- 'oval:ssg-test_var_removable_partition_is_cd_dvd_drive:tst:1'
+- 'oval:ssg-state_var_removable_partition_is_cd_dvd_drive:ste:1'
+- 'oval:ssg-var_removable_partition_is_cd_dvd_drive:def:1'
+- 'oval:ssg-object_no_cd_dvd_drive_in_etc_fstab:obj:1'
+- 'oval:ssg-no_cd_dvd_drive_in_etc_fstab:def:1'
+- 'oval:ssg-test_no_cd_dvd_drive_in_etc_fstab:tst:1'
+- 'oval:ssg-variable_cd_dvd_drive_alternative_names:var:1'
+- 'oval:ssg-object_removable_partition_doesnt_exist:obj:1'
+- 'oval:ssg-var_removable_partition:var:1'
+- 'oval:ssg-object_var_removable_partition_is_cd_dvd_drive:obj:1'
+- 'oval:ssg-test_removable_partition_doesnt_exist:tst:1'  -->
+  <definition class="compliance" id="oval:ssg-mount_option_noexec_removable_partitions:def:1" version="4">
+    <metadata>
+      <title>Add noexec Option to Removable Media Partitions</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The noexec option should be enabled for all removable devices mounts in /etc/fstab.</description>
+      <reference ref_id="mount_option_noexec_removable_partitions" source="ssg"/>
+    </metadata>
+    <criteria operator="OR">
+      <extend_definition comment="Check if removable partition really exists on the system" definition_ref="oval:ssg-removable_partition_doesnt_exist:def:1"/>
+      <criteria operator="AND">
+        <extend_definition comment="Check if removable partition value represents CD/DVD drive" definition_ref="oval:ssg-var_removable_partition_is_cd_dvd_drive:def:1"/>
+        <criteria operator="OR">
+          <criteria operator="AND">
+            <criterion comment="Check if at least one from CD/DVD drive alternative names is using 'noexec' mount option in /etc/fstab" test_ref="oval:ssg-test_noexec_etc_fstab_cd_dvd_drive:tst:1"/>
+            <criterion comment="Check if at least one from CD/DVD drive alternative names is using 'noexec' mount option in runtime configuration" test_ref="oval:ssg-test_noexec_runtime_cd_dvd_drive:tst:1"/>
+          </criteria>
+          <extend_definition comment="Check if CD/DVD drive is not configured to automount in /etc/fstab" definition_ref="oval:ssg-no_cd_dvd_drive_in_etc_fstab:def:1"/>
+        </criteria>
+      </criteria>
+      <criteria operator="AND">
+        <criterion comment="Check if removable partition is using 'noexec' mount option in /etc/fstab" test_ref="oval:ssg-test_noexec_etc_fstab_not_cd_dvd_drive:tst:1"/>
+        <criterion comment="Check if removable partition is using 'noexec' mount option in runtime configuration" test_ref="oval:ssg-test_noexec_runtime_not_cd_dvd_drive:tst:1"/>
+      </criteria>
+    </criteria>
+  </definition>
+  <definition class="compliance" id="oval:ssg-removable_partition_doesnt_exist:def:1" version="1">
+    <metadata>
+      <title>Device Files for Removable Media Partitions Does Not Exist on the System</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Verify if device file representing removable partitions
+      exist on the system</description>
+      <reference ref_id="removable_partition_doesnt_exist" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="Check if removable partition really exists on the system" test_ref="oval:ssg-test_removable_partition_doesnt_exist:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:variable_test check="all" comment="Check if removable partition variable value represents CD/DVD drive" id="oval:ssg-test_var_removable_partition_is_cd_dvd_drive:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_var_removable_partition_is_cd_dvd_drive:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_var_removable_partition_is_cd_dvd_drive:ste:1"/>
+  </ind:variable_test>
+  <ind:variable_state id="oval:ssg-state_var_removable_partition_is_cd_dvd_drive:ste:1" version="1">
+    <ind:value operation="equals">/dev/cdrom</ind:value>
+  </ind:variable_state>
+  <definition class="compliance" id="oval:ssg-var_removable_partition_is_cd_dvd_drive:def:1" version="1">
+    <metadata>
+      <title>Value of 'var_removable_partition' variable is set to '/dev/cdrom'</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Verify if value of 'var_removable_partition' variable is set
+      to '/dev/cdrom'</description>
+      <reference ref_id="var_removable_partition_is_cd_dvd_drive" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="Check if removable partition value represents CD/DVD drive" test_ref="oval:ssg-test_var_removable_partition_is_cd_dvd_drive:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_state id="oval:ssg-state_noexec_etc_fstab_cd_dvd_drive:ste:1" version="1">
+    <ind:subexpression datatype="string" operation="pattern match">^.*,?noexec,?.*$</ind:subexpression>
+  </ind:textfilecontent54_state>
+  <ind:textfilecontent54_object id="oval:ssg-object_no_cd_dvd_drive_in_etc_fstab:obj:1" version="1">
+    <ind:filepath>/etc/fstab</ind:filepath>
+    <ind:pattern datatype="string" operation="pattern match" var_check="at least one" var_ref="oval:ssg-variable_cd_dvd_drive_alternative_names:var:1"/>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <linux:partition_test check="all" check_existence="all_exist" comment="'noexec' mount option used for removable partition in runtime configuration" id="oval:ssg-test_noexec_runtime_not_cd_dvd_drive:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-object_noexec_runtime_not_cd_dvd_drive:obj:1"/>
+  </linux:partition_test>
+  <constant_variable comment="CD/DVD drive alternative names whitelist" datatype="string" id="oval:ssg-variable_cd_dvd_drive_alternative_names_noexec:var:1" version="1">
+    <value>/dev/cdrom</value>
+    <value>/dev/dvd</value>
+    <value>/dev/scd0</value>
+    <value>/dev/sr0</value>
+  </constant_variable>
+  <ind:textfilecontent54_state id="oval:ssg-state_noexec_etc_fstab_not_cd_dvd_drive:ste:1" version="1">
+    <ind:subexpression datatype="string" operation="pattern match">^.*,?noexec,?.*</ind:subexpression>
+  </ind:textfilecontent54_state>
+  <linux:partition_state id="oval:ssg-state_noexec_runtime_cd_dvd_drive:ste:1" version="1">
+    <linux:device datatype="string" operation="equals" var_check="at least one" var_ref="oval:ssg-variable_cd_dvd_drive_alternative_names_noexec:var:1"/>
+    <linux:mount_options datatype="string" entity_check="at least one" operation="equals">noexec</linux:mount_options>
+  </linux:partition_state>
+  <ind:textfilecontent54_test check="at least one" check_existence="all_exist" comment="Check if removable partition is configured with 'noexec' mount option in /etc/fstab" id="oval:ssg-test_noexec_etc_fstab_not_cd_dvd_drive:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_noexec_etc_fstab_not_cd_dvd_drive:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_noexec_etc_fstab_not_cd_dvd_drive:ste:1"/>
+  </ind:textfilecontent54_test>
+  <local_variable comment="Regular expression pattern for removable block special device other than CD / DVD drive" datatype="string" id="oval:ssg-variable_not_cd_dvd_drive_regex_pattern_noexec:var:1" version="1">
+    <concat>
+      <literal_component>^[\s]*</literal_component>
+      <variable_component var_ref="oval:ssg-var_removable_partition:var:1"/>
+      <literal_component>[\s]+[/\w]+[\s]+[\w]+[\s]+([^\s]+)(?:[\s]+[\d]+){2}$</literal_component>
+    </concat>
+  </local_variable>
+  <definition class="compliance" id="oval:ssg-no_cd_dvd_drive_in_etc_fstab:def:1" version="1">
+    <metadata>
+      <title>No CD/DVD drive is configured to automount in /etc/fstab</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Check the /etc/fstab and check if a CD/DVD drive
+      is not configured for automount.</description>
+      <reference ref_id="no_cd_dvd_drive_in_etc_fstab" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="Check if CD/DVD drive is not configured to automout in /etc/fstab" test_ref="oval:ssg-test_no_cd_dvd_drive_in_etc_fstab:tst:1"/>
+    </criteria>
+  </definition>
+  <local_variable comment="Regular expression pattern for CD / DVD drive alternative names" datatype="string" id="oval:ssg-variable_cd_dvd_drive_regex_pattern_noexec:var:1" version="1">
+    <concat>
+      <literal_component>^[\s]*</literal_component>
+      <variable_component var_ref="oval:ssg-variable_cd_dvd_drive_alternative_names_noexec:var:1"/>
+      <literal_component>[\s]+[/\w]+[\s]+[\w]+[\s]+([^\s]+)(?:[\s]+[\d]+){2}$</literal_component>
+    </concat>
+  </local_variable>
+  <ind:textfilecontent54_object id="oval:ssg-object_noexec_etc_fstab_not_cd_dvd_drive:obj:1" version="1">
+    <ind:filepath>/etc/fstab</ind:filepath>
+    <ind:pattern datatype="string" operation="pattern match" var_check="at least one" var_ref="oval:ssg-variable_not_cd_dvd_drive_regex_pattern_noexec:var:1"/>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" check_existence="none_exist" comment="'CD/DVD drive is not listed in /etc/fstab" id="oval:ssg-test_no_cd_dvd_drive_in_etc_fstab:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_no_cd_dvd_drive_in_etc_fstab:obj:1"/>
+  </ind:textfilecontent54_test>
+  <constant_variable comment="CD/DVD drive alternative names whitelist" datatype="string" id="oval:ssg-variable_cd_dvd_drive_alternative_names:var:1" version="1">
+    <value>/dev/cdrom</value>
+    <value>/dev/dvd</value>
+    <value>/dev/scd0</value>
+    <value>/dev/sr0</value>
+  </constant_variable>
+  <linux:partition_object id="oval:ssg-object_noexec_runtime_cd_dvd_drive:obj:1" version="1">
+    <linux:mount_point operation="pattern match">^.*$</linux:mount_point>
+    <filter action="include">oval:ssg-state_noexec_runtime_cd_dvd_drive:ste:1</filter>
+  </linux:partition_object>
+  <linux:partition_state id="oval:ssg-state_noexec_runtime_not_cd_dvd_drive:ste:1" version="1">
+    <linux:device datatype="string" operation="equals" var_check="at least one" var_ref="oval:ssg-var_removable_partition:var:1"/>
+    <linux:mount_options datatype="string" entity_check="at least one" operation="equals">noexec</linux:mount_options>
+  </linux:partition_state>
+  <linux:partition_test check="all" comment="'noexec' mount option used for at least one CD / DVD drive alternative names in runtime configuration" id="oval:ssg-test_noexec_runtime_cd_dvd_drive:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-object_noexec_runtime_cd_dvd_drive:obj:1"/>
+  </linux:partition_test>
+  <unix:file_object id="oval:ssg-object_removable_partition_doesnt_exist:obj:1" version="1">
+    <unix:filepath var_check="at least one" var_ref="oval:ssg-var_removable_partition:var:1"/>
+  </unix:file_object>
+  <external_variable comment="removable partition" datatype="string" id="oval:ssg-var_removable_partition:var:1" version="1"/>
+  <ind:variable_object id="oval:ssg-object_var_removable_partition_is_cd_dvd_drive:obj:1" version="1">
+    <ind:var_ref>oval:ssg-var_removable_partition:var:1</ind:var_ref>
+  </ind:variable_object>
+  <unix:file_test check="all" check_existence="none_exist" comment="Check if expected removable partitions truly exist on the system" id="oval:ssg-test_removable_partition_doesnt_exist:tst:1" version="1">
+    <unix:object object_ref="oval:ssg-object_removable_partition_doesnt_exist:obj:1"/>
+  </unix:file_test>
+  <ind:textfilecontent54_object id="oval:ssg-object_noexec_etc_fstab_cd_dvd_drive:obj:1" version="1">
+    <ind:filepath>/etc/fstab</ind:filepath>
+    <ind:pattern datatype="string" operation="pattern match" var_check="at least one" var_ref="oval:ssg-variable_cd_dvd_drive_regex_pattern_noexec:var:1"/>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" check_existence="any_exist" comment="'noexec' mount option used for at least one CD / DVD drive alternative names in /etc/fstab" id="oval:ssg-test_noexec_etc_fstab_cd_dvd_drive:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_noexec_etc_fstab_cd_dvd_drive:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_noexec_etc_fstab_cd_dvd_drive:ste:1"/>
+  </ind:textfilecontent54_test>
+  <linux:partition_object id="oval:ssg-object_noexec_runtime_not_cd_dvd_drive:obj:1" version="1">
+    <linux:mount_point operation="pattern match">^.*$</linux:mount_point>
+    <filter action="include">oval:ssg-state_noexec_runtime_not_cd_dvd_drive:ste:1</filter>
+  </linux:partition_object>
+</def-group>

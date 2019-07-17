@@ -1,0 +1,25 @@
+<ocil-group><questionnaire  id="ocil:ssg-dconf_gnome_screensaver_lock_enabled_ocil:questionnaire:1">
+          <title>Enable GNOME3 Screensaver Lock After Idle Period</title>
+          <actions>
+            <test_action_ref>ocil:ssg-dconf_gnome_screensaver_lock_enabled_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-dconf_gnome_screensaver_lock_enabled_action:testaction:1" question_ref="ocil:ssg-dconf_gnome_screensaver_lock_enabled_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-dconf_gnome_screensaver_lock_enabled_question:question:1">
+          <question_text>To check the status of the idle screen lock activation, run the following command:
+$ gsettings get org.gnome.desktop.screensaver lock-enabled
+If properly configured, the output should be true.
+To ensure that users cannot change how long until the the screensaver locks, run the following:
+$ grep lock-enabled /etc/dconf/db/local.d/locks/*
+If properly configured, the output for lock-enabled should be /org/gnome/desktop/screensaver/lock-enabled
+      Is it the case that screensaver locking is not enabled and/or has not been set or configured correctly?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

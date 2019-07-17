@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-chronyd_or_ntpd_set_maxpoll_ocil:questionnaire:1">
+          <title>Configure Time Service Maxpoll Interval</title>
+          <actions>
+            <test_action_ref>ocil:ssg-chronyd_or_ntpd_set_maxpoll_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-chronyd_or_ntpd_set_maxpoll_question:question:1">
+          <question_text>To verify that maxpoll has been set properly, perform the following:
+$ sudo grep maxpoll /etc/ntp.conf /etc/chrony.conf
+The output should return
+maxpoll .
+      Is it the case that it does not exist or maxpoll has not been set to the expected value?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-chronyd_or_ntpd_set_maxpoll_action:testaction:1" question_ref="ocil:ssg-chronyd_or_ntpd_set_maxpoll_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

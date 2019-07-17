@@ -1,0 +1,9 @@
+include remove_telnet
+
+class remove_telnet {
+  package { 'telnet':
+    ensure => 'purged',
+  }
+}
+
+              

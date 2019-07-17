@@ -1,0 +1,22 @@
+<ocil-group><questionnaire  id="ocil:ssg-accounts_users_home_files_ownership_ocil:questionnaire:1">
+          <title>All User Files and Directories In The Home Directory Must Be Owned By The Primary User</title>
+          <actions>
+            <test_action_ref>ocil:ssg-accounts_users_home_files_ownership_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-accounts_users_home_files_ownership_question:question:1">
+          <question_text>To verify all files and directories in interactive users home directory
+are owned by the user, run the following command:
+$ sudo ls -lLR /home/USER
+      Is it the case that the user ownership is incorrect?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-accounts_users_home_files_ownership_action:testaction:1" question_ref="ocil:ssg-accounts_users_home_files_ownership_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

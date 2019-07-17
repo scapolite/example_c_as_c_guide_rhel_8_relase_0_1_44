@@ -1,0 +1,9 @@
+include remove_vsftpd
+
+class remove_vsftpd {
+  package { 'vsftpd':
+    ensure => 'purged',
+  }
+}
+
+              

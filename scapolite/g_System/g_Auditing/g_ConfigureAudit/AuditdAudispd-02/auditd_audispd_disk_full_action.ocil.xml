@@ -1,0 +1,27 @@
+<ocil-group><questionnaire  id="ocil:ssg-auditd_audispd_disk_full_action_ocil:questionnaire:1">
+          <title>Configure audispd's Plugin disk_full_action When Disk Is Full</title>
+          <actions>
+            <test_action_ref>ocil:ssg-auditd_audispd_disk_full_action_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-auditd_audispd_disk_full_action_question:question:1">
+          <question_text>Inspect /etc/audisp/audisp-remote.conf and locate the following line to
+determine if the system is configured to either send to syslog, switch to single user mode,
+or halt when the disk is full:
+grep -i disk_full_action /etc/audisp/audisp-remote.conf
+The output should return something similar to:
+disk_full_action = single
+Acceptable values also include syslog and
+halt.
+      Is it the case that the system is not configured to switch to single user mode for corrective action?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-auditd_audispd_disk_full_action_action:testaction:1" question_ref="ocil:ssg-auditd_audispd_disk_full_action_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

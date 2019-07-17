@@ -1,0 +1,20 @@
+- name: Disable Compression or Set Compression to delayed
+  lineinfile:
+    create: true
+    dest: /etc/ssh/sshd_config
+    regexp: (?i)^#?compression
+    line: Compression delayed
+    validate: /usr/sbin/sshd -t -f %s
+  when: ansible_virtualization_role != "guest" or ansible_virtualization_type != "docker"
+  tags:
+    - sshd_disable_compression
+    - medium_severity
+    - restrict_strategy
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+    - CCE-80895-6
+    - NIST-800-53-CM-6(b)
+    - NIST-800-171-3.1.12
+
+              

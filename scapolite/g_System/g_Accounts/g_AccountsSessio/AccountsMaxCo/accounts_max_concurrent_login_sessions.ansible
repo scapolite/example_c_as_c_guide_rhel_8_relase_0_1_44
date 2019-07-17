@@ -1,0 +1,26 @@
+- name: XCCDF Value var_accounts_max_concurrent_login_sessions # promote to variable
+  set_fact:
+    var_accounts_max_concurrent_login_sessions: !!str <sub idref="org.ssgproject.RHEL-8:var_accounts_max_concurrent_login_sessions" use="legacy"/>
+  tags:
+    - always
+
+- name: Limit the Number of Concurrent Login Sessions Allowed Per User
+  lineinfile:
+    state: present
+    dest: /etc/security/limits.conf
+    insertbefore: ^# End of file
+    regexp: ^#?\*.*maxlogins
+    line: '*           hard    maxlogins     {{ var_accounts_max_concurrent_login_sessions
+      }}'
+  tags:
+    - accounts_max_concurrent_login_sessions
+    - low_severity
+    - restrict_strategy
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+    - CCE-80955-8
+    - NIST-800-53-AC-10
+    - CJIS-5.5.2.2
+
+              

@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-enable_fips_mode_ocil:questionnaire:1">
+          <title>Enable FIPS Mode</title>
+          <actions>
+            <test_action_ref>ocil:ssg-enable_fips_mode_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-enable_fips_mode_action:testaction:1" question_ref="ocil:ssg-enable_fips_mode_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-enable_fips_mode_question:question:1">
+          <question_text>To verify that FIPS is enabled properly, run the following command:
+fips-mode-setup --check
+The output should contain the following:
+FIPS mode is enabled.
+      Is it the case that FIPS mode is not enabled?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

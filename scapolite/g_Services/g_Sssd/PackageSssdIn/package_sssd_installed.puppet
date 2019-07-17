@@ -1,0 +1,9 @@
+include install_sssd
+
+class install_sssd {
+  package { 'sssd':
+    ensure => 'installed',
+  }
+}
+
+            

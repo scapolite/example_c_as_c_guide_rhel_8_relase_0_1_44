@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-sebool_fenced_can_ssh_ocil:questionnaire:1">
+          <title>Disable the fenced_can_ssh SELinux Boolean</title>
+          <actions>
+            <test_action_ref>ocil:ssg-sebool_fenced_can_ssh_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-sebool_fenced_can_ssh_action:testaction:1" question_ref="ocil:ssg-sebool_fenced_can_ssh_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-sebool_fenced_can_ssh_question:question:1">
+          <question_text>
+Run the following command to determine if the fenced_can_ssh SELinux boolean is disabled:
+$ getsebool fenced_can_ssh
+If properly configured, the output should show the following:
+fenced_can_ssh --&gt; off
+      Is it the case that fenced_can_ssh is not disabled?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

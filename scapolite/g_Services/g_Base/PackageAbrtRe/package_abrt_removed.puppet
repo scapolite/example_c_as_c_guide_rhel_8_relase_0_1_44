@@ -1,0 +1,9 @@
+include remove_abrt
+
+class remove_abrt {
+  package { 'abrt':
+    ensure => 'purged',
+  }
+}
+
+            

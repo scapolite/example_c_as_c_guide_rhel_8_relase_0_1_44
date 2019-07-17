@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-audit_rules_dac_modification_lsetxattr_ocil:questionnaire:1">
+          <title>Record Events that Modify the System's Discretionary Access Controls - lsetxattr</title>
+          <actions>
+            <test_action_ref>ocil:ssg-audit_rules_dac_modification_lsetxattr_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-audit_rules_dac_modification_lsetxattr_action:testaction:1" question_ref="ocil:ssg-audit_rules_dac_modification_lsetxattr_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-audit_rules_dac_modification_lsetxattr_question:question:1">
+          <question_text>To determine if the system is configured to audit calls to the
+lsetxattr system call, run the following command:
+preserve$ sudo grep "lsetxattr" /etc/audit/audit.rules
+If the system is configured to audit this activity, it will return a line.
+
+      Is it the case that no line is returned?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

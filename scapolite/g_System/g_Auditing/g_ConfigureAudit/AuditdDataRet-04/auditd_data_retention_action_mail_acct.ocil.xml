@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-auditd_data_retention_action_mail_acct_ocil:questionnaire:1">
+          <title>Configure auditd mail_acct Action on Low Disk Space</title>
+          <actions>
+            <test_action_ref>ocil:ssg-auditd_data_retention_action_mail_acct_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-auditd_data_retention_action_mail_acct_question:question:1">
+          <question_text>Inspect /etc/audit/auditd.conf and locate the following line to
+determine if the system is configured to send email to an
+account when it needs to notify an administrator:
+action_mail_acct = root
+      Is it the case that auditd is not configured to send emails per identified actions?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-auditd_data_retention_action_mail_acct_action:testaction:1" question_ref="ocil:ssg-auditd_data_retention_action_mail_acct_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

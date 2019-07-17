@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-dconf_use_text_backend_ocil:questionnaire:1">
+          <title>Force dconf to use the textfiles instead of a binary DB</title>
+          <actions>
+            <test_action_ref>ocil:ssg-dconf_use_text_backend_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-dconf_use_text_backend_question:question:1">
+          <question_text>To verify that the DConf uses text files as data backend,
+put the line
+service-db:keyfile/user
+at the top of the
+file /etc/dconf/profile/user
+      Is it the case that DConf uses the binary database as data backend?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-dconf_use_text_backend_action:testaction:1" question_ref="ocil:ssg-dconf_use_text_backend_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

@@ -1,0 +1,16 @@
+- name: Enable service sssd
+  service:
+    name: sssd
+    enabled: 'yes'
+    state: started
+  when: ansible_virtualization_role != "guest" or ansible_virtualization_type != "docker"
+  tags:
+    - service_sssd_enabled
+    - medium_severity
+    - enable_strategy
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+    - NIST-800-53-IA-5(10)
+
+            

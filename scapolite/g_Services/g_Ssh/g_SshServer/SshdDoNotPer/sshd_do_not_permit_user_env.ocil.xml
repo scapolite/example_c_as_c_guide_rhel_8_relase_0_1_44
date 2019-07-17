@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-sshd_do_not_permit_user_env_ocil:questionnaire:1">
+          <title>Do Not Allow SSH Environment Options</title>
+          <actions>
+            <test_action_ref>ocil:ssg-sshd_do_not_permit_user_env_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-sshd_do_not_permit_user_env_action:testaction:1" question_ref="ocil:ssg-sshd_do_not_permit_user_env_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-sshd_do_not_permit_user_env_question:question:1">
+          <question_text>To ensure users are not able to present environment daemons, run the following command:
+$ sudo grep PermitUserEnvironment /etc/ssh/sshd_config
+If properly configured, output should be:
+PermitUserEnvironment no
+      Is it the case that PermitUserEnvironment is not disabled?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

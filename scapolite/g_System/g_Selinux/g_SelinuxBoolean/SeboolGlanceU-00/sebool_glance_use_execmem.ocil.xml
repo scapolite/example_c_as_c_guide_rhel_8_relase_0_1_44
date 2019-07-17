@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-sebool_glance_use_execmem_ocil:questionnaire:1">
+          <title>Disable the glance_use_execmem SELinux Boolean</title>
+          <actions>
+            <test_action_ref>ocil:ssg-sebool_glance_use_execmem_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-sebool_glance_use_execmem_question:question:1">
+          <question_text>
+Run the following command to determine if the glance_use_execmem SELinux boolean is disabled:
+$ getsebool glance_use_execmem
+If properly configured, the output should show the following:
+glance_use_execmem --&gt; off
+      Is it the case that glance_use_execmem is not disabled?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-sebool_glance_use_execmem_action:testaction:1" question_ref="ocil:ssg-sebool_glance_use_execmem_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

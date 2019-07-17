@@ -1,0 +1,26 @@
+- name: XCCDF Value var_auditd_disk_full_action # promote to variable
+  set_fact:
+    var_auditd_disk_full_action: !!str <sub idref="org.ssgproject.RHEL-8:var_auditd_disk_full_action" use="legacy"/>
+  tags:
+    - always
+
+- name: Configure auditd Disk Full Action when Disk Space Is Full
+  lineinfile:
+    dest: /etc/audit/auditd.conf
+    line: disk_full_action = {{ var_auditd_disk_full_action }}
+    regexp: ^\s*disk_full_action\s*=\s*.*$
+    state: present
+  when: ansible_virtualization_role != "guest" or ansible_virtualization_type != "docker"
+  tags:
+    - auditd_data_disk_full_action
+    - medium_severity
+    - restrict_strategy
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+    - NIST-800-53-AU-1(b)
+    - NIST-800-53-AU-4
+    - NIST-800-53-AU-5(b)
+    - NIST-800-53-IR-5
+
+              

@@ -1,0 +1,9 @@
+include install_pcsc-lite
+
+class install_pcsc-lite {
+  package { 'pcsc-lite':
+    ensure => 'installed',
+  }
+}
+
+                  

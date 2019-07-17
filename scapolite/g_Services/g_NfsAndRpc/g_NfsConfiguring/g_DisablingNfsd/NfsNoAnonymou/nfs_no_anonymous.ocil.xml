@@ -1,0 +1,21 @@
+<ocil-group><questionnaire  id="ocil:ssg-nfs_no_anonymous_ocil:questionnaire:1">
+          <title>Specify UID and GID for Anonymous NFS Connections</title>
+          <actions>
+            <test_action_ref>ocil:ssg-nfs_no_anonymous_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-nfs_no_anonymous_question:question:1">
+          <question_text>Inspect the mounts configured in /etc/exports. Each mount should specify a value
+greater than UID_MAX and GID_MAX as defined in /etc/login.defs.
+      Is it the case that anonuid or anongid are not set to a value greater than UID_MAX (for anonuid) and GID_MAX (for anongid)?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-nfs_no_anonymous_action:testaction:1" question_ref="ocil:ssg-nfs_no_anonymous_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

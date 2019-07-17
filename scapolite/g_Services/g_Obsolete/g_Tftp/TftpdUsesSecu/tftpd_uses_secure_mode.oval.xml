@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-test_package_tftp-server_removed:tst:1'
+- 'oval:ssg-obj_package_tftp-server_removed:obj:1'  -->
+  <definition class="compliance" id="oval:ssg-tftpd_uses_secure_mode:def:1" version="1">
+    <metadata>
+      <title>TFTP Daemon Uses Secure Mode</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The TFTP daemon should use secure mode.</description>
+      <reference ref_id="tftpd_uses_secure_mode" source="ssg"/>
+    </metadata>
+    <criteria comment="package tftp-server removed or /etc/xinetd.d/tftp configured correctly" operator="OR">
+      <extend_definition comment="rpm package tftp-server removed" definition_ref="oval:ssg-package_tftp-server_removed:def:1"/>
+      <criterion comment="tftpd secure mode" test_ref="oval:ssg-test_tftpd_uses_secure_mode:tst:1"/>
+    </criteria>
+  </definition>
+  <definition class="compliance" id="oval:ssg-package_tftp-server_removed:def:1" version="1">
+    <metadata>
+      <title>Package tftp-server Removed</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The RPM package tftp-server should be removed.</description>
+      <reference ref_id="package_tftp-server_removed" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="package tftp-server is removed" test_ref="oval:ssg-test_package_tftp-server_removed:tst:1"/>
+    </criteria>
+  </definition>
+  <linux:rpminfo_test check="all" check_existence="none_exist" comment="package tftp-server is removed" id="oval:ssg-test_package_tftp-server_removed:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_package_tftp-server_removed:obj:1"/>
+  </linux:rpminfo_test>
+  <linux:rpminfo_object id="oval:ssg-obj_package_tftp-server_removed:obj:1" version="1">
+    <linux:name>tftp-server</linux:name>
+  </linux:rpminfo_object>
+  <ind:textfilecontent54_object id="oval:ssg-object_tftpd_uses_secure_mode:obj:1" version="1">
+    <ind:filepath>/etc/xinetd.d/tftp</ind:filepath>
+    <ind:pattern operation="pattern match">^[\s]*server_args[\s]+=.*[\s]+\-s[\s]+.+$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" comment="tftpd secure mode" id="oval:ssg-test_tftpd_uses_secure_mode:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_tftpd_uses_secure_mode:obj:1"/>
+  </ind:textfilecontent54_test>
+</def-group>

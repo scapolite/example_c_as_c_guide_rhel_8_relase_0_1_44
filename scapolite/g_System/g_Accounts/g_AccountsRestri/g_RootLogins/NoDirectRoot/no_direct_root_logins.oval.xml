@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-no_direct_root_logins:def:1" version="1">
+    <metadata>
+      <title>Direct root Logins Not Allowed</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Preventing direct root logins help ensure accountability for actions
+      taken on the system using the root account.</description>
+      <reference ref_id="CCE-80840-2" source="CCE"/>
+      <reference ref_id="no_direct_root_logins" source="ssg"/>
+    </metadata>
+    <criteria operator="AND">
+      <criterion comment="serial ports /etc/securetty" test_ref="oval:ssg-test_no_direct_root_logins:tst:1"/>
+      <criterion comment="serial ports /etc/securetty" test_ref="oval:ssg-test_etc_securetty_exists:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_object comment="/etc/securetty file exists" id="oval:ssg-object_etc_securetty_exists:obj:1" version="1">
+    <ind:filepath>/etc/securetty</ind:filepath>
+    <ind:pattern operation="pattern match">^.*$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="/etc/securetty file exists" id="oval:ssg-test_etc_securetty_exists:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_etc_securetty_exists:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="no entries in /etc/securetty" id="oval:ssg-test_no_direct_root_logins:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_no_direct_root_logins:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object comment="no entries /etc/securetty" id="oval:ssg-object_no_direct_root_logins:obj:1" version="1">
+    <ind:filepath>/etc/securetty</ind:filepath>
+    <ind:pattern operation="pattern match">^$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+</def-group>

@@ -1,0 +1,111 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-object_static_sysctl_kernel_yama_ptrace_scope:obj:1'
+- 'oval:ssg-test_static_usr_lib_sysctld_kernel_yama_ptrace_scope:tst:1'
+- 'oval:ssg-test_static_etc_sysctld_kernel_yama_ptrace_scope:tst:1'
+- 'oval:ssg-test_static_sysctl_kernel_yama_ptrace_scope:tst:1'
+- 'oval:ssg-object_static_usr_lib_sysctld_kernel_yama_ptrace_scope:obj:1'
+- 'oval:ssg-object_sysctl_runtime_kernel_yama_ptrace_scope:obj:1'
+- 'oval:ssg-object_static_etc_sysctld_kernel_yama_ptrace_scope:obj:1'
+- 'oval:ssg-test_sysctl_runtime_kernel_yama_ptrace_scope:tst:1'
+- 'oval:ssg-state_sysctl_runtime_kernel_yama_ptrace_scope:ste:1'
+- 'oval:ssg-test_static_run_sysctld_kernel_yama_ptrace_scope:tst:1'
+- 'oval:ssg-object_static_run_sysctld_kernel_yama_ptrace_scope:obj:1'  -->
+  <definition class="compliance" id="oval:ssg-sysctl_kernel_yama_ptrace_scope:def:1" version="3">
+    <metadata>
+      <title>Kernel &quot;kernel.yama.ptrace_scope&quot; Parameter Configuration and Runtime Check</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The &quot;kernel.yama.ptrace_scope&quot; kernel parameter should be set to the appropriate value in both system configuration and system runtime.</description>
+      <reference ref_id="CCE-80953-3" source="CCE"/>
+      <reference ref_id="sysctl_kernel_yama_ptrace_scope" source="ssg"/>
+    </metadata>
+    <criteria operator="AND">
+      <extend_definition comment="kernel.yama.ptrace_scope configuration setting check" definition_ref="oval:ssg-sysctl_static_kernel_yama_ptrace_scope:def:1"/>
+      <extend_definition comment="kernel.yama.ptrace_scope runtime setting check" definition_ref="oval:ssg-sysctl_runtime_kernel_yama_ptrace_scope:def:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_object id="oval:ssg-object_static_sysctl_kernel_yama_ptrace_scope:obj:1" version="1">
+    <ind:filepath>/etc/sysctl.conf</ind:filepath>
+    <ind:pattern operation="pattern match">^[\s]*kernel.yama.ptrace_scope[\s]*=[\s]*1[\s]*$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" comment="kernel.yama.ptrace_scope static configuration in /etc/sysctl.d/*.conf" id="oval:ssg-test_static_usr_lib_sysctld_kernel_yama_ptrace_scope:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_static_usr_lib_sysctld_kernel_yama_ptrace_scope:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_test check="all" comment="kernel.yama.ptrace_scope static configuration in /etc/sysctl.d/*.conf" id="oval:ssg-test_static_etc_sysctld_kernel_yama_ptrace_scope:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_static_etc_sysctld_kernel_yama_ptrace_scope:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="kernel.yama.ptrace_scope static configuration" id="oval:ssg-test_static_sysctl_kernel_yama_ptrace_scope:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_static_sysctl_kernel_yama_ptrace_scope:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object id="oval:ssg-object_static_usr_lib_sysctld_kernel_yama_ptrace_scope:obj:1" version="1">
+    <ind:path>/usr/lib/sysctl.d</ind:path>
+    <ind:filename operation="pattern match">^.*\.conf$</ind:filename>
+    <ind:pattern operation="pattern match">^[\s]*kernel.yama.ptrace_scope[\s]*=[\s]*1[\s]*$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <unix:sysctl_object id="oval:ssg-object_sysctl_runtime_kernel_yama_ptrace_scope:obj:1" version="1">
+    <unix:name>kernel.yama.ptrace_scope</unix:name>
+  </unix:sysctl_object>
+  <ind:textfilecontent54_object id="oval:ssg-object_static_etc_sysctld_kernel_yama_ptrace_scope:obj:1" version="1">
+    <ind:path>/etc/sysctl.d</ind:path>
+    <ind:filename operation="pattern match">^.*\.conf$</ind:filename>
+    <ind:pattern operation="pattern match">^[\s]*kernel.yama.ptrace_scope[\s]*=[\s]*1[\s]*$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <unix:sysctl_test check="all" check_existence="all_exist" comment="kernel runtime parameter kernel.yama.ptrace_scope set to 1" id="oval:ssg-test_sysctl_runtime_kernel_yama_ptrace_scope:tst:1" version="1">
+    <unix:object object_ref="oval:ssg-object_sysctl_runtime_kernel_yama_ptrace_scope:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_sysctl_runtime_kernel_yama_ptrace_scope:ste:1"/>
+  </unix:sysctl_test>
+  <definition class="compliance" id="oval:ssg-sysctl_static_kernel_yama_ptrace_scope:def:1" version="3">
+    <metadata>
+      <title>Kernel &quot;kernel.yama.ptrace_scope&quot; Parameter Configuration Check</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The kernel &quot;kernel.yama.ptrace_scope&quot; parameter should be set to &quot;1&quot; in the system configuration.</description>
+      <reference ref_id="sysctl_static_kernel_yama_ptrace_scope" source="ssg"/>
+    </metadata>
+    <criteria operator="OR">
+      <criterion comment="kernel static parameter kernel.yama.ptrace_scope set to 1 in /etc/sysctl.conf" test_ref="oval:ssg-test_static_sysctl_kernel_yama_ptrace_scope:tst:1"/>
+      <criterion comment="kernel static parameter kernel.yama.ptrace_scope set to 1 in /etc/sysctl.d/*.conf" test_ref="oval:ssg-test_static_etc_sysctld_kernel_yama_ptrace_scope:tst:1"/>
+      <criterion comment="kernel static parameter kernel.yama.ptrace_scope set to 1 in /run/sysctl.d/*.conf" test_ref="oval:ssg-test_static_run_sysctld_kernel_yama_ptrace_scope:tst:1"/>
+      <criterion comment="kernel static parameter kernel.yama.ptrace_scope set to 1 in /usr/lib/sysctl.d/*.conf" test_ref="oval:ssg-test_static_usr_lib_sysctld_kernel_yama_ptrace_scope:tst:1"/>
+    </criteria>
+  </definition>
+  <unix:sysctl_state id="oval:ssg-state_sysctl_runtime_kernel_yama_ptrace_scope:ste:1" version="1">
+    <unix:value datatype="int" operation="equals">1</unix:value>
+  </unix:sysctl_state>
+  <ind:textfilecontent54_test check="all" comment="kernel.yama.ptrace_scope static configuration in /etc/sysctl.d/*.conf" id="oval:ssg-test_static_run_sysctld_kernel_yama_ptrace_scope:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_static_run_sysctld_kernel_yama_ptrace_scope:obj:1"/>
+  </ind:textfilecontent54_test>
+  <definition class="compliance" id="oval:ssg-sysctl_runtime_kernel_yama_ptrace_scope:def:1" version="3">
+    <metadata>
+      <title>Kernel &quot;kernel.yama.ptrace_scope&quot; Parameter Runtime Check</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The kernel &quot;kernel.yama.ptrace_scope&quot; parameter should be set to &quot;1&quot; in system runtime.</description>
+      <reference ref_id="sysctl_runtime_kernel_yama_ptrace_scope" source="ssg"/>
+    </metadata>
+    <criteria operator="AND">
+      <criterion comment="kernel runtime parameter kernel.yama.ptrace_scope set to 1" test_ref="oval:ssg-test_sysctl_runtime_kernel_yama_ptrace_scope:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_object id="oval:ssg-object_static_run_sysctld_kernel_yama_ptrace_scope:obj:1" version="1">
+    <ind:path>/run/sysctl.d</ind:path>
+    <ind:filename operation="pattern match">^.*\.conf$</ind:filename>
+    <ind:pattern operation="pattern match">^[\s]*kernel.yama.ptrace_scope[\s]*=[\s]*1[\s]*$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+</def-group>

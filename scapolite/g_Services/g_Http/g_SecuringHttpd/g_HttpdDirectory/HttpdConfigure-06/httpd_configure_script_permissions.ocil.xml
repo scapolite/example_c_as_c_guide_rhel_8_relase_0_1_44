@@ -1,0 +1,22 @@
+<ocil-group><questionnaire  id="ocil:ssg-httpd_configure_script_permissions_ocil:questionnaire:1">
+          <title>Remove Write Permissions From Filesystem Paths And Server Scripts</title>
+          <actions>
+            <test_action_ref>ocil:ssg-httpd_configure_script_permissions_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-httpd_configure_script_permissions_action:testaction:1" question_ref="ocil:ssg-httpd_configure_script_permissions_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-httpd_configure_script_permissions_question:question:1">
+          <question_text>Verify that the files and directories of each instance of Alias,
+ScriptAlias, and ScriptAliasMatch that exist
+have the correct file and directory permissions applied.
+      Is it the case that it is not?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

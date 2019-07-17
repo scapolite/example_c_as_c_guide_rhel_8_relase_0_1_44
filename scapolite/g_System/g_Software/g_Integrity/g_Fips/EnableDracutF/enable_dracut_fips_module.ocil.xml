@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-enable_dracut_fips_module_ocil:questionnaire:1">
+          <title>Enable Dracut FIPS Module</title>
+          <actions>
+            <test_action_ref>ocil:ssg-enable_dracut_fips_module_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-enable_dracut_fips_module_action:testaction:1" question_ref="ocil:ssg-enable_dracut_fips_module_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-enable_dracut_fips_module_question:question:1">
+          <question_text>To verify that the Dracut FIPS module is enabled, run the following command:
+grep "add_dracutmodules" /etc/dracut.conf.d/40-fips.conf
+The output should look like this:
+add_dracutmodules+=" fips "
+      Is it the case that the Dracut FIPS module is not enabled?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

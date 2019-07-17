@@ -1,0 +1,26 @@
+<ocil-group><questionnaire  id="ocil:ssg-dconf_gnome_disable_wifi_create_ocil:questionnaire:1">
+          <title>Disable WIFI Network Connection Creation in GNOME3</title>
+          <actions>
+            <test_action_ref>ocil:ssg-dconf_gnome_disable_wifi_create_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-dconf_gnome_disable_wifi_create_question:question:1">
+          <question_text>To ensure that WIFI connections caanot be created, run the following command:
+$ gsettings get org.gnome.nm-applet disable-wifi-create
+If properly configured, the output should be true.
+To ensure that users cannot enable WIFI connection creation, run the following:
+$ grep wifi-create /etc/dconf/db/local.d/locks/*
+If properly configured, the output should be
+/org/gnome/nm-applet/disable-wifi-create
+      Is it the case that WIFI connections can be created through GNOME?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-dconf_gnome_disable_wifi_create_action:testaction:1" question_ref="ocil:ssg-dconf_gnome_disable_wifi_create_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

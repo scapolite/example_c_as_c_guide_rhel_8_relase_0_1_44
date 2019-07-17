@@ -1,0 +1,26 @@
+<ocil-group><questionnaire  id="ocil:ssg-httpd_private_server_on_separate_subnet_ocil:questionnaire:1">
+          <title>A private web server must be located on a separate controlled access subnet</title>
+          <actions>
+            <test_action_ref>ocil:ssg-httpd_private_server_on_separate_subnet_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-httpd_private_server_on_separate_subnet_action:testaction:1" question_ref="ocil:ssg-httpd_private_server_on_separate_subnet_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-httpd_private_server_on_separate_subnet_question:question:1">
+          <question_text>Verify the site's network diagram and visually check the web server, to
+ensure that the private web server is located on a separate controlled
+access subnet and is not part of the public DMZ that houses the public
+web servers.
+
+In addition, the private web server needs to be isolated via a controlled
+access mechanism from the local general population lan.
+      Is it the case that the private web server is not on a separate controlled access subnet?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

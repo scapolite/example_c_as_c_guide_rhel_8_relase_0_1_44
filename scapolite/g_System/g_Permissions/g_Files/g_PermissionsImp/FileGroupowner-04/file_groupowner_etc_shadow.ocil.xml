@@ -1,0 +1,20 @@
+<ocil-group><questionnaire  id="ocil:ssg-file_groupowner_etc_shadow_ocil:questionnaire:1">
+          <title>Verify Group Who Owns shadow File</title>
+          <actions>
+            <test_action_ref>ocil:ssg-file_groupowner_etc_shadow_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-file_groupowner_etc_shadow_question:question:1">
+          <question_text>To check the group ownership of /etc/shadow, run the command: $ ls -lL /etc/shadow If properly configured, the output should indicate the following group-owner: root
+      Is it the case that /etc/shadow has group owner root?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-file_groupowner_etc_shadow_action:testaction:1" question_ref="ocil:ssg-file_groupowner_etc_shadow_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

@@ -1,0 +1,22 @@
+<ocil-group><questionnaire  id="ocil:ssg-install_smartcard_packages_ocil:questionnaire:1">
+          <title>Install Smart Card Packages For Multifactor Authentication</title>
+          <actions>
+            <test_action_ref>ocil:ssg-install_smartcard_packages_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-install_smartcard_packages_question:question:1">
+          <question_text>To verify the operating system has the packages required for multifactor
+authentication installed, run the following command:
+$ sudo yum list installed esc pam_pkcs11
+      Is it the case that smartcard software is not installed?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-install_smartcard_packages_action:testaction:1" question_ref="ocil:ssg-install_smartcard_packages_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

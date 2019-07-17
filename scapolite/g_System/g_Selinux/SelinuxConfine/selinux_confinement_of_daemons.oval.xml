@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-selinux_confinement_of_daemons:def:1" version="1">
+    <metadata>
+      <title>Ensure No Daemons are Unconfined by SELinux</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>All pids in /proc should be assigned an SELinux security context other than 'initrc_t'.</description>
+      <reference ref_id="CCE-80867-5" source="CCE"/>
+      <reference ref_id="selinux_confinement_of_daemons" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="device_t in /dev" test_ref="oval:ssg-test_selinux_confinement_of_daemons:tst:1"/>
+    </criteria>
+  </definition>
+  <linux:selinuxsecuritycontext_state comment="do it" id="oval:ssg-state_selinux_confinement_of_daemons:ste:1" version="1">
+    <linux:type datatype="string" operation="equals">initrc_t</linux:type>
+  </linux:selinuxsecuritycontext_state>
+  <linux:selinuxsecuritycontext_test check="none satisfy" check_existence="any_exist" comment="device_t in /dev" id="oval:ssg-test_selinux_confinement_of_daemons:tst:1" version="2">
+    <linux:object object_ref="oval:ssg-object_selinux_confinement_of_daemons:obj:1"/>
+    <linux:state state_ref="oval:ssg-state_selinux_confinement_of_daemons:ste:1"/>
+  </linux:selinuxsecuritycontext_test>
+  <linux:selinuxsecuritycontext_object comment="none satisfy initrc_t in /proc" id="oval:ssg-object_selinux_confinement_of_daemons:obj:1" version="1">
+    <linux:behaviors max_depth="1" recurse_direction="down"/>
+    <linux:path>/proc</linux:path>
+    <linux:filename operation="pattern match">^.*$</linux:filename>
+    <filter action="include">oval:ssg-state_selinux_confinement_of_daemons:ste:1</filter>
+  </linux:selinuxsecuritycontext_object>
+</def-group>

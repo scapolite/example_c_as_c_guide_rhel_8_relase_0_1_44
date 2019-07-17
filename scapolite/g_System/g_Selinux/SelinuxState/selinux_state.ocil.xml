@@ -1,0 +1,21 @@
+<ocil-group><questionnaire  id="ocil:ssg-selinux_state_ocil:questionnaire:1">
+          <title>Ensure SELinux State is Enforcing</title>
+          <actions>
+            <test_action_ref>ocil:ssg-selinux_state_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-selinux_state_question:question:1">
+          <question_text>Check the file /etc/selinux/config and ensure the following line appears:
+SELINUX=
+      Is it the case that SELINUX is not set to enforcing?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-selinux_state_action:testaction:1" question_ref="ocil:ssg-selinux_state_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

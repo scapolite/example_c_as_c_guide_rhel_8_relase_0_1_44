@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-gconf_gnome_disable_ctrlaltdel_reboot_ocil:questionnaire:1">
+          <title>Disable Ctrl-Alt-Del Reboot Key Sequence in GNOME</title>
+          <actions>
+            <test_action_ref>ocil:ssg-gconf_gnome_disable_ctrlaltdel_reboot_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-gconf_gnome_disable_ctrlaltdel_reboot_question:question:1">
+          <question_text>To ensure the system is configured to ignore the Ctrl-Alt-Del sequence,
+run the following command:
+$ gconftool-2 -g /apps/gnome_settings_daemon/keybindings/power
+The output should return nothing.
+      Is it the case that GNOME is configured to reboot when Ctrl-Alt-Del is pressed?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-gconf_gnome_disable_ctrlaltdel_reboot_action:testaction:1" question_ref="ocil:ssg-gconf_gnome_disable_ctrlaltdel_reboot_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

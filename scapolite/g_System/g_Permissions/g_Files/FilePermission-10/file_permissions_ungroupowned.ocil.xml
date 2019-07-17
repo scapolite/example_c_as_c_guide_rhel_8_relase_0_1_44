@@ -1,0 +1,26 @@
+<ocil-group><questionnaire  id="ocil:ssg-file_permissions_ungroupowned_ocil:questionnaire:1">
+          <title>Ensure All Files Are Owned by a Group</title>
+          <actions>
+            <test_action_ref>ocil:ssg-file_permissions_ungroupowned_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-file_permissions_ungroupowned_question:question:1">
+          <question_text>The following command will discover and print any
+files on local partitions which do not belong to a valid group.
+$ sudo find / -xdev -fstype local -nogroup
+
+Either remove all files and directories from the system that do not have a valid group,
+or assign a valid group with the chgrp command:
+$ sudo chgrp group file
+      Is it the case that there is output?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-file_permissions_ungroupowned_action:testaction:1" question_ref="ocil:ssg-file_permissions_ungroupowned_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

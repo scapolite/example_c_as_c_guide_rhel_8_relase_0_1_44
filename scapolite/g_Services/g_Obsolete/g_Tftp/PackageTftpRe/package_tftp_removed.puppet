@@ -1,0 +1,9 @@
+include remove_tftp
+
+class remove_tftp {
+  package { 'tftp':
+    ensure => 'purged',
+  }
+}
+
+              

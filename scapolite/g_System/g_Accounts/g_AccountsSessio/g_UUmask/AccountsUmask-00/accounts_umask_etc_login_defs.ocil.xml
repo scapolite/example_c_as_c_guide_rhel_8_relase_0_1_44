@@ -1,0 +1,25 @@
+<ocil-group><questionnaire  id="ocil:ssg-accounts_umask_etc_login_defs_ocil:questionnaire:1">
+          <title>Ensure the Default Umask is Set Correctly in login.defs</title>
+          <actions>
+            <test_action_ref>ocil:ssg-accounts_umask_etc_login_defs_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-accounts_umask_etc_login_defs_action:testaction:1" question_ref="ocil:ssg-accounts_umask_etc_login_defs_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-accounts_umask_etc_login_defs_question:question:1">
+          <question_text>Verify the UMASK setting is configured correctly in the /etc/login.defs file by
+running the following command:
+# grep -i "UMASK" /etc/login.defs
+All output must show the value of umask set as shown in the below:
+# grep -i "UMASK" /etc/login.defs
+umask 
+      Is it the case that the above command returns no output, or if the umask is configured incorrectly?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

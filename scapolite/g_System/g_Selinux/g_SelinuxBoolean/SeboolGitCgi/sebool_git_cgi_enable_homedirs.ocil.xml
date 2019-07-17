@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-sebool_git_cgi_enable_homedirs_ocil:questionnaire:1">
+          <title>Disable the git_cgi_enable_homedirs SELinux Boolean</title>
+          <actions>
+            <test_action_ref>ocil:ssg-sebool_git_cgi_enable_homedirs_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-sebool_git_cgi_enable_homedirs_action:testaction:1" question_ref="ocil:ssg-sebool_git_cgi_enable_homedirs_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-sebool_git_cgi_enable_homedirs_question:question:1">
+          <question_text>
+Run the following command to determine if the git_cgi_enable_homedirs SELinux boolean is disabled:
+$ getsebool git_cgi_enable_homedirs
+If properly configured, the output should show the following:
+git_cgi_enable_homedirs --&gt; off
+      Is it the case that git_cgi_enable_homedirs is not disabled?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

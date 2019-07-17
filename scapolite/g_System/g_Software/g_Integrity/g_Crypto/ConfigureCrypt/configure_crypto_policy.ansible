@@ -1,0 +1,33 @@
+- name: XCCDF Value var_system_crypto_policy # promote to variable
+  set_fact:
+    var_system_crypto_policy: !!str <sub idref="org.ssgproject.RHEL-8:var_system_crypto_policy" use="legacy"/>
+  tags:
+    - always
+
+- name: Configure System Cryptography Policy
+  lineinfile:
+    path: /etc/crypto-policies/config
+    regexp: ^(?!#)(\S+)$
+    line: '{{ var_system_crypto_policy }}'
+    create: true
+  tags:
+    - configure_crypto_policy
+    - high_severity
+    - restrict_strategy
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+    - CCE-80935-0
+
+- name: Verify that Crypto Policy is Set (runtime)
+  command: /usr/bin/update-crypto-policies --set {{ var_system_crypto_policy }}
+  tags:
+    - configure_crypto_policy
+    - high_severity
+    - restrict_strategy
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+    - CCE-80935-0
+
+                

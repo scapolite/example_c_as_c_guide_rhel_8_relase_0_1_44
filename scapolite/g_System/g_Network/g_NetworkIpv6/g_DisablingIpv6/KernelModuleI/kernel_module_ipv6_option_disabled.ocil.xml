@@ -1,0 +1,32 @@
+<ocil-group><questionnaire  id="ocil:ssg-kernel_module_ipv6_option_disabled_ocil:questionnaire:1">
+          <title>Disable IPv6 Networking Support Automatic Loading</title>
+          <actions>
+            <test_action_ref>ocil:ssg-kernel_module_ipv6_option_disabled_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-kernel_module_ipv6_option_disabled_action:testaction:1" question_ref="ocil:ssg-kernel_module_ipv6_option_disabled_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-kernel_module_ipv6_option_disabled_question:question:1">
+          <question_text>If the system uses IPv6, this is not applicable.
+
+If the system is configured to disable the
+ipv6 kernel module, it will contain a line
+of the form:
+options ipv6 disable=1
+Such lines may be inside any file in /etc/modprobe.d or the
+deprecated/etc/modprobe.conf.  This permits insertion of the IPv6
+kernel module (which other parts of the system expect to be present), but
+otherwise keeps it inactive.  Run the following command to search for such
+lines in all files in /etc/modprobe.d and the deprecated
+/etc/modprobe.conf:
+preserve$ grep -r ipv6 /etc/modprobe.conf /etc/modprobe.d
+      Is it the case that the ipv6 kernel module is not disabled?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

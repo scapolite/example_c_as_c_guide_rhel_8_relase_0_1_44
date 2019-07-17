@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-sebool_kdumpgui_run_bootloader_ocil:questionnaire:1">
+          <title>Disable the kdumpgui_run_bootloader SELinux Boolean</title>
+          <actions>
+            <test_action_ref>ocil:ssg-sebool_kdumpgui_run_bootloader_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-sebool_kdumpgui_run_bootloader_question:question:1">
+          <question_text>
+Run the following command to determine if the kdumpgui_run_bootloader SELinux boolean is disabled:
+$ getsebool kdumpgui_run_bootloader
+If properly configured, the output should show the following:
+kdumpgui_run_bootloader --&gt; off
+      Is it the case that kdumpgui_run_bootloader is not disabled?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-sebool_kdumpgui_run_bootloader_action:testaction:1" question_ref="ocil:ssg-sebool_kdumpgui_run_bootloader_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

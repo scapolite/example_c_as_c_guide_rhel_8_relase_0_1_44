@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-configure_opensc_nss_db:def:1" version="1">
+    <metadata>
+      <title>Verify that Interactive Boot is Disabled</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The ability for users to perform interactive startups should
+      be disabled.</description>
+      <reference ref_id="CCE-80767-7" source="CCE"/>
+      <reference ref_id="configure_opensc_nss_db" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="Check opensc library is configured in /etc/pki/nssdb/pkcs11.txt" test_ref="oval:ssg-test_configure_opensc_nss_db:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="Check opensc library is configured in /etc/pki/nssdb/pkcs11.txt" id="oval:ssg-test_configure_opensc_nss_db:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_configure_opensc_nss_db:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object id="oval:ssg-object_configure_opensc_nss_db:obj:1" version="1">
+    <ind:filepath>/etc/pki/nssdb/pkcs11.txt</ind:filepath>
+    <ind:pattern operation="pattern match">^library=opensc.*.so$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+</def-group>

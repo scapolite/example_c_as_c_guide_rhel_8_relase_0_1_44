@@ -1,0 +1,22 @@
+<ocil-group><questionnaire  id="ocil:ssg-service_irqbalance_enabled_ocil:questionnaire:1">
+          <title>Enable IRQ Balance (irqbalance)</title>
+          <actions>
+            <test_action_ref>ocil:ssg-service_irqbalance_enabled_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-service_irqbalance_enabled_question:question:1">
+          <question_text> To check that the irqbalance service is disabled in system boot configuration, run the following command: $ systemctl is-enabled irqbalance Output should indicate the irqbalance service has either not been installed, or has been disabled at all runlevels, as shown in the example below: $ systemctl is-enabled irqbalancedisabled
+Run the following command to verify irqbalance is not active (i.e. not running) through current runtime configuration: $ systemctl is-active irqbalance
+If the service is not running the command will return the following output: inactive
+      Is it the case that ?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-service_irqbalance_enabled_action:testaction:1" question_ref="ocil:ssg-service_irqbalance_enabled_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

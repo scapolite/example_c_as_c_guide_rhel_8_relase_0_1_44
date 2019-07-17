@@ -1,0 +1,55 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-obj_package_bind_removed:obj:1'
+- 'oval:ssg-test_package_bind_removed:tst:1'  -->
+  <definition class="compliance" id="oval:ssg-configure_bind_crypto_policy:def:1" version="1">
+    <metadata>
+      <title>Configure BIND to use System Crypto Policy.</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>BIND should be configured to use the system-wide crypto policy setting.</description>
+      <reference ref_id="CCE-80934-3" source="CCE"/>
+      <reference ref_id="configure_bind_crypto_policy" source="ssg"/>
+    </metadata>
+    <criteria operator="OR">
+      <extend_definition comment="Check if package bind is not installed" definition_ref="oval:ssg-package_bind_removed:def:1"/>
+      <criterion comment="Check that the configuration includes the policy config file." test_ref="oval:ssg-test_configure_bind_crypto_policy:tst:1"/>
+    </criteria>
+  </definition>
+  <linux:rpminfo_object id="oval:ssg-obj_package_bind_removed:obj:1" version="1">
+    <linux:name>bind</linux:name>
+  </linux:rpminfo_object>
+  <ind:textfilecontent54_object id="oval:ssg-object_configure_bind_crypto_policy:obj:1" version="1">
+    <ind:filepath>/etc/named.conf</ind:filepath>
+    <ind:pattern operation="pattern match">^\s*include\s+&quot;/etc/crypto-policies/back-ends/bind.config&quot;\s*;\s*$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <linux:rpminfo_test check="all" check_existence="none_exist" comment="package bind is removed" id="oval:ssg-test_package_bind_removed:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_package_bind_removed:obj:1"/>
+  </linux:rpminfo_test>
+  <definition class="compliance" id="oval:ssg-package_bind_removed:def:1" version="1">
+    <metadata>
+      <title>Package bind Removed</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The RPM package bind should be removed.</description>
+      <reference ref_id="package_bind_removed" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="package bind is removed" test_ref="oval:ssg-test_package_bind_removed:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="Check that the configuration includes the policy config file." id="oval:ssg-test_configure_bind_crypto_policy:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_configure_bind_crypto_policy:obj:1"/>
+  </ind:textfilecontent54_test>
+</def-group>

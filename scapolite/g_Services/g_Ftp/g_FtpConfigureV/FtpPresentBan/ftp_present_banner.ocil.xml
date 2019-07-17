@@ -1,0 +1,31 @@
+<ocil-group><questionnaire  id="ocil:ssg-ftp_present_banner_ocil:questionnaire:1">
+          <title>Create Warning Banners for All FTP Users</title>
+          <actions>
+            <test_action_ref>ocil:ssg-ftp_present_banner_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-ftp_present_banner_question:question:1">
+          <question_text>If FTP services are not installed, this is not applicable.
+
+To verify this configuration, run the following command:
+
+grep "banner_file" /etc/vsftpd/vsftpd.conf
+
+
+The output should show the value of banner_file is set to /etc/issue, an example of which is shown below:
+
+$ sudo grep "banner_file" /etc/vsftpd/vsftpd.conf
+
+banner_file=/etc/issue
+      Is it the case that it does not?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-ftp_present_banner_action:testaction:1" question_ref="ocil:ssg-ftp_present_banner_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

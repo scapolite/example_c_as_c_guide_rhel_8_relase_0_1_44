@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-auditd_data_retention_max_log_file_action:def:1" version="2">
+    <metadata>
+      <title>Auditd Action to Take When Maximum Log Size Reached</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>max_log_file_action setting in /etc/audit/auditd.conf is set to a certain action</description>
+      <reference ref_id="CCE-80682-8" source="CCE"/>
+      <reference ref_id="auditd_data_retention_max_log_file_action" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="max_log_file_action setting in auditd.conf" test_ref="oval:ssg-test_auditd_data_retention_max_log_file_action:tst:1"/>
+    </criteria>
+  </definition>
+  <external_variable comment="audit max_log_file_action setting" datatype="string" id="oval:ssg-var_auditd_max_log_file_action:var:1" version="1"/>
+  <ind:textfilecontent54_object id="oval:ssg-object_auditd_data_retention_max_log_file_action:obj:1" version="2">
+    <ind:filepath>/etc/audit/auditd.conf</ind:filepath>
+    <ind:pattern operation="pattern match">^[ ]*max_log_file_action[ ]+=[ ]+(\S+)[ ]*$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" comment="admin space left action " id="oval:ssg-test_auditd_data_retention_max_log_file_action:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_auditd_data_retention_max_log_file_action:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_auditd_data_retention_max_log_file_action:ste:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_state id="oval:ssg-state_auditd_data_retention_max_log_file_action:ste:1" version="1">
+    <ind:subexpression operation="case insensitive equals" var_ref="oval:ssg-var_auditd_max_log_file_action:var:1"/>
+  </ind:textfilecontent54_state>
+</def-group>

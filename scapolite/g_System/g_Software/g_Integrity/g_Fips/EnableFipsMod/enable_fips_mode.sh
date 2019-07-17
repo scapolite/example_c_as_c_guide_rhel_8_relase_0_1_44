@@ -1,0 +1,4 @@
+
+fips-mode-setup --enable
+
+                

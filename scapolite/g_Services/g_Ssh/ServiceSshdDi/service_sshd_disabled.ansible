@@ -1,0 +1,35 @@
+- name: Disable service sshd
+  service:
+    name: sshd
+    enabled: 'no'
+    state: stopped
+  register: service_result
+  failed_when: service_result is failed and ('Could not find the requested service'
+    not in service_result.msg)
+  when: ansible_virtualization_role != "guest" or ansible_virtualization_type != "docker"
+  tags:
+    - service_sshd_disabled
+    - unknown_severity
+    - disable_strategy
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+
+- name: Disable socket of service sshd if applicable
+  service:
+    name: sshd.socket
+    enabled: 'no'
+    state: stopped
+  register: socket_result
+  failed_when: socket_result is failed and ('Could not find the requested service'
+    not in socket_result.msg)
+  when: ansible_virtualization_role != "guest" or ansible_virtualization_type != "docker"
+  tags:
+    - service_sshd_disabled
+    - unknown_severity
+    - disable_strategy
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+
+            

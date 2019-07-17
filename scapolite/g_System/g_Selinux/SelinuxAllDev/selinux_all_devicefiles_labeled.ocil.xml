@@ -1,0 +1,22 @@
+<ocil-group><questionnaire  id="ocil:ssg-selinux_all_devicefiles_labeled_ocil:questionnaire:1">
+          <title>Ensure No Device Files are Unlabeled by SELinux</title>
+          <actions>
+            <test_action_ref>ocil:ssg-selinux_all_devicefiles_labeled_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-selinux_all_devicefiles_labeled_question:question:1">
+          <question_text>To check for unlabeled device files, run the following command:
+$ sudo find /dev -context *:device_t:* \( -type c -o -type b \) -printf "%p %Z\n"
+It should produce no output in a well-configured system.
+      Is it the case that there is output?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-selinux_all_devicefiles_labeled_action:testaction:1" question_ref="ocil:ssg-selinux_all_devicefiles_labeled_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

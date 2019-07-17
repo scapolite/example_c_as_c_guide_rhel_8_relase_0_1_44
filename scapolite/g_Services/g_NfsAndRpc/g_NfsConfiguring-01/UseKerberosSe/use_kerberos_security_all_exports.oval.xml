@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-use_kerberos_security_all_exports:def:1" version="3">
+    <metadata>
+      <title>Use Kerberos Security on All Exports</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Using Kerberos Security allows to cryptography authenticate a
+      valid user to an NFS share.</description>
+      <reference ref_id="CCE-80924-4" source="CCE"/>
+      <reference ref_id="use_kerberos_security_all_exports" source="ssg"/>
+    </metadata>
+    <criteria operator="OR">
+      <criterion comment="Check for Kerberos settings in /etc/exports" test_ref="oval:ssg-test_use_kerberos_security_all_exports:tst:1"/>
+      <criterion comment="Check for a share in /etc/exports" negate="true" test_ref="oval:ssg-test_non_empty_exports_file:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="Tests if a share is configured in /etc/exports" id="oval:ssg-test_non_empty_exports_file:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-obj_non_empty_exports_file:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object id="oval:ssg-obj_use_kerberos_security_all_exports:obj:1" version="2">
+    <ind:filepath>/etc/exports</ind:filepath>
+    <ind:pattern operation="pattern match">^\/.*\((\S+)\)$</ind:pattern>
+    <ind:instance datatype="int" operation="not equal">0</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_state id="oval:ssg-state_use_kerberos_security_all_exports:ste:1" version="1">
+    <ind:subexpression operation="pattern match">^.*,sec=krb5\:krb5i\:krb5p.*$</ind:subexpression>
+  </ind:textfilecontent54_state>
+  <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="Tests the value of the Kerberos Settings in /etc/exports" id="oval:ssg-test_use_kerberos_security_all_exports:tst:1" version="2">
+    <ind:object object_ref="oval:ssg-obj_use_kerberos_security_all_exports:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_use_kerberos_security_all_exports:ste:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object id="oval:ssg-obj_non_empty_exports_file:obj:1" version="1">
+    <ind:filepath>/etc/exports</ind:filepath>
+    <ind:pattern operation="pattern match">^\/.*$</ind:pattern>
+    <ind:instance datatype="int" operation="not equal">0</ind:instance>
+  </ind:textfilecontent54_object>
+</def-group>

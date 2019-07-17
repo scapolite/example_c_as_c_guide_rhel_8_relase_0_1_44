@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-accounts_user_dot_no_world_writable_programs_ocil:questionnaire:1">
+          <title>User Initialization Files Must Not Run World-Writable Programs</title>
+          <actions>
+            <test_action_ref>ocil:ssg-accounts_user_dot_no_world_writable_programs_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-accounts_user_dot_no_world_writable_programs_action:testaction:1" question_ref="ocil:ssg-accounts_user_dot_no_world_writable_programs_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-accounts_user_dot_no_world_writable_programs_question:question:1">
+          <question_text>To verify that local initialization files do not execute world-writable programs,
+execute the following command:
+$ sudo find /home -perm -002 -type f -exec ls -ld {} -name ".[^.]*"\;
+There should be no output.
+      Is it the case that files are executing world-writable programs?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

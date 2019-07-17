@@ -1,0 +1,39 @@
+- name: Disable service debug-shell
+  service:
+    name: debug-shell
+    enabled: 'no'
+    state: stopped
+  register: service_result
+  failed_when: service_result is failed and ('Could not find the requested service'
+    not in service_result.msg)
+  when: ansible_virtualization_role != "guest" or ansible_virtualization_type != "docker"
+  tags:
+    - service_debug-shell_disabled
+    - medium_severity
+    - disable_strategy
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+    - CCE-80876-6
+    - NIST-800-171-3.4.5
+
+- name: Disable socket of service debug-shell if applicable
+  service:
+    name: debug-shell.socket
+    enabled: 'no'
+    state: stopped
+  register: socket_result
+  failed_when: socket_result is failed and ('Could not find the requested service'
+    not in socket_result.msg)
+  when: ansible_virtualization_role != "guest" or ansible_virtualization_type != "docker"
+  tags:
+    - service_debug-shell_disabled
+    - medium_severity
+    - disable_strategy
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+    - CCE-80876-6
+    - NIST-800-171-3.4.5
+
+              

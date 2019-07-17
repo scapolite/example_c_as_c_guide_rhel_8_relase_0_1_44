@@ -1,0 +1,77 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-obj_package_vsftpd_installed:obj:1'
+- 'oval:ssg-test_package_vsftpd_installed:tst:1'  -->
+  <definition class="compliance" id="oval:ssg-ftp_log_transactions:def:1" version="1">
+    <metadata>
+      <title>Banner for FTP Users</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>To trace malicious activity facilitated by the FTP 
+      service, it must be configured to ensure that all commands sent to 
+      the FTP server are logged using the verbose vsftpd log format.
+      </description>
+      <reference ref_id="ftp_log_transactions" source="ssg"/>
+    </metadata>
+    <criteria comment="FTP is not being used or the conditions are met" operator="OR">
+      <extend_definition comment="vsftp package is not installed" definition_ref="oval:ssg-package_vsftpd_installed:def:1" negate="true"/>
+      <criteria comment="FTP configuration conditions are not set or are met" operator="AND">
+        <criterion comment="log ftp transactions enable" test_ref="oval:ssg-test_ftp_log_transactions_enable:tst:1"/>
+        <criterion comment="log ftp transactions format" test_ref="oval:ssg-test_ftp_log_transactions_format:tst:1"/>
+        <criterion comment="log ftp transactions protocol" test_ref="oval:ssg-test_ftp_log_transactions_protocol:tst:1"/>
+      </criteria>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_object comment="log ftp transactions" id="oval:ssg-object_test_ftp_log_transactions_format:obj:1" version="1">
+    <ind:filepath>/etc/vsftpd/vsftpd.conf</ind:filepath>
+    <ind:pattern operation="pattern match">^[\s]*xferlog_std_format[\s]*=[\s]*NO$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="log ftp transactions" id="oval:ssg-test_ftp_log_transactions_enable:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_test_ftp_log_transactions_enable:obj:1"/>
+  </ind:textfilecontent54_test>
+  <linux:rpminfo_object id="oval:ssg-obj_package_vsftpd_installed:obj:1" version="1">
+    <linux:name>vsftpd</linux:name>
+  </linux:rpminfo_object>
+  <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="log ftp transactions" id="oval:ssg-test_ftp_log_transactions_protocol:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_test_ftp_log_transactions_protocol:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="log ftp transactions" id="oval:ssg-test_ftp_log_transactions_format:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_test_ftp_log_transactions_format:obj:1"/>
+  </ind:textfilecontent54_test>
+  <linux:rpminfo_test check="all" check_existence="all_exist" comment="package vsftpd is installed" id="oval:ssg-test_package_vsftpd_installed:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_package_vsftpd_installed:obj:1"/>
+  </linux:rpminfo_test>
+  <ind:textfilecontent54_object comment="log ftp transactions" id="oval:ssg-object_test_ftp_log_transactions_protocol:obj:1" version="1">
+    <ind:filepath>/etc/vsftpd/vsftpd.conf</ind:filepath>
+    <ind:pattern operation="pattern match">^[\s]*log_ftp_protocol[\s]*=[\s]*YES$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_object comment="log ftp transactions" id="oval:ssg-object_test_ftp_log_transactions_enable:obj:1" version="1">
+    <ind:filepath>/etc/vsftpd/vsftpd.conf</ind:filepath>
+    <ind:pattern operation="pattern match">^[\s]*xferlog_enable[\s]*=[\s]*YES$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <definition class="compliance" id="oval:ssg-package_vsftpd_installed:def:1" version="1">
+    <metadata>
+      <title>Package vsftpd Installed</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The RPM package vsftpd should be installed.</description>
+      <reference ref_id="package_vsftpd_installed" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="package vsftpd is installed" test_ref="oval:ssg-test_package_vsftpd_installed:tst:1"/>
+    </criteria>
+  </definition>
+</def-group>

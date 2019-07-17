@@ -1,0 +1,40 @@
+- name: Get nfs and nfs4 mount points, that don't have Kerberos security option
+  shell: 'set -o pipefail
+
+    grep -E "[[:space:]]nfs[4]?[[:space:]]" /etc/fstab | grep -v "sec=krb5:krb5i:krb5p"
+    | awk ''{print $2}''
+
+    '
+  args:
+    warn: false
+    executable: /bin/bash
+  register: points_register
+  check_mode: false
+  changed_when: false
+  tags:
+    - mount_option_krb_sec_remote_filesystems
+    - medium_severity
+    - configure_strategy
+    - low_complexity
+    - medium_disruption
+    - no_reboot_needed
+    - NIST-800-53-AC-14(1)
+
+- name: Add Kerberos security to mount points
+  shell: awk '$2=="{{ item }}"{$4=$4",sec=krb5:krb5i:krb5p"}1' /etc/fstab > fstab.tmp
+    && mv fstab.tmp /etc/fstab
+  args:
+    warn: false
+  with_items:
+    - '{{ points_register.stdout_lines }}'
+  when: (points_register.stdout | length > 0)
+  tags:
+    - mount_option_krb_sec_remote_filesystems
+    - medium_severity
+    - configure_strategy
+    - low_complexity
+    - medium_disruption
+    - no_reboot_needed
+    - NIST-800-53-AC-14(1)
+
+                

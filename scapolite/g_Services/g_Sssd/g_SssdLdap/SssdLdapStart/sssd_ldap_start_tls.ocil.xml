@@ -1,0 +1,21 @@
+<ocil-group><questionnaire  id="ocil:ssg-sssd_ldap_start_tls_ocil:questionnaire:1">
+          <title>Configure SSSD LDAP Backend to Use TLS For All Transactions</title>
+          <actions>
+            <test_action_ref>ocil:ssg-sssd_ldap_start_tls_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-sssd_ldap_start_tls_question:question:1">
+          <question_text>If the system is not using TLS, set the ldap_id_use_start_tls option
+in /etc/sssd/sssd.conf to True.
+      Is it the case that the 'ldap_id_use_start_tls' option is not set to 'True'?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-sssd_ldap_start_tls_action:testaction:1" question_ref="ocil:ssg-sssd_ldap_start_tls_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

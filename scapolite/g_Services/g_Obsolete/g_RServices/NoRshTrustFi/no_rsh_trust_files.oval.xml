@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-no_rsh_trust_files:def:1" version="1">
+    <metadata>
+      <title>No Legacy .rhosts Or hosts.equiv Files</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>There should not be any .rhosts or hosts.equiv files on the system.</description>
+      <reference ref_id="CCE-80842-8" source="CCE"/>
+      <reference ref_id="no_rsh_trust_files" source="ssg"/>
+    </metadata>
+    <criteria operator="AND">
+      <criterion negate="true" test_ref="oval:ssg-test_no_rsh_trust_files_root:tst:1"/>
+      <criterion negate="true" test_ref="oval:ssg-test_no_rsh_trust_files_home:tst:1"/>
+      <criterion negate="true" test_ref="oval:ssg-test_no_rsh_trust_files_etc:tst:1"/>
+    </criteria>
+  </definition>
+  <unix:file_test check="all" check_existence="at_least_one_exists" comment="look for .rhosts or .shosts in /home" id="oval:ssg-test_no_rsh_trust_files_home:tst:1" version="1">
+    <unix:object object_ref="oval:ssg-object_no_rsh_trust_files_home:obj:1"/>
+  </unix:file_test>
+  <unix:file_test check="all" check_existence="at_least_one_exists" comment="look for .rhosts or .shosts in /root" id="oval:ssg-test_no_rsh_trust_files_root:tst:1" version="1">
+    <unix:object object_ref="oval:ssg-object_no_rsh_trust_files_root:obj:1"/>
+  </unix:file_test>
+  <unix:file_object comment="look for .rhosts or .shosts in /home" id="oval:ssg-object_no_rsh_trust_files_home:obj:1" version="1">
+    <unix:behaviors max_depth="1" recurse="directories" recurse_direction="down" recurse_file_system="all"/>
+    <unix:path operation="equals">/home</unix:path>
+    <unix:filename operation="pattern match">^\.(r|s)hosts$</unix:filename>
+  </unix:file_object>
+  <unix:file_object comment="look for .rhosts or .shosts in /root" id="oval:ssg-object_no_rsh_trust_files_root:obj:1" version="1">
+    <unix:path operation="equals">/root</unix:path>
+    <unix:filename operation="pattern match">^\.(r|s)hosts$</unix:filename>
+  </unix:file_object>
+  <unix:file_test check="all" check_existence="at_least_one_exists" comment="look for /etc/hosts.equiv or /etc/shosts.equiv" id="oval:ssg-test_no_rsh_trust_files_etc:tst:1" version="1">
+    <unix:object object_ref="oval:ssg-object_no_rsh_trust_files_etc:obj:1"/>
+  </unix:file_test>
+  <unix:file_object comment="look for /etc/hosts.equiv or /etc/shosts.equiv" id="oval:ssg-object_no_rsh_trust_files_etc:obj:1" version="1">
+    <unix:path operation="equals">/etc</unix:path>
+    <unix:filename operation="pattern match">^s?hosts\.equiv$</unix:filename>
+  </unix:file_object>
+</def-group>

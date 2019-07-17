@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-dir_perms_world_writable_system_owned_ocil:questionnaire:1">
+          <title>Ensure All World-Writable Directories Are Owned by a System Account</title>
+          <actions>
+            <test_action_ref>ocil:ssg-dir_perms_world_writable_system_owned_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-dir_perms_world_writable_system_owned_question:question:1">
+          <question_text>The following command will discover and print world-writable directories that
+are not owned by a system account, given the assumption that only system
+accounts have a uid lower than 500.  Run it once for each local partition PART:
+$ sudo find PART -xdev -type d -perm -0002 -uid +499 -print
+      Is it the case that there is output?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-dir_perms_world_writable_system_owned_action:testaction:1" question_ref="ocil:ssg-dir_perms_world_writable_system_owned_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

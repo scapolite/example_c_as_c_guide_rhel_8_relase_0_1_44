@@ -1,0 +1,22 @@
+<ocil-group><questionnaire  id="ocil:ssg-libreswan_approved_tunnels_ocil:questionnaire:1">
+          <title>Verify Any Configured IPSec Tunnel Connections</title>
+          <actions>
+            <test_action_ref>ocil:ssg-libreswan_approved_tunnels_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-libreswan_approved_tunnels_action:testaction:1" question_ref="ocil:ssg-libreswan_approved_tunnels_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-libreswan_approved_tunnels_question:question:1">
+          <question_text>To check for configured IPsec connections (conn), perform the following:
+grep -rni conn /etc/ipsec.conf /etc/ipsec.d/
+Verify any returned results for organizational approval.
+      Is it the case that the IPSec tunnels are not approved?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

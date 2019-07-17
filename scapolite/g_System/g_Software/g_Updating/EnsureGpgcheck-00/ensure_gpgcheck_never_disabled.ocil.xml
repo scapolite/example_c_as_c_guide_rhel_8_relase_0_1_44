@@ -1,0 +1,25 @@
+<ocil-group><questionnaire  id="ocil:ssg-ensure_gpgcheck_never_disabled_ocil:questionnaire:1">
+          <title>Ensure gpgcheck Enabled for All yum Package Repositories</title>
+          <actions>
+            <test_action_ref>ocil:ssg-ensure_gpgcheck_never_disabled_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-ensure_gpgcheck_never_disabled_action:testaction:1" question_ref="ocil:ssg-ensure_gpgcheck_never_disabled_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-ensure_gpgcheck_never_disabled_question:question:1">
+          <question_text>To determine whether yum has been configured to disable
+gpgcheck for any repos,  inspect all files in
+/etc/yum.repos.d and ensure the following does not appear in any
+sections:
+gpgcheck=0
+A value of 0 indicates that gpgcheck has been disabled for that repo.
+      Is it the case that GPG checking is disabled?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

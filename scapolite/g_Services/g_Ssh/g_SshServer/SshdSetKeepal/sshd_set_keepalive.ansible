@@ -1,0 +1,30 @@
+- name: XCCDF Value var_sshd_set_keepalive # promote to variable
+  set_fact:
+    var_sshd_set_keepalive: !!str <sub idref="org.ssgproject.RHEL-8:var_sshd_set_keepalive" use="legacy"/>
+  tags:
+    - always
+
+- name: Set SSH Client Alive Count
+  lineinfile:
+    create: true
+    dest: /etc/ssh/sshd_config
+    regexp: ^ClientAliveCountMax
+    line: ClientAliveCountMax {{ var_sshd_set_keepalive }}
+    validate: /usr/sbin/sshd -t -f %s
+  when: ansible_virtualization_role != "guest" or ansible_virtualization_type != "docker"
+  tags:
+    - sshd_set_keepalive
+    - medium_severity
+    - restrict_strategy
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+    - CCE-80907-9
+    - NIST-800-53-AC-2(5)
+    - NIST-800-53-SA-8
+    - NIST-800-53-AC-12
+    - NIST-800-53-AC-17(b)
+    - NIST-800-171-3.1.11
+    - CJIS-5.5.6
+
+              

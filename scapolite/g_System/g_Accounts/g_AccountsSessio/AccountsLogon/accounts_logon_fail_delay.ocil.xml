@@ -1,0 +1,25 @@
+<ocil-group><questionnaire  id="ocil:ssg-accounts_logon_fail_delay_ocil:questionnaire:1">
+          <title>Ensure the Logon Failure Delay is Set Correctly in login.defs</title>
+          <actions>
+            <test_action_ref>ocil:ssg-accounts_logon_fail_delay_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-accounts_logon_fail_delay_question:question:1">
+          <question_text>Verify the FAIL_DELAY setting is configured correctly in the /etc/login.defs file by
+running the following command:
+$ sudo grep -i "FAIL_DELAY" /etc/login.defs
+All output must show the value of FAIL_DELAY set as shown in the below:
+$ sudo grep -i "FAIL_DELAY" /etc/login.defs
+fail_delay 
+      Is it the case that the above command returns no output, or FAIL_DELAY is configured less than the expected value?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-accounts_logon_fail_delay_action:testaction:1" question_ref="ocil:ssg-accounts_logon_fail_delay_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

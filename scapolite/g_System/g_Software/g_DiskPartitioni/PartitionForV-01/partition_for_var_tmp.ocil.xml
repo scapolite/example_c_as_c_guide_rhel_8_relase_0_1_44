@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-partition_for_var_tmp_ocil:questionnaire:1">
+          <title>Ensure /var/tmp Located On Separate Partition</title>
+          <actions>
+            <test_action_ref>ocil:ssg-partition_for_var_tmp_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-partition_for_var_tmp_action:testaction:1" question_ref="ocil:ssg-partition_for_var_tmp_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-partition_for_var_tmp_question:question:1">
+          <question_text>Run the following command to determine if /var/tmp
+is on its own partition or logical volume:
+$ mount | grep "on /var/tmp"
+If /var/tmp has its own partition or volume group, a line will be returned.
+
+      Is it the case that no line is returned?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

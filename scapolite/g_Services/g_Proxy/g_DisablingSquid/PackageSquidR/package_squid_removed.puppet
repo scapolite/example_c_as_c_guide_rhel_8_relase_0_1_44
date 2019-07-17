@@ -1,0 +1,9 @@
+include remove_squid
+
+class remove_squid {
+  package { 'squid':
+    ensure => 'purged',
+  }
+}
+
+              

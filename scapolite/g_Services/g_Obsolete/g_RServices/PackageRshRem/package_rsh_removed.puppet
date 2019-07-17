@@ -1,0 +1,9 @@
+include remove_rsh
+
+class remove_rsh {
+  package { 'rsh':
+    ensure => 'purged',
+  }
+}
+
+              

@@ -1,0 +1,20 @@
+<ocil-group><questionnaire  id="ocil:ssg-file_permissions_sshd_pub_key_ocil:questionnaire:1">
+          <title>Verify Permissions on SSH Server Public *.pub Key Files</title>
+          <actions>
+            <test_action_ref>ocil:ssg-file_permissions_sshd_pub_key_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-file_permissions_sshd_pub_key_action:testaction:1" question_ref="ocil:ssg-file_permissions_sshd_pub_key_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-file_permissions_sshd_pub_key_question:question:1">
+          <question_text>To check the permissions of /etc/ssh/*.pub, run the command: $ ls -l /etc/ssh/*.pub If properly configured, the output should indicate the following permissions: -rw-r--r--
+      Is it the case that /etc/ssh/*.pub has unix mode -rw-r--r--?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

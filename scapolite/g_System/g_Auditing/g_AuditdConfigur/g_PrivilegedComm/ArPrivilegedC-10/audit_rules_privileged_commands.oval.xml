@@ -1,0 +1,157 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-audit_rules_auditctl:def:1'
+- 'oval:ssg-audit_rules_augenrules:def:1'
+- 'oval:ssg-test_audit_rules_augenrules:tst:1'
+- 'oval:ssg-object_audit_rules_auditctl:obj:1'
+- 'oval:ssg-test_audit_rules_auditctl:tst:1'
+- 'oval:ssg-object_audit_rules_augenrules:obj:1'  -->
+  <definition class="compliance" id="oval:ssg-audit_rules_privileged_commands:def:1" version="1">
+    <metadata>
+      <title>Ensure auditd Collects Information on the Use of Privileged Commands</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Audit rules about the information on the use of privileged commands are enabled.</description>
+      <reference ref_id="CCE-80724-8" source="CCE"/>
+      <reference ref_id="audit_rules_privileged_commands" source="ssg"/>
+    </metadata>
+    <criteria operator="OR">
+      <criteria operator="AND">
+        <extend_definition comment="audit augenrules" definition_ref="oval:ssg-audit_rules_augenrules:def:1"/>
+        <criterion comment="audit augenrules suid sgid" test_ref="oval:ssg-test_arpc_suid_sgid_augenrules:tst:1"/>
+        <criterion comment="audit augenrules binaries count matches rules count" test_ref="oval:ssg-test_arpc_bin_count_equals_rules_count_augenrules:tst:1"/>
+      </criteria>
+      <criteria operator="AND">
+        <extend_definition comment="audit auditctl" definition_ref="oval:ssg-audit_rules_auditctl:def:1"/>
+        <criterion comment="audit auditctl suid sgid" test_ref="oval:ssg-test_arpc_suid_sgid_auditctl:tst:1"/>
+        <criterion comment="audit auditctl binaries count matches rules count" test_ref="oval:ssg-test_arpc_bin_count_equals_rules_count_auditctl:tst:1"/>
+      </criteria>
+    </criteria>
+  </definition>
+  <local_variable comment="count of suid / sgid binaries actually present on the system" datatype="int" id="oval:ssg-variable_count_of_suid_sgid_binaries_on_system:var:1" version="1">
+    <count>
+      <object_component item_field="filepath" object_ref="oval:ssg-object_system_privileged_commands:obj:1"/>
+    </count>
+  </local_variable>
+  <ind:variable_test check="all" check_existence="all_exist" comment="audit auditctl binaries count matches rules count" id="oval:ssg-test_arpc_bin_count_equals_rules_count_auditctl:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_count_of_suid_sgid_binaries_on_system:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_count_of_privileged_commands_having_audit_definition_auditctl:ste:1"/>
+  </ind:variable_test>
+  <local_variable comment="count of suid / sgid binaries having full audit rule definition in /etc/audit/audit.rules file" datatype="int" id="oval:ssg-variable_count_of_privileged_commands_having_audit_definition_auditctl:var:1" version="1">
+    <count>
+      <object_component item_field="subexpression" object_ref="oval:ssg-object_arpc_suid_sgid_auditctl:obj:1"/>
+    </count>
+  </local_variable>
+  <definition class="compliance" id="oval:ssg-audit_rules_auditctl:def:1" version="1">
+    <metadata>
+      <title>Record Any Attempts to Run semanage</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Test if auditctl is in use for audit rules.</description>
+      <reference ref_id="audit_rules_auditctl" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="audit auditctl" test_ref="oval:ssg-test_audit_rules_auditctl:tst:1"/>
+    </criteria>
+  </definition>
+  <definition class="compliance" id="oval:ssg-audit_rules_augenrules:def:1" version="1">
+    <metadata>
+      <title>Record Any Attempts to Run semanage</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Test if augenrules is enabled for audit rules.</description>
+      <reference ref_id="audit_rules_augenrules" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="audit augenrules" test_ref="oval:ssg-test_audit_rules_augenrules:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_object id="oval:ssg-object_arpc_suid_sgid_augenrules:obj:1" version="1">
+    <ind:filepath operation="pattern match">^/etc/audit/rules\.d/.*\.rules$</ind:filepath>
+    <ind:pattern operation="pattern match">^[\s]*-a always,exit (?:-F path=([\S]+) )+-F perm=[r|w]?x -F auid&gt;=1000 -F auid!=(?:4294967295|unset)[\s]+(?:-k[\s]+|-F[\s]+key=)[\S]+[\s]*$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+    <filter action="exclude">oval:ssg-state_proper_audit_rule_but_for_unprivileged_command:ste:1</filter>
+  </ind:textfilecontent54_object>
+  <unix:file_object comment="system files with setuid or setgid permission set" id="oval:ssg-object_system_privileged_commands:obj:1" version="1">
+    <unix:behaviors max_depth="-1" recurse="directories" recurse_direction="down" recurse_file_system="local"/>
+    <unix:path operation="equals">/</unix:path>
+    <unix:filename operation="pattern match">[a-z]+</unix:filename>
+    <filter action="include">oval:ssg-state_setuid_or_setgid_set:ste:1</filter>
+    <filter action="exclude">oval:ssg-state_dev_proc_sys_dirs:ste:1</filter>
+  </unix:file_object>
+  <ind:variable_state id="oval:ssg-state_count_of_privileged_commands_having_audit_definition_augenrules:ste:1" version="1">
+    <ind:value datatype="int" operation="equals" var_check="at least one" var_ref="oval:ssg-variable_count_of_privileged_commands_having_audit_definition_augenrules:var:1"/>
+  </ind:variable_state>
+  <ind:textfilecontent54_test check="all" comment="audit augenrules" id="oval:ssg-test_audit_rules_augenrules:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_audit_rules_augenrules:obj:1"/>
+  </ind:textfilecontent54_test>
+  <unix:file_state id="oval:ssg-state_setuid_or_setgid_set:ste:1" operator="OR" version="1">
+    <unix:suid datatype="boolean">true</unix:suid>
+    <unix:sgid datatype="boolean">true</unix:sgid>
+  </unix:file_state>
+  <ind:textfilecontent54_object id="oval:ssg-object_arpc_suid_sgid_auditctl:obj:1" version="1">
+    <ind:filepath>/etc/audit/audit.rules</ind:filepath>
+    <ind:pattern operation="pattern match">^[\s]*-a always,exit (?:-F path=([\S]+) )+-F perm=[r|w]?x -F auid&gt;=1000 -F auid!=(?:4294967295|unset)[\s]+(?:-k[\s]+|-F[\s]+key=)[\S]+[\s]*$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+    <filter action="exclude">oval:ssg-state_proper_audit_rule_but_for_unprivileged_command:ste:1</filter>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_object id="oval:ssg-object_audit_rules_auditctl:obj:1" version="1">
+    <ind:filepath>/usr/lib/systemd/system/auditd.service</ind:filepath>
+    <ind:pattern operation="pattern match">^ExecStartPost=\-\/sbin\/auditctl.*$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="audit auditctl suid sgid" id="oval:ssg-test_arpc_suid_sgid_auditctl:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_arpc_suid_sgid_auditctl:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_audit_rules_privileged_commands:ste:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_test check="all" comment="audit auditctl" id="oval:ssg-test_audit_rules_auditctl:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_audit_rules_auditctl:obj:1"/>
+  </ind:textfilecontent54_test>
+  <local_variable comment="count of suid / sgid binaries having full audit rule definition in some of /etc/audit/rules.d/*.rules files" datatype="int" id="oval:ssg-variable_count_of_privileged_commands_having_audit_definition_augenrules:var:1" version="1">
+    <count>
+      <object_component item_field="subexpression" object_ref="oval:ssg-object_arpc_suid_sgid_augenrules:obj:1"/>
+    </count>
+  </local_variable>
+  <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="audit augenrules suid sgid" id="oval:ssg-test_arpc_suid_sgid_augenrules:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_arpc_suid_sgid_augenrules:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_audit_rules_privileged_commands:ste:1"/>
+  </ind:textfilecontent54_test>
+  <unix:file_state id="oval:ssg-state_dev_proc_sys_dirs:ste:1" version="1">
+    <unix:filepath operation="pattern match">^\/(dev|proc|sys)\/.*$</unix:filepath>
+  </unix:file_state>
+  <ind:textfilecontent54_state id="oval:ssg-state_audit_rules_privileged_commands:ste:1" version="1">
+    <ind:subexpression datatype="string" operation="pattern match" var_check="at least one" var_ref="oval:ssg-variable_all_privileged_commands:var:1"/>
+  </ind:textfilecontent54_state>
+  <ind:variable_test check="all" check_existence="all_exist" comment="audit augenrules binaries count matches rules count" id="oval:ssg-test_arpc_bin_count_equals_rules_count_augenrules:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_count_of_suid_sgid_binaries_on_system:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_count_of_privileged_commands_having_audit_definition_augenrules:ste:1"/>
+  </ind:variable_test>
+  <ind:textfilecontent54_state id="oval:ssg-state_proper_audit_rule_but_for_unprivileged_command:ste:1" version="1">
+    <ind:subexpression datatype="string" operation="not equal" var_check="all" var_ref="oval:ssg-variable_all_privileged_commands:var:1"/>
+  </ind:textfilecontent54_state>
+  <local_variable comment="All privileged commands" datatype="string" id="oval:ssg-variable_all_privileged_commands:var:1" version="1">
+    <object_component item_field="filepath" object_ref="oval:ssg-object_system_privileged_commands:obj:1"/>
+  </local_variable>
+  <ind:variable_object id="oval:ssg-object_count_of_suid_sgid_binaries_on_system:obj:1" version="1">
+    <ind:var_ref>oval:ssg-variable_count_of_suid_sgid_binaries_on_system:var:1</ind:var_ref>
+  </ind:variable_object>
+  <ind:textfilecontent54_object id="oval:ssg-object_audit_rules_augenrules:obj:1" version="1">
+    <ind:filepath>/usr/lib/systemd/system/auditd.service</ind:filepath>
+    <ind:pattern operation="pattern match">^ExecStartPost=\-\/sbin\/augenrules.*$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:variable_state id="oval:ssg-state_count_of_privileged_commands_having_audit_definition_auditctl:ste:1" version="1">
+    <ind:value datatype="int" operation="equals" var_check="at least one" var_ref="oval:ssg-variable_count_of_privileged_commands_having_audit_definition_auditctl:var:1"/>
+  </ind:variable_state>
+</def-group>

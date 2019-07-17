@@ -1,0 +1,22 @@
+<ocil-group><questionnaire  id="ocil:ssg-dconf_db_up_to_date_ocil:questionnaire:1">
+          <title>Make sure that the dconf databases are up-to-date with regards to respective keyfiles</title>
+          <actions>
+            <test_action_ref>ocil:ssg-dconf_db_up_to_date_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-dconf_db_up_to_date_action:testaction:1" question_ref="ocil:ssg-dconf_db_up_to_date_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-dconf_db_up_to_date_question:question:1">
+          <question_text>In order to be sure that the databases are up-to-date, run the
+dconf update
+command as the administrator.
+      Is it the case that The system-wide dconf databases are up-to-date with regards to respective keyfiles?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

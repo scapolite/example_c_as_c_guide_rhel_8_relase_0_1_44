@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-file_permissions_systemmap_ocil:questionnaire:1">
+          <title>Verify that local System.map file (if exists) is readable only by root</title>
+          <actions>
+            <test_action_ref>ocil:ssg-file_permissions_systemmap_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-file_permissions_systemmap_question:question:1">
+          <question_text>To check the permissions of /boot/Sysem.map-*, run the command:
+$ ls -l /boot/Sysem.map-*
+If properly configured, the output should indicate the following permissions:
+-rw-------
+      Is it the case that ?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-file_permissions_systemmap_action:testaction:1" question_ref="ocil:ssg-file_permissions_systemmap_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

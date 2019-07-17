@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-httpd_nipr_accredited_dmz_ocil:questionnaire:1">
+          <title>A public web server, if hosted on the NIPRNet, must be isolated in an accredited DoD DMZ extension</title>
+          <actions>
+            <test_action_ref>ocil:ssg-httpd_nipr_accredited_dmz_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-httpd_nipr_accredited_dmz_question:question:1">
+          <question_text>Interview the SA or web administrator to see where the public web server
+is logically located in the data center. Review the site network diagram
+to see how the web server is connected to the LAN. Visually check the web
+server hardware connections to see if it conforms to the site network
+diagram.
+      Is it the case that the web server is not isolated in an accredited DoD DMZ Extension?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-httpd_nipr_accredited_dmz_action:testaction:1" question_ref="ocil:ssg-httpd_nipr_accredited_dmz_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

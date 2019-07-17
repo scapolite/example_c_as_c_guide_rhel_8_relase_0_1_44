@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-package_xorg-x11-server-common_removed:def:1" version="1">
+    <metadata>
+      <title>Package xorg-x11-server-common Removed</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The RPM package xorg-x11-server-common should be removed.</description>
+      <reference ref_id="package_xorg-x11-server-common_removed" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="package xorg-x11-server-common is removed" test_ref="oval:ssg-test_package_xorg-x11-server-common_removed:tst:1"/>
+    </criteria>
+  </definition>
+  <linux:rpminfo_test check="all" check_existence="none_exist" comment="package xorg-x11-server-common is removed" id="oval:ssg-test_package_xorg-x11-server-common_removed:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_package_xorg-x11-server-common_removed:obj:1"/>
+  </linux:rpminfo_test>
+  <linux:rpminfo_object id="oval:ssg-obj_package_xorg-x11-server-common_removed:obj:1" version="1">
+    <linux:name>xorg-x11-server-common</linux:name>
+  </linux:rpminfo_object>
+</def-group>

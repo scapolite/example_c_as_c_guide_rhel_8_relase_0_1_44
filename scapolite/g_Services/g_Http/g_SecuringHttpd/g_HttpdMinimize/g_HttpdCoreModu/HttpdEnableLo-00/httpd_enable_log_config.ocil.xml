@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-httpd_enable_log_config_ocil:questionnaire:1">
+          <title>Enable log_config_module For HTTPD Logging</title>
+          <actions>
+            <test_action_ref>ocil:ssg-httpd_enable_log_config_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-httpd_enable_log_config_question:question:1">
+          <question_text>To verify that the log_config_module exists in
+/etc/httpd/conf/httpd.conf, run the following command:
+$ grep log_config_module /etc/httpd/conf/httpd.conf
+The output should return:
+&lt;IfModule log_config_module&gt;
+      Is it the case that it is not?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-httpd_enable_log_config_action:testaction:1" question_ref="ocil:ssg-httpd_enable_log_config_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

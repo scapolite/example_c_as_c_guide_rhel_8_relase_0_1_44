@@ -1,0 +1,29 @@
+<ocil-group><questionnaire  id="ocil:ssg-sysctl_net_ipv4_conf_default_send_redirects_ocil:questionnaire:1">
+          <title>Disable Kernel Parameter for Sending ICMP Redirects by Default</title>
+          <actions>
+            <test_action_ref>ocil:ssg-sysctl_net_ipv4_conf_default_send_redirects_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-sysctl_net_ipv4_conf_default_send_redirects_action:testaction:1" question_ref="ocil:ssg-sysctl_net_ipv4_conf_default_send_redirects_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-sysctl_net_ipv4_conf_default_send_redirects_question:question:1">
+          <question_text>The status of the net.ipv4.conf.default.send_redirects kernel parameter can be queried
+by running the following command:
+$ sysctl net.ipv4.conf.default.send_redirects
+The output of the command should indicate a value of 0.
+If this value is not the default value, investigate how it could have been
+adjusted at runtime, and verify it is not set improperly. This has to be checked
+in all files in the /etc/sysctl.d directory and the deprecated
+/etc/sysctl.conf. You can verify this by running the following command:
+$ grep -r net.ipv4.conf.default.send_redirects /etc/sysctl.conf /etc/sysctl.d
+
+      Is it the case that the correct value is not returned?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

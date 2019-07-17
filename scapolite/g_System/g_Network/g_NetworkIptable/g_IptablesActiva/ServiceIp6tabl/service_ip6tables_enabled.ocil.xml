@@ -1,0 +1,26 @@
+<ocil-group><questionnaire  id="ocil:ssg-service_ip6tables_enabled_ocil:questionnaire:1">
+          <title>Verify ip6tables Enabled if Using IPv6</title>
+          <actions>
+            <test_action_ref>ocil:ssg-service_ip6tables_enabled_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-service_ip6tables_enabled_question:question:1">
+          <question_text>If IPv6 is disabled, this is not applicable.
+
+
+Run the following command to determine the current status of the
+ip6tables service:
+$ systemctl is-active ip6tables
+If the service is running, it should return the following: active
+      Is it the case that ?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-service_ip6tables_enabled_action:testaction:1" question_ref="ocil:ssg-service_ip6tables_enabled_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

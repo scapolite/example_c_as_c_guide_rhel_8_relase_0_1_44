@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-no_host_based_files:def:1" version="1">
+    <metadata>
+      <title>No shosts.equiv file deployed on the system</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>There should not be any shosts.equiv files on the system.</description>
+      <reference ref_id="no_host_based_files" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion test_ref="oval:ssg-test_no_shosts_equiv:tst:1"/>
+    </criteria>
+  </definition>
+  <unix:file_test check="all" check_existence="none_exist" comment="look for shosts.equiv in /" id="oval:ssg-test_no_shosts_equiv:tst:1" version="1">
+    <unix:object object_ref="oval:ssg-object_no_shosts_equiv_files_root:obj:1"/>
+  </unix:file_test>
+  <unix:file_object comment="look for any shosts.equiv file on the system" id="oval:ssg-object_no_shosts_equiv_files_root:obj:1" version="1">
+    <unix:behaviors max_depth="-1" recurse="directories" recurse_direction="down" recurse_file_system="local"/>
+    <unix:path operation="equals">/</unix:path>
+    <unix:filename operation="equals">shosts.equiv</unix:filename>
+  </unix:file_object>
+</def-group>

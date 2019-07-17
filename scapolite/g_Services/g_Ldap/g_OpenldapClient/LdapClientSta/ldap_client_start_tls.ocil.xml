@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-ldap_client_start_tls_ocil:questionnaire:1">
+          <title>Configure LDAP Client to Use TLS For All Transactions</title>
+          <actions>
+            <test_action_ref>ocil:ssg-ldap_client_start_tls_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-ldap_client_start_tls_action:testaction:1" question_ref="ocil:ssg-ldap_client_start_tls_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-ldap_client_start_tls_question:question:1">
+          <question_text>To ensure LDAP is configured to use TLS for all transactions, run the following command:
+$ grep start_tls /etc/pam_ldap.conf
+The result should contain:
+ssl start_tls
+      Is it the case that LDAP is not in use, the line is commented out, or not configured correctly?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

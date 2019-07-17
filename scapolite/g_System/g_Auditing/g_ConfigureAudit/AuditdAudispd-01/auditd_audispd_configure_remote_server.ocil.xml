@@ -1,0 +1,27 @@
+<ocil-group><questionnaire  id="ocil:ssg-auditd_audispd_configure_remote_server_ocil:questionnaire:1">
+          <title>Configure audispd Plugin To Send Logs To Remote Server</title>
+          <actions>
+            <test_action_ref>ocil:ssg-auditd_audispd_configure_remote_server_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-auditd_audispd_configure_remote_server_question:question:1">
+          <question_text>To verify the audispd plugin off-loads audit records onto a different system or
+media from the system being audited, run the following command:
+
+$ sudo grep -i remote_server /etc/audit/audisp-remote.conf
+
+The output should return something similar to where REMOTE_SYSTEM
+is an IP address or hostname:
+remote_server = REMOTE_SYSTEM
+      Is it the case that audispd is not sending logs to a remote system?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-auditd_audispd_configure_remote_server_action:testaction:1" question_ref="ocil:ssg-auditd_audispd_configure_remote_server_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

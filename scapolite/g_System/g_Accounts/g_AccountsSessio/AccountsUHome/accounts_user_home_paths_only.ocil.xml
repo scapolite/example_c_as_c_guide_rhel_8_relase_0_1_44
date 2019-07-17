@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-accounts_user_home_paths_only_ocil:questionnaire:1">
+          <title>Ensure that Users Path Contains Only Local Directories</title>
+          <actions>
+            <test_action_ref>ocil:ssg-accounts_user_home_paths_only_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-accounts_user_home_paths_only_question:question:1">
+          <question_text>To verify that all interactive user initialization files executable search
+path statements do not contain statements that will reference a working
+directory other than the users home directory, run the following command:
+$ sudo grep -r PATH /home/
+Inspect the output for any PATH is references directories outside the home directory.
+      Is it the case that paths contain more than local home directories?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-accounts_user_home_paths_only_action:testaction:1" question_ref="ocil:ssg-accounts_user_home_paths_only_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

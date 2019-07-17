@@ -1,0 +1,229 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-object_system_info_architecture_aarch_64:obj:1'
+- 'oval:ssg-audit_rules_auditctl:def:1'
+- 'oval:ssg-object_system_info_architecture_ppc_64:obj:1'
+- 'oval:ssg-system_info_architecture_aarch_64:def:1'
+- 'oval:ssg-system_info_architecture_ppc_64:def:1'
+- 'oval:ssg-object_system_info_architecture_ppcle_64:obj:1'
+- 'oval:ssg-object_audit_rules_augenrules:obj:1'
+- 'oval:ssg-object_system_info_architecture_x86_64:obj:1'
+- 'oval:ssg-state_system_info_architecture_x86_64:ste:1'
+- 'oval:ssg-system_info_architecture_64bit:def:1'
+- 'oval:ssg-test_system_info_architecture_ppc_64:tst:1'
+- 'oval:ssg-test_system_info_architecture_aarch_64:tst:1'
+- 'oval:ssg-system_info_architecture_x86_64:def:1'
+- 'oval:ssg-audit_rules_augenrules:def:1'
+- 'oval:ssg-test_audit_rules_augenrules:tst:1'
+- 'oval:ssg-state_system_info_architecture_ppcle_64:ste:1'
+- 'oval:ssg-object_audit_rules_auditctl:obj:1'
+- 'oval:ssg-test_audit_rules_auditctl:tst:1'
+- 'oval:ssg-state_system_info_architecture_aarch_64:ste:1'
+- 'oval:ssg-state_system_info_architecture_ppc_64:ste:1'
+- 'oval:ssg-test_system_info_architecture_ppcle_64:tst:1'
+- 'oval:ssg-test_system_info_architecture_x86_64:tst:1'  -->
+  <definition class="compliance" id="oval:ssg-audit_rules_etc_passwd_open:def:1" version="1">
+    <metadata>
+      <title>Ensure auditd Collects Write Events to /etc/passwd</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Audit rules about the write events to /etc/passwd</description>
+      <reference ref_id="CCE-80930-1" source="CCE"/>
+      <reference ref_id="audit_rules_etc_passwd_open" source="ssg"/>
+    </metadata>
+    <criteria operator="OR">
+      <criteria operator="AND">
+        <extend_definition comment="audit augenrules" definition_ref="oval:ssg-audit_rules_augenrules:def:1"/>
+        <criterion comment="audit rule to record write events to /etc/passwd" test_ref="oval:ssg-test_audit_rules_etc_passwd_open_32bit_augenrules:tst:1"/>
+        <criteria operator="OR">
+          <extend_definition comment="64-bit system" definition_ref="oval:ssg-system_info_architecture_64bit:def:1" negate="true"/>
+          <criterion comment="audit rule to record write events to /etc/passwd" test_ref="oval:ssg-test_audit_rules_etc_passwd_open_64bit_augenrules:tst:1"/>
+        </criteria>
+      </criteria>
+      <criteria operator="AND">
+        <extend_definition comment="audit auditctl" definition_ref="oval:ssg-audit_rules_auditctl:def:1"/>
+        <criterion comment="audit rule to record write events to /etc/passwd" test_ref="oval:ssg-test_audit_rules_etc_passwd_open_32bit_auditctl:tst:1"/>
+        <criteria operator="OR">
+          <extend_definition comment="64-bit_system" definition_ref="oval:ssg-system_info_architecture_64bit:def:1" negate="true"/>
+          <criterion comment="audit rule to record write events to /etc/passwd" test_ref="oval:ssg-test_audit_rules_etc_passwd_open_64bit_auditctl:tst:1"/>
+        </criteria>
+      </criteria>
+    </criteria>
+  </definition>
+  <unix:uname_object comment="64 bit architecture" id="oval:ssg-object_system_info_architecture_aarch_64:obj:1" version="1"/>
+  <definition class="compliance" id="oval:ssg-audit_rules_auditctl:def:1" version="1">
+    <metadata>
+      <title>Record Any Attempts to Run semanage</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Test if auditctl is in use for audit rules.</description>
+      <reference ref_id="audit_rules_auditctl" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="audit auditctl" test_ref="oval:ssg-test_audit_rules_auditctl:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_test check="all" check_existence="only_one_exists" comment="defined audit rule must exist" id="oval:ssg-test_audit_rules_etc_passwd_open_64bit_augenrules:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_audit_rules_etc_passwd_open_64bit_augenrules:obj:1"/>
+  </ind:textfilecontent54_test>
+  <unix:uname_object comment="64 bit architecture" id="oval:ssg-object_system_info_architecture_ppc_64:obj:1" version="1"/>
+  <definition class="compliance" id="oval:ssg-system_info_architecture_aarch_64:def:1" version="1">
+    <metadata>
+      <title>Test for aarch_64 Architecture</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Generic test for aarch_64 architecture to be used by other tests</description>
+      <reference ref_id="system_info_architecture_aarch_64" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="Generic test for aarch_64 architecture" test_ref="oval:ssg-test_system_info_architecture_aarch_64:tst:1"/>
+    </criteria>
+  </definition>
+  <definition class="compliance" id="oval:ssg-system_info_architecture_ppc_64:def:1" version="1">
+    <metadata>
+      <title>Test for PPC and PPCLE Architecture</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Generic test for PPC PPC64LE architecture to be used by other tests</description>
+      <reference ref_id="system_info_architecture_ppc_64" source="ssg"/>
+    </metadata>
+    <criteria operator="OR">
+      <criterion comment="Generic test for ppc64 architecture" test_ref="oval:ssg-test_system_info_architecture_ppc_64:tst:1"/>
+      <criterion comment="Generic test for ppcle64 architecture" test_ref="oval:ssg-test_system_info_architecture_ppcle_64:tst:1"/>
+    </criteria>
+  </definition>
+  <unix:uname_object comment="64 bit architecture" id="oval:ssg-object_system_info_architecture_ppcle_64:obj:1" version="1"/>
+  <ind:textfilecontent54_object id="oval:ssg-object_audit_rules_augenrules:obj:1" version="1">
+    <ind:filepath>/usr/lib/systemd/system/auditd.service</ind:filepath>
+    <ind:pattern operation="pattern match">^ExecStartPost=\-\/sbin\/augenrules.*$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <unix:uname_object comment="64 bit architecture" id="oval:ssg-object_system_info_architecture_x86_64:obj:1" version="1"/>
+  <constant_variable comment="audit rule arch and syscal" datatype="string" id="oval:ssg-var_audit_rule_64bit_open_write_etc_passwd_regex:var:1" version="1">
+    <value>^[\s]*-a[\s]+always,exit[\s]+(?:-F[\s]+arch=b64[\s]+)(?:-S[\s]+(?:|(?:[\S]+,)+)(open)(?:|(?:,[\S]+)+))[\s]+(?:-F[\s]+a1&amp;03)[\s]+(?:-F[\s]+path=/etc/passwd)[\s]+(?:-F\s+auid&gt;=1000[\s]+)(?:-F\s+auid!=(unset|4294967295)[\s]+)(?:-k[\s]+|-F[\s]+key=)[\S]+[\s]*$</value>
+  </constant_variable>
+  <unix:uname_state comment="64 bit architecture" id="oval:ssg-state_system_info_architecture_x86_64:ste:1" version="1">
+    <unix:processor_type operation="equals">x86_64</unix:processor_type>
+  </unix:uname_state>
+  <definition class="compliance" id="oval:ssg-system_info_architecture_64bit:def:1" version="1">
+    <metadata>
+      <title>Test for 64-bit Architecture</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Generic test for 64-bit architectures to be used by other tests</description>
+      <reference ref_id="system_info_architecture_64bit" source="ssg"/>
+    </metadata>
+    <criteria operator="OR">
+      <extend_definition comment="Generic test for x86_64 architecture" definition_ref="oval:ssg-system_info_architecture_x86_64:def:1"/>
+      <extend_definition comment="Generic test for ppc64 architecture" definition_ref="oval:ssg-system_info_architecture_ppc_64:def:1"/>
+      <extend_definition comment="Generic test for aarch64 architecture" definition_ref="oval:ssg-system_info_architecture_aarch_64:def:1"/>
+    </criteria>
+  </definition>
+  <unix:uname_test check="all" comment="64 bit architecture" id="oval:ssg-test_system_info_architecture_ppc_64:tst:1" version="1">
+    <unix:object object_ref="oval:ssg-object_system_info_architecture_ppc_64:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_system_info_architecture_ppc_64:ste:1"/>
+  </unix:uname_test>
+  <ind:textfilecontent54_test check="all" check_existence="only_one_exists" comment="defined audit rule must exist" id="oval:ssg-test_audit_rules_etc_passwd_open_32bit_augenrules:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_audit_rules_etc_passwd_open_32bit_augenrules:obj:1"/>
+  </ind:textfilecontent54_test>
+  <constant_variable comment="audit rule arch and syscal" datatype="string" id="oval:ssg-var_audit_rule_32bit_open_write_etc_passwd_regex:var:1" version="1">
+    <value>^[\s]*-a[\s]+always,exit[\s]+(?:-F[\s]+arch=b32[\s]+)(?:-S[\s]+(?:|(?:[\S]+,)+)(open)(?:|(?:,[\S]+)+))[\s]+(?:-F[\s]+a1&amp;03)[\s]+(?:-F[\s]+path=/etc/passwd)[\s]+(?:-F\s+auid&gt;=1000[\s]+)(?:-F\s+auid!=(unset|4294967295)[\s]+)(?:-k[\s]+|-F[\s]+key=)[\S]+[\s]*$</value>
+  </constant_variable>
+  <unix:uname_test check="all" comment="64 bit architecture" id="oval:ssg-test_system_info_architecture_aarch_64:tst:1" version="1">
+    <unix:object object_ref="oval:ssg-object_system_info_architecture_aarch_64:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_system_info_architecture_aarch_64:ste:1"/>
+  </unix:uname_test>
+  <definition class="compliance" id="oval:ssg-system_info_architecture_x86_64:def:1" version="1">
+    <metadata>
+      <title>Test for x86_64 Architecture</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Generic test for x86_64 architecture to be used by other tests</description>
+      <reference ref_id="system_info_architecture_x86_64" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="Generic test for x86_64 architecture" test_ref="oval:ssg-test_system_info_architecture_x86_64:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_object id="oval:ssg-object_audit_rules_etc_passwd_open_32bit_auditctl:obj:1" version="1">
+    <ind:filepath>/etc/audit/audit.rules</ind:filepath>
+    <ind:pattern operation="pattern match" var_ref="oval:ssg-var_audit_rule_32bit_open_write_etc_passwd_regex:var:1"/>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <definition class="compliance" id="oval:ssg-audit_rules_augenrules:def:1" version="1">
+    <metadata>
+      <title>Record Any Attempts to Run semanage</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Test if augenrules is enabled for audit rules.</description>
+      <reference ref_id="audit_rules_augenrules" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="audit augenrules" test_ref="oval:ssg-test_audit_rules_augenrules:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_test check="all" comment="audit augenrules" id="oval:ssg-test_audit_rules_augenrules:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_audit_rules_augenrules:obj:1"/>
+  </ind:textfilecontent54_test>
+  <unix:uname_state comment="64 bit architecture" id="oval:ssg-state_system_info_architecture_ppcle_64:ste:1" version="1">
+    <unix:processor_type operation="equals">ppc64le</unix:processor_type>
+  </unix:uname_state>
+  <ind:textfilecontent54_object id="oval:ssg-object_audit_rules_etc_passwd_open_32bit_augenrules:obj:1" version="1">
+    <ind:filepath operation="pattern match">^/etc/audit/rules\.d/.*\.rules$</ind:filepath>
+    <ind:pattern operation="pattern match" var_ref="oval:ssg-var_audit_rule_32bit_open_write_etc_passwd_regex:var:1"/>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_object id="oval:ssg-object_audit_rules_auditctl:obj:1" version="1">
+    <ind:filepath>/usr/lib/systemd/system/auditd.service</ind:filepath>
+    <ind:pattern operation="pattern match">^ExecStartPost=\-\/sbin\/auditctl.*$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" comment="audit auditctl" id="oval:ssg-test_audit_rules_auditctl:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_audit_rules_auditctl:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object id="oval:ssg-object_audit_rules_etc_passwd_open_64bit_auditctl:obj:1" version="1">
+    <ind:filepath>/etc/audit/audit.rules</ind:filepath>
+    <ind:pattern operation="pattern match" var_ref="oval:ssg-var_audit_rule_64bit_open_write_etc_passwd_regex:var:1"/>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" check_existence="only_one_exists" comment="defined audit rule must exist" id="oval:ssg-test_audit_rules_etc_passwd_open_32bit_auditctl:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_audit_rules_etc_passwd_open_32bit_auditctl:obj:1"/>
+  </ind:textfilecontent54_test>
+  <unix:uname_state comment="64 bit architecture" id="oval:ssg-state_system_info_architecture_aarch_64:ste:1" version="1">
+    <unix:processor_type operation="equals">aarch64</unix:processor_type>
+  </unix:uname_state>
+  <unix:uname_state comment="64 bit architecture" id="oval:ssg-state_system_info_architecture_ppc_64:ste:1" version="1">
+    <unix:processor_type operation="equals">ppc64</unix:processor_type>
+  </unix:uname_state>
+  <ind:textfilecontent54_test check="all" check_existence="only_one_exists" comment="defined audit rule must exist" id="oval:ssg-test_audit_rules_etc_passwd_open_64bit_auditctl:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_audit_rules_etc_passwd_open_64bit_auditctl:obj:1"/>
+  </ind:textfilecontent54_test>
+  <unix:uname_test check="all" comment="64 bit architecture" id="oval:ssg-test_system_info_architecture_ppcle_64:tst:1" version="1">
+    <unix:object object_ref="oval:ssg-object_system_info_architecture_ppcle_64:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_system_info_architecture_ppcle_64:ste:1"/>
+  </unix:uname_test>
+  <ind:textfilecontent54_object id="oval:ssg-object_audit_rules_etc_passwd_open_64bit_augenrules:obj:1" version="1">
+    <ind:filepath operation="pattern match">^/etc/audit/rules\.d/.*\.rules$</ind:filepath>
+    <ind:pattern operation="pattern match" var_ref="oval:ssg-var_audit_rule_64bit_open_write_etc_passwd_regex:var:1"/>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <unix:uname_test check="all" comment="64 bit architecture" id="oval:ssg-test_system_info_architecture_x86_64:tst:1" version="1">
+    <unix:object object_ref="oval:ssg-object_system_info_architecture_x86_64:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_system_info_architecture_x86_64:ste:1"/>
+  </unix:uname_test>
+</def-group>

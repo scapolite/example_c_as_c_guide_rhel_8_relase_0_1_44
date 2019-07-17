@@ -1,0 +1,26 @@
+<ocil-group><questionnaire  id="ocil:ssg-dconf_gnome_remote_access_encryption_ocil:questionnaire:1">
+          <title>Require Encryption for Remote Access in GNOME3</title>
+          <actions>
+            <test_action_ref>ocil:ssg-dconf_gnome_remote_access_encryption_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-dconf_gnome_remote_access_encryption_question:question:1">
+          <question_text>To ensure that remote access connections are encrypted, run the following command:
+$ gsettings get org.gnome.Vino require-encrpytion
+If properly configured, the output should be true.
+To ensure that users cannot disable encrypted remote connections, run the following:
+$ grep require-encryption /etc/dconf/db/local.d/locks/*
+If properly configured, the output should be
+/org/gnome/Vino/require-encryption
+      Is it the case that remote access connections are not encrypted?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-dconf_gnome_remote_access_encryption_action:testaction:1" question_ref="ocil:ssg-dconf_gnome_remote_access_encryption_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

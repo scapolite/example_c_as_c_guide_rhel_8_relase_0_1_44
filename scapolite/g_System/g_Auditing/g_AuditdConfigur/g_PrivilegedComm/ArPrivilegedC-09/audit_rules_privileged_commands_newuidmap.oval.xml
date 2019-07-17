@@ -1,0 +1,96 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-audit_rules_auditctl:def:1'
+- 'oval:ssg-audit_rules_augenrules:def:1'
+- 'oval:ssg-test_audit_rules_augenrules:tst:1'
+- 'oval:ssg-object_audit_rules_auditctl:obj:1'
+- 'oval:ssg-object_audit_rules_augenrules:obj:1'
+- 'oval:ssg-test_audit_rules_auditctl:tst:1'  -->
+  <definition class="compliance" id="oval:ssg-audit_rules_privileged_commands_newuidmap:def:1" version="1">
+    <metadata>
+      <title>Ensure auditd Collects Information on the Use of Privileged Commands - newuidmap</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Audit rules about the information on the use of newuidmap is enabled.</description>
+      <reference ref_id="CCE-80992-1" source="CCE"/>
+      <reference ref_id="audit_rules_privileged_commands_newuidmap" source="ssg"/>
+    </metadata>
+    <criteria operator="OR">
+      <criteria operator="AND">
+        <extend_definition comment="audit augenrules" definition_ref="oval:ssg-audit_rules_augenrules:def:1"/>
+        <criterion comment="audit augenrules newuidmap" test_ref="oval:ssg-test_audit_rules_privileged_commands_newuidmap_augenrules:tst:1"/>
+      </criteria>
+      <criteria operator="AND">
+        <extend_definition comment="audit auditctl" definition_ref="oval:ssg-audit_rules_auditctl:def:1"/>
+        <criterion comment="audit auditctl newuidmap" test_ref="oval:ssg-test_audit_rules_privileged_commands_newuidmap_auditctl:tst:1"/>
+      </criteria>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_object id="oval:ssg-object_audit_rules_privileged_commands_newuidmap_augenrules:obj:1" version="1">
+    <ind:filepath operation="pattern match">^/etc/audit/rules\.d/.*\.rules$</ind:filepath>
+    <ind:pattern operation="pattern match">^[\s]*-a[\s]+always,exit[\s]+-F[\s]+path=\/usr\/bin\/newuidmap[\s]+-F[\s]+perm=x[\s]+-F[\s]+auid&gt;=1000[\s]+-F[\s]+auid!=(?:4294967295|unset)[\s]+(?:-k[\s]+|-F[\s]+key=)[\S]+[\s]*$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <definition class="compliance" id="oval:ssg-audit_rules_auditctl:def:1" version="1">
+    <metadata>
+      <title>Record Any Attempts to Run semanage</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Test if auditctl is in use for audit rules.</description>
+      <reference ref_id="audit_rules_auditctl" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="audit auditctl" test_ref="oval:ssg-test_audit_rules_auditctl:tst:1"/>
+    </criteria>
+  </definition>
+  <definition class="compliance" id="oval:ssg-audit_rules_augenrules:def:1" version="1">
+    <metadata>
+      <title>Record Any Attempts to Run semanage</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Test if augenrules is enabled for audit rules.</description>
+      <reference ref_id="audit_rules_augenrules" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="audit augenrules" test_ref="oval:ssg-test_audit_rules_augenrules:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_test check="all" comment="audit augenrules" id="oval:ssg-test_audit_rules_augenrules:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_audit_rules_augenrules:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_test check="all" check_existence="only_one_exists" comment="audit augenrules newuidmap" id="oval:ssg-test_audit_rules_privileged_commands_newuidmap_augenrules:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_audit_rules_privileged_commands_newuidmap_augenrules:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object id="oval:ssg-object_audit_rules_privileged_commands_newuidmap_auditctl:obj:1" version="1">
+    <ind:filepath>/etc/audit/audit.rules</ind:filepath>
+    <ind:pattern operation="pattern match">^[\s]*-a[\s]+always,exit[\s]+-F[\s]+path=\/usr\/bin\/newuidmap[\s]+-F[\s]+perm=x[\s]+-F[\s]+auid&gt;=1000[\s]+-F[\s]+auid!=(?:4294967295|unset)[\s]+(?:-k[\s]+|-F[\s]+key=)[\S]+[\s]*$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" check_existence="only_one_exists" comment="audit auditctl newuidmap" id="oval:ssg-test_audit_rules_privileged_commands_newuidmap_auditctl:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_audit_rules_privileged_commands_newuidmap_auditctl:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object id="oval:ssg-object_audit_rules_auditctl:obj:1" version="1">
+    <ind:filepath>/usr/lib/systemd/system/auditd.service</ind:filepath>
+    <ind:pattern operation="pattern match">^ExecStartPost=\-\/sbin\/auditctl.*$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_object id="oval:ssg-object_audit_rules_augenrules:obj:1" version="1">
+    <ind:filepath>/usr/lib/systemd/system/auditd.service</ind:filepath>
+    <ind:pattern operation="pattern match">^ExecStartPost=\-\/sbin\/augenrules.*$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" comment="audit auditctl" id="oval:ssg-test_audit_rules_auditctl:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_audit_rules_auditctl:obj:1"/>
+  </ind:textfilecontent54_test>
+</def-group>

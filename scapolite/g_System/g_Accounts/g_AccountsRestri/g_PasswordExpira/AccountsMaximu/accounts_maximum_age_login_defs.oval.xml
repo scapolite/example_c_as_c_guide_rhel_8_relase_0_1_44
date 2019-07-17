@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-accounts_maximum_age_login_defs:def:1" version="3">
+    <metadata>
+      <title>Set Password Expiration Parameters</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The maximum password age policy should meet minimum requirements.</description>
+      <reference ref_id="CCE-80647-1" source="CCE"/>
+      <reference ref_id="accounts_maximum_age_login_defs" source="ssg"/>
+    </metadata>
+    <criteria comment="The value PASS_MAX_DAYS should be set appropriately in /etc/login.defs">
+      <criterion test_ref="oval:ssg-test_pass_max_days:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:variable_state id="oval:ssg-state_last_pass_max_days_instance_value:ste:1" version="1">
+    <ind:value datatype="int" operation="less than or equal" var_check="at least one" var_ref="oval:ssg-var_accounts_maximum_age_login_defs:var:1"/>
+  </ind:variable_state>
+  <ind:textfilecontent54_object id="oval:ssg-object_last_pass_max_days_from_etc_login_defs:obj:1" version="1">
+    <ind:behaviors singleline="true"/>
+    <ind:filepath>/etc/login.defs</ind:filepath>
+    <ind:pattern operation="pattern match">.*\n[^#]*(PASS_MAX_DAYS\s+\d+)\s*\n</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <external_variable comment="Maximum password age" datatype="int" id="oval:ssg-var_accounts_maximum_age_login_defs:var:1" version="1"/>
+  <ind:variable_object id="oval:ssg-object_last_pass_max_days_instance_value:obj:1" version="1">
+    <ind:var_ref>oval:ssg-variable_last_pass_max_days_instance_value:var:1</ind:var_ref>
+  </ind:variable_object>
+  <local_variable comment="The value of last PASS_MAX_DAYS directive in /etc/login.defs" datatype="int" id="oval:ssg-variable_last_pass_max_days_instance_value:var:1" version="1">
+    <regex_capture pattern="PASS_MAX_DAYS\s+(\d+)">
+      <object_component item_field="subexpression" object_ref="oval:ssg-object_last_pass_max_days_from_etc_login_defs:obj:1"/>
+    </regex_capture>
+  </local_variable>
+  <ind:variable_test check="all" comment="The value of PASS_MAX_DAYS should be set appropriately in /etc/login.defs" id="oval:ssg-test_pass_max_days:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_last_pass_max_days_instance_value:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_last_pass_max_days_instance_value:ste:1"/>
+  </ind:variable_test>
+</def-group>

@@ -1,0 +1,25 @@
+<ocil-group><questionnaire  id="ocil:ssg-configure_firewalld_rate_limiting_ocil:questionnaire:1">
+          <title>Configure firewalld To Rate Limit Connections</title>
+          <actions>
+            <test_action_ref>ocil:ssg-configure_firewalld_rate_limiting_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-configure_firewalld_rate_limiting_question:question:1">
+          <question_text>To verify the operating system protects against or limits the effects of DoS
+attacks by ensuring the operating system is implementing rate-limiting measures
+on impacted network interfaces, run the following command:
+$ sudo firewall-cmd --permanent --direct --get-rules ipv4 filter INPUT_direct
+The output should return:
+0 -p tcp -m limit --limit 25/minute --limit-burst 100 -j ACCEPT
+      Is it the case that firewalld is not rate limiting connections?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-configure_firewalld_rate_limiting_action:testaction:1" question_ref="ocil:ssg-configure_firewalld_rate_limiting_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

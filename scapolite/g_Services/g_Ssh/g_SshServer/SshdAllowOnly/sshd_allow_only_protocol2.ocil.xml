@@ -1,0 +1,27 @@
+<ocil-group><questionnaire  id="ocil:ssg-sshd_allow_only_protocol2_ocil:questionnaire:1">
+          <title>Allow Only SSH Protocol 2</title>
+          <actions>
+            <test_action_ref>ocil:ssg-sshd_allow_only_protocol2_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-sshd_allow_only_protocol2_question:question:1">
+          <question_text>To check which SSH protocol version is allowed, check version of openssh-server with following command:
+
+$ rpm -qi openssh-server | grep Version
+
+Versions equal to or higher than 7.4 only allow Protocol 2.
+If version is lower than 7.4, run the following command to check configuration:
+$ sudo grep Protocol /etc/ssh/sshd_config
+If configured properly, output should be Protocol 2
+      Is it the case that it is commented out or is not set correctly to Protocol 2?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-sshd_allow_only_protocol2_action:testaction:1" question_ref="ocil:ssg-sshd_allow_only_protocol2_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

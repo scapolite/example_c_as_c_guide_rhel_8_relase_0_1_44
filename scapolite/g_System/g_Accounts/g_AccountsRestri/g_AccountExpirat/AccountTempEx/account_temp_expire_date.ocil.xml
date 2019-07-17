@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-account_temp_expire_date_ocil:questionnaire:1">
+          <title>Assign Expiration Date to Temporary Accounts</title>
+          <actions>
+            <test_action_ref>ocil:ssg-account_temp_expire_date_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-account_temp_expire_date_action:testaction:1" question_ref="ocil:ssg-account_temp_expire_date_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-account_temp_expire_date_question:question:1">
+          <question_text>For every temporary and emergency account, run the following command
+to obtain its account aging and expiration information:
+$ sudo chage -l USER
+Verify each of these accounts has an expiration date set as documented.
+      Is it the case that any temporary or emergency accounts have no expiration date set or do not expire within a documented time frame?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

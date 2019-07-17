@@ -1,0 +1,26 @@
+<ocil-group><questionnaire  id="ocil:ssg-audit_rules_time_stime_ocil:questionnaire:1">
+          <title>Record Attempts to Alter Time Through stime</title>
+          <actions>
+            <test_action_ref>ocil:ssg-audit_rules_time_stime_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-audit_rules_time_stime_action:testaction:1" question_ref="ocil:ssg-audit_rules_time_stime_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-audit_rules_time_stime_question:question:1">
+          <question_text>If the system is not configured to audit time changes, this is a finding.
+If the system is 64-bit only, this is not applicable
+ocil: |
+To determine if the system is configured to audit calls to the
+stime system call, run the following command:
+preserve$ sudo grep "stime" /etc/audit/audit.rules
+If the system is configured to audit this activity, it will return a line.
+      Is it the case that no line is returned?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

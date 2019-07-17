@@ -1,0 +1,21 @@
+<ocil-group><questionnaire  id="ocil:ssg-audit_rules_login_events_tallylog_ocil:questionnaire:1">
+          <title>Record Attempts to Alter Logon and Logout Events - tallylog</title>
+          <actions>
+            <test_action_ref>ocil:ssg-audit_rules_login_events_tallylog_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-audit_rules_login_events_tallylog_action:testaction:1" question_ref="ocil:ssg-audit_rules_login_events_tallylog_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-audit_rules_login_events_tallylog_question:question:1">
+          <question_text>To verify that auditing is configured for system administrator actions, run the following command:
+$ sudo auditctl -l | grep "watch=/var/log/tallylog\|-w /var/log/tallylog"
+      Is it the case that there is not output?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

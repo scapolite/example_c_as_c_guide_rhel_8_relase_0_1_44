@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-obj_package_systemd_removed:obj:1'
+- 'oval:ssg-test_package_systemd_removed:tst:1'  -->
+  <definition class="compliance" id="oval:ssg-service_debug-shell_disabled:def:1" version="2">
+    <metadata>
+      <title>Service debug-shell Disabled</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The debug-shell service should be disabled if possible.</description>
+      <reference ref_id="CCE-80876-6" source="CCE"/>
+      <reference ref_id="service_debug-shell_disabled" source="ssg"/>
+    </metadata>
+    <criteria comment="package systemd removed or service and socket debug-shell are not configured to start" operator="OR">
+      <extend_definition comment="systemd removed" definition_ref="oval:ssg-package_systemd_removed:def:1"/>
+      <criteria comment="service and socket debug-shell are disabled" operator="AND">
+        <criterion comment="debug-shell disabled in multi-user.target" test_ref="oval:ssg-test_debug-shell_disabled_multi_user_target:tst:1"/>
+        <criterion comment="debug-shell socket disabled in sockets.target" test_ref="oval:ssg-test_debug-shell_socket_disabled_sockets_target:tst:1"/>
+      </criteria>
+    </criteria>
+  </definition>
+  <definition class="compliance" id="oval:ssg-package_systemd_removed:def:1" version="1">
+    <metadata>
+      <title>Package systemd Removed</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The RPM package systemd should be removed.</description>
+      <reference ref_id="package_systemd_removed" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="package systemd is removed" test_ref="oval:ssg-test_package_systemd_removed:tst:1"/>
+    </criteria>
+  </definition>
+  <linux:rpminfo_object id="oval:ssg-obj_package_systemd_removed:obj:1" version="1">
+    <linux:name>systemd</linux:name>
+  </linux:rpminfo_object>
+  <unix:file_test check="all" check_existence="none_exist" comment="look for debug-shell.socket in /etc/systemd/system/sockets.target.wants" id="oval:ssg-test_debug-shell_socket_disabled_sockets_target:tst:1" version="1">
+    <unix:object object_ref="oval:ssg-object_debug-shell_socket_disabled_sockets_target:obj:1"/>
+  </unix:file_test>
+  <unix:file_test check="all" check_existence="none_exist" comment="look for debug-shell.service in /etc/systemd/system/multi-user.target.wants" id="oval:ssg-test_debug-shell_disabled_multi_user_target:tst:1" version="1">
+    <unix:object object_ref="oval:ssg-object_debug-shell_disabled_multi_user_target:obj:1"/>
+  </unix:file_test>
+  <linux:rpminfo_test check="all" check_existence="none_exist" comment="package systemd is removed" id="oval:ssg-test_package_systemd_removed:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_package_systemd_removed:obj:1"/>
+  </linux:rpminfo_test>
+  <unix:file_object comment="look for debug-shell.service in /etc/systemd/system/multi-user.target.wants" id="oval:ssg-object_debug-shell_disabled_multi_user_target:obj:1" version="1">
+    <unix:filepath>/etc/systemd/system/multi-user.target.wants/debug-shell.service</unix:filepath>
+    <filter action="include">oval:ssg-unit_debug-shell_state_symlink:ste:1</filter>
+  </unix:file_object>
+  <unix:file_state id="oval:ssg-unit_debug-shell_state_symlink:ste:1" version="1">
+    <unix:type operation="equals">symbolic link</unix:type>
+  </unix:file_state>
+  <unix:file_object comment="look for debug-shell.socket in /etc/systemd/system/sockets.target.wants" id="oval:ssg-object_debug-shell_socket_disabled_sockets_target:obj:1" version="1">
+    <unix:filepath>/etc/systemd/system/sockets.target.wants/debug-shell.socket</unix:filepath>
+    <filter action="include">oval:ssg-unit_debug-shell_state_symlink:ste:1</filter>
+  </unix:file_object>
+</def-group>

@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-test_enable_ldap_client:tst:1'
+- 'oval:ssg-obj_enable_ldap_client:obj:1'
+- 'oval:ssg-enable_ldap_client:def:1'  -->
+  <definition class="compliance" id="oval:ssg-ldap_client_tls_cacertpath:def:1" version="1">
+    <metadata>
+      <title>Configure LDAP CA Certificate Path</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Require the use of TLS for ldap clients.</description>
+      <reference ref_id="ldap_client_tls_cacertpath" source="ssg"/>
+    </metadata>
+    <criteria operator="AND">
+      <extend_definition comment="LDAP is in use" definition_ref="oval:ssg-enable_ldap_client:def:1"/>
+      <criterion comment="look for tls_cacertdir in /etc/nslcd.conf" test_ref="oval:ssg-test_ldap_client_tls_cacertdir:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="LDAP client is enabled" id="oval:ssg-test_enable_ldap_client:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-obj_enable_ldap_client:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object id="oval:ssg-obj_enable_ldap_client:obj:1" version="1">
+    <ind:filepath>/etc/sysconfig/authconfig</ind:filepath>
+    <ind:pattern operation="pattern match">^[\s]*USELDAPAUTH=yes[\s]*$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <definition class="compliance" id="oval:ssg-enable_ldap_client:def:1" version="1">
+    <metadata>
+      <title>Enable the LDAP Client For Use in Authconfig</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Enable LDAP in authconfig.</description>
+      <reference ref_id="enable_ldap_client" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="LDAP client is enabled" test_ref="oval:ssg-test_enable_ldap_client:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_test check="all" check_existence="at_least_one_exists" comment="Tests the value of the tls_cacertdir setting in the configuration file" id="oval:ssg-test_ldap_client_tls_cacertdir:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-obj_ldap_client_tls_cacertdir:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object id="oval:ssg-obj_ldap_client_tls_cacertdir:obj:1" version="1">
+    <ind:filepath>/etc/nslcd.conf</ind:filepath>
+    <ind:pattern operation="pattern match">^[\s]*tls_cacertdir[\s]+/etc/pki/tls/CA$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+</def-group>

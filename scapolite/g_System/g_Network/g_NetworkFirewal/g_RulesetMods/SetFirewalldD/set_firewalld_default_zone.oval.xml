@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-set_firewalld_default_zone:def:1" version="2">
+    <metadata>
+      <title>Change the default firewalld zone to drop</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Change the default firewalld zone to drop.</description>
+      <reference ref_id="CCE-80890-7" source="CCE"/>
+      <reference ref_id="set_firewalld_default_zone" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="Set default zone to drop" test_ref="oval:ssg-test_firewalld_input_drop:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_object id="oval:ssg-obj_firewalld_input_drop:obj:1" version="1">
+    <ind:filepath>/etc/firewalld/firewalld.conf</ind:filepath>
+    <ind:pattern operation="pattern match">^DefaultZone=drop$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="Check /etc/firewalld/firewalld.conf DefaultZone for drop" id="oval:ssg-test_firewalld_input_drop:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-obj_firewalld_input_drop:obj:1"/>
+  </ind:textfilecontent54_test>
+</def-group>

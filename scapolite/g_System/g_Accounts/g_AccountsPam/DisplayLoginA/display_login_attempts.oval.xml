@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-display_login_attempts:def:1" version="1">
+    <metadata>
+      <title>Set Last Login/Access Notification</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Configure the system to notify users of last login/access using pam_lastlog.</description>
+      <reference ref_id="CCE-80788-3" source="CCE"/>
+      <reference ref_id="display_login_attempts" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="Conditions for pam_lastlog are satisfied" test_ref="oval:ssg-test_display_login_attempts:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_test check="all" comment="Check the pam_lastlog configuration" id="oval:ssg-test_display_login_attempts:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-obj_display_login_attempts:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object id="oval:ssg-obj_display_login_attempts:obj:1" version="1">
+    <ind:behaviors singleline="true"/>
+    <ind:filepath>/etc/pam.d/postlogin</ind:filepath>
+    <ind:pattern operation="pattern match">[\n][\s]*session[\s]+\[default=1\][\s]+pam_lastlog.so[\s\w\d\=]+showfailed[\s\w\d\=]*\n[\s]*session[\s]+optional[\s]+pam_lastlog.so[\s\w\d\=]+showfailed[\s\w\d\=]*[\n]</ind:pattern>
+    <ind:instance datatype="int" operation="equals">1</ind:instance>
+  </ind:textfilecontent54_object>
+</def-group>

@@ -1,0 +1,9 @@
+include remove_sendmail
+
+class remove_sendmail {
+  package { 'sendmail':
+    ensure => 'purged',
+  }
+}
+
+            

@@ -1,0 +1,33 @@
+<ocil-group><questionnaire  id="ocil:ssg-httpd_configure_firewall_ocil:questionnaire:1">
+          <title>Configure firewall to Allow Access to the Web Server</title>
+          <actions>
+            <test_action_ref>ocil:ssg-httpd_configure_firewall_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-httpd_configure_firewall_action:testaction:1" question_ref="ocil:ssg-httpd_configure_firewall_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-httpd_configure_firewall_question:question:1">
+          <question_text>Review the web site to determine if HTTP and HTTPs are used in accordance with
+well known ports (e.g., 80 and 443) or those ports and services as registered
+and approved for use by the DoD PPSM.
+
+To configure firewalld to allow access, run the following command(s):
+
+
+firewall-cmd --permanent --add-service=http
+
+
+To configure firewalld to allow access, run the following command(s):
+
+
+firewall-cmd --permanent --add-service=https
+      Is it the case that it is not?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

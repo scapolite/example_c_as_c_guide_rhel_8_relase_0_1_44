@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-use_kerberos_security_all_exports_ocil:questionnaire:1">
+          <title>Use Kerberos Security on All Exports</title>
+          <actions>
+            <test_action_ref>ocil:ssg-use_kerberos_security_all_exports_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-use_kerberos_security_all_exports_action:testaction:1" question_ref="ocil:ssg-use_kerberos_security_all_exports_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-use_kerberos_security_all_exports_question:question:1">
+          <question_text>To verify the sec option is configured for all NFS mounts, run the following command:
+$ grep "sec=" /etc/exports
+All configured NFS exports should show the sec=krb5:krb5i:krb5p setting in parentheses.
+This is not applicable if NFS is not implemented.
+      Is it the case that the setting is not configured, has the 'sys' option added, or does not have all Kerberos options added?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

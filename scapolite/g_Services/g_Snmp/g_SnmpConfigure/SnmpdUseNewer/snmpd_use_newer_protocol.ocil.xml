@@ -1,0 +1,22 @@
+<ocil-group><questionnaire  id="ocil:ssg-snmpd_use_newer_protocol_ocil:questionnaire:1">
+          <title>Configure SNMP Service to Use Only SNMPv3 or Newer</title>
+          <actions>
+            <test_action_ref>ocil:ssg-snmpd_use_newer_protocol_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-snmpd_use_newer_protocol_question:question:1">
+          <question_text>To ensure only SNMPv3 or newer is used, run the following command:
+$ sudo grep 'rocommunity\|rwcommunity\|com2sec' /etc/snmp/snmpd.conf | grep -v "^#"
+There should be no output.
+      Is it the case that there is output?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-snmpd_use_newer_protocol_action:testaction:1" question_ref="ocil:ssg-snmpd_use_newer_protocol_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

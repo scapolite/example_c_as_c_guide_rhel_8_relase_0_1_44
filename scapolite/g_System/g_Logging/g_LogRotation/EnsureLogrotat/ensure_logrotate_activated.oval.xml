@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-ensure_logrotate_activated:def:1" version="1">
+    <metadata>
+      <title>Ensure the logrotate utility performs the automatic rotation of log files on daily basis</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>
+      The frequency of automatic log files rotation performed by the logrotate utility should be configured to run daily
+      </description>
+      <reference ref_id="CCE-80794-1" source="CCE"/>
+      <reference ref_id="ensure_logrotate_activated" source="ssg"/>
+    </metadata>
+    <criteria comment="/etc/logrotate.conf contains daily setting and /etc/cron.daily/logrotate file exists" operator="AND">
+      <criterion comment="Check if daily is set in /etc/logrotate.conf" test_ref="oval:ssg-test_logrotate_conf_daily_setting:tst:1"/>
+      <criterion comment="Check if /etc/cron.daily/logrotate file exists (and calls logrotate)" test_ref="oval:ssg-test_cron_daily_logrotate_existence:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="Tests the presence of daily setting in /etc/logrotate.conf file" id="oval:ssg-test_logrotate_conf_daily_setting:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_logrotate_conf_daily_setting:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_state id="oval:ssg-state_another_rotate_interval_after_daily:ste:1" version="1">
+    <ind:subexpression datatype="string" operation="pattern match">}[^{]+[\n][\s]*(weekly|monthly|yearly)|[\n][\s]*(weekly|monthly|yearly)[^}]+{</ind:subexpression>
+  </ind:textfilecontent54_state>
+  <ind:textfilecontent54_object id="oval:ssg-object_cron_daily_logrotate_existence:obj:1" version="1">
+    <ind:filepath>/etc/cron.daily/logrotate</ind:filepath>
+    <ind:pattern operation="pattern match">^[\s]*/usr/sbin/logrotate[\s\S]*/etc/logrotate.conf$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_object id="oval:ssg-object_logrotate_conf_daily_setting:obj:1" version="2">
+    <ind:behaviors singleline="true"/>
+    <ind:filepath>/etc/logrotate.conf</ind:filepath>
+    <ind:pattern operation="pattern match">(?:daily)*.*(?=[\n][\s]*daily)(.*)$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+    <filter action="exclude">oval:ssg-state_another_rotate_interval_after_daily:ste:1</filter>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="Tests the existence of /etc/cron.daily/logrotate file (and verify it actually calls logrotate utility)" id="oval:ssg-test_cron_daily_logrotate_existence:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_cron_daily_logrotate_existence:obj:1"/>
+  </ind:textfilecontent54_test>
+</def-group>

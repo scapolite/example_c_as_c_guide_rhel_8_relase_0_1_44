@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-package_ntpdate_removed:def:1" version="1">
+    <metadata>
+      <title>Package ntpdate Removed</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The RPM package ntpdate should be removed.</description>
+      <reference ref_id="package_ntpdate_removed" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="package ntpdate is removed" test_ref="oval:ssg-test_package_ntpdate_removed:tst:1"/>
+    </criteria>
+  </definition>
+  <linux:rpminfo_test check="all" check_existence="none_exist" comment="package ntpdate is removed" id="oval:ssg-test_package_ntpdate_removed:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_package_ntpdate_removed:obj:1"/>
+  </linux:rpminfo_test>
+  <linux:rpminfo_object id="oval:ssg-obj_package_ntpdate_removed:obj:1" version="1">
+    <linux:name>ntpdate</linux:name>
+  </linux:rpminfo_object>
+</def-group>

@@ -1,0 +1,22 @@
+- name: Disable Host-Based Authentication
+  lineinfile:
+    create: true
+    dest: /etc/ssh/sshd_config
+    regexp: ^HostbasedAuthentication
+    line: HostbasedAuthentication no
+  when: ansible_virtualization_role != "guest" or ansible_virtualization_type != "docker"
+  tags:
+    - disable_host_auth
+    - medium_severity
+    - restrict_strategy
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+    - CCE-80786-7
+    - NIST-800-53-AC-3
+    - NIST-800-53-AC-17
+    - NIST-800-53-CM-6(b)
+    - NIST-800-171-3.1.12
+    - CJIS-5.5.6
+
+              

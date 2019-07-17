@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-object_mcafee_accm_exists:obj:1'
+- 'oval:ssg-test_mcafee_accm_exists:tst:1'  -->
+  <definition class="compliance" id="oval:ssg-install_mcafee_hbss_accm:def:1" version="1">
+    <metadata>
+      <title>Install the Asset Configuration Compliance Module (ACCM)</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Install the Asset Configuration Compliance Module (ACCM).</description>
+      <reference ref_id="install_mcafee_hbss_accm" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="McAfee ACCM is installed" test_ref="oval:ssg-test_mcafee_accm_exists:tst:1"/>
+    </criteria>
+  </definition>
+  <unix:file_object id="oval:ssg-object_mcafee_accm_exists:obj:1" version="1">
+    <unix:path>/opt/McAfee/accm/bin</unix:path>
+    <unix:filename>accm</unix:filename>
+  </unix:file_object>
+  <unix:file_test check="all" check_existence="all_exist" comment="McAfee ACCM installed" id="oval:ssg-test_mcafee_accm_exists:tst:1" version="1">
+    <unix:object object_ref="oval:ssg-object_mcafee_accm_exists:obj:1"/>
+  </unix:file_test>
+</def-group>

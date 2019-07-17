@@ -1,0 +1,27 @@
+<ocil-group><questionnaire  id="ocil:ssg-dconf_gnome_disable_geolocation_ocil:questionnaire:1">
+          <title>Disable Geolocation in GNOME3</title>
+          <actions>
+            <test_action_ref>ocil:ssg-dconf_gnome_disable_geolocation_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-dconf_gnome_disable_geolocation_question:question:1">
+          <question_text>To ensure that system location tracking is not active, run the following command:
+$ gsettings get org.gnome.system.location enabled
+$ gsettings get org.gnome.clocks geolocation
+If properly configured, the output should be false.
+To ensure that users cannot enable system location tracking, run the following:
+$ grep location /etc/dconf/db/local.d/locks/*
+If properly configured, the output should be
+/org/gnome/system/location/enabled and /org/gnome/clocks/geolocation.
+      Is it the case that geolocation is enabled and not disabled?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-dconf_gnome_disable_geolocation_action:testaction:1" question_ref="ocil:ssg-dconf_gnome_disable_geolocation_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

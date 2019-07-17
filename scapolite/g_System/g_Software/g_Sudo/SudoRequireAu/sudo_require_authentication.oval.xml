@@ -1,0 +1,95 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-test_nopasswd_etc_sudoers_d:tst:1'
+- 'oval:ssg-object_no_authenticate_etc_sudoers_d:obj:1'
+- 'oval:ssg-object_nopasswd_etc_sudoers:obj:1'
+- 'oval:ssg-test_nopasswd_etc_sudoers:tst:1'
+- 'oval:ssg-test_no_authenticate_etc_sudoers:tst:1'
+- 'oval:ssg-test_no_authenticate_etc_sudoers_d:tst:1'
+- 'oval:ssg-object_no_authenticate_etc_sudoers:obj:1'
+- 'oval:ssg-object_nopasswd_etc_sudoers_d:obj:1'  -->
+  <definition class="compliance" id="oval:ssg-sudo_require_authentication:def:1" version="1">
+    <metadata>
+      <title>Ensure Users Re-Authenticate for Privilege Escalation - sudo</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Checks sudo usage without password</description>
+      <reference ref_id="sudo_require_authentication" source="ssg"/>
+    </metadata>
+    <criteria operator="AND">
+      <extend_definition definition_ref="oval:ssg-sudo_remove_no_authenticate:def:1"/>
+      <extend_definition definition_ref="oval:ssg-sudo_remove_nopasswd:def:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_test check="all" check_existence="none_exist" comment="NOPASSWD does not exist in /etc/sudoers.d" id="oval:ssg-test_nopasswd_etc_sudoers_d:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_nopasswd_etc_sudoers_d:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object id="oval:ssg-object_no_authenticate_etc_sudoers_d:obj:1" version="1">
+    <ind:path>/etc/sudoers.d</ind:path>
+    <ind:filename operation="pattern match">^.*$</ind:filename>
+    <ind:pattern operation="pattern match">^(?!#).*[\s]+\!authenticate.*$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_object id="oval:ssg-object_nopasswd_etc_sudoers:obj:1" version="1">
+    <ind:filepath>/etc/sudoers</ind:filepath>
+    <ind:pattern operation="pattern match">^(?!#).*[\s]+NOPASSWD[\s]*\:.*$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" check_existence="none_exist" comment="NOPASSWD does not exist /etc/sudoers" id="oval:ssg-test_nopasswd_etc_sudoers:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_nopasswd_etc_sudoers:obj:1"/>
+  </ind:textfilecontent54_test>
+  <definition class="compliance" id="oval:ssg-sudo_remove_no_authenticate:def:1" version="1">
+    <metadata>
+      <title>Ensure !authenticate Is Not Used in Sudo</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Checks sudo usage without authentication</description>
+      <reference ref_id="sudo_remove_no_authenticate" source="ssg"/>
+    </metadata>
+    <criteria operator="AND">
+      <criterion comment="!authenticate does not exist in /etc/sudoers" test_ref="oval:ssg-test_no_authenticate_etc_sudoers:tst:1"/>
+      <criterion comment="!authenticate does not exist in /etc/sudoers.d" test_ref="oval:ssg-test_no_authenticate_etc_sudoers_d:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_test check="all" check_existence="none_exist" comment="!authenticate does not exist in /etc/sudoers" id="oval:ssg-test_no_authenticate_etc_sudoers:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_no_authenticate_etc_sudoers:obj:1"/>
+  </ind:textfilecontent54_test>
+  <definition class="compliance" id="oval:ssg-sudo_remove_nopasswd:def:1" version="1">
+    <metadata>
+      <title>Ensure NOPASSWD Is Not Used in Sudo</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Checks sudo usage without password</description>
+      <reference ref_id="sudo_remove_nopasswd" source="ssg"/>
+    </metadata>
+    <criteria operator="AND">
+      <criterion comment="NOPASSWD is not configured in /etc/sudoers" test_ref="oval:ssg-test_nopasswd_etc_sudoers:tst:1"/>
+      <criterion comment="NOPASSWD is not configured in /etc/sudoers.d" test_ref="oval:ssg-test_nopasswd_etc_sudoers_d:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_test check="all" check_existence="none_exist" comment="!authenticate does not exist in /etc/sudoers.d" id="oval:ssg-test_no_authenticate_etc_sudoers_d:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_no_authenticate_etc_sudoers_d:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object id="oval:ssg-object_no_authenticate_etc_sudoers:obj:1" version="1">
+    <ind:filepath>/etc/sudoers</ind:filepath>
+    <ind:pattern operation="pattern match">^(?!#).*[\s]+\!authenticate.*$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_object id="oval:ssg-object_nopasswd_etc_sudoers_d:obj:1" version="1">
+    <ind:path>/etc/sudoers.d</ind:path>
+    <ind:filename operation="pattern match">^.*$</ind:filename>
+    <ind:pattern operation="pattern match">^(?!#).*[\s]+NOPASSWD[\s]*\:.*$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+</def-group>

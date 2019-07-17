@@ -1,0 +1,82 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-package_dconf_installed:def:1'
+- 'oval:ssg-obj_package_dconf_installed:obj:1'
+- 'oval:ssg-test_package_dconf_installed:tst:1'  -->
+  <definition class="compliance" id="oval:ssg-dconf_db_up_to_date:def:1" version="2">
+    <metadata>
+      <title>The dconf databases are up-to-date.</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Make sure that the dconf databases are up-to-date with regards to respective keyfiles.</description>
+      <reference ref_id="CCE-81003-6" source="CCE"/>
+      <reference ref_id="dconf_db_up_to_date" source="ssg"/>
+    </metadata>
+    <criteria operator="OR">
+      <extend_definition comment="dconf installed" definition_ref="oval:ssg-package_dconf_installed:def:1" negate="true"/>
+      <criteria comment="check that all DBs in question are up-to-date" operator="AND">
+        <criteria comment="check that all DBs in question are up-to-date" operator="OR">
+          <criterion comment="local database is up-to-date wrt keyfiles" test_ref="oval:ssg-test_dconf_local_up_to_date:tst:1"/>
+          <criterion comment="no keyfiles applicable to the local database" test_ref="oval:ssg-test_dconf_local_no_keyfiles:tst:1"/>
+        </criteria>
+      </criteria>
+    </criteria>
+  </definition>
+  <definition class="compliance" id="oval:ssg-package_dconf_installed:def:1" version="1">
+    <metadata>
+      <title>Package dconf Installed</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The RPM package dconf should be installed.</description>
+      <reference ref_id="package_dconf_installed" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="package dconf is installed" test_ref="oval:ssg-test_package_dconf_installed:tst:1"/>
+    </criteria>
+  </definition>
+  <local_variable comment="When the 'local' dconf DB has been modified" datatype="string" id="oval:ssg-var_dconf_local_db_modified_time:var:1" version="1">
+    <time_difference format_2="seconds_since_epoch">
+      <object_component item_field="m_time" object_ref="oval:ssg-obj_dconf_local_db:obj:1"/>
+    </time_difference>
+  </local_variable>
+  <unix:file_test check="all" check_existence="none_exist" comment="no keyfiles applicable to the local database" id="oval:ssg-test_dconf_local_no_keyfiles:tst:1" version="1">
+    <unix:object object_ref="oval:ssg-obj_dconf_local_config:obj:1"/>
+  </unix:file_test>
+  <linux:rpminfo_object id="oval:ssg-obj_package_dconf_installed:obj:1" version="1">
+    <linux:name>dconf</linux:name>
+  </linux:rpminfo_object>
+  <linux:rpminfo_test check="all" check_existence="all_exist" comment="package dconf is installed" id="oval:ssg-test_package_dconf_installed:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_package_dconf_installed:obj:1"/>
+  </linux:rpminfo_test>
+  <unix:file_object comment="The dconf keyfile with 'local' settings" id="oval:ssg-obj_dconf_local_config:obj:1" version="1">
+    <unix:filepath operation="pattern match">^/etc/dconf/db/local.d/.*</unix:filepath>
+  </unix:file_object>
+  <ind:variable_object comment="All modified times of all keyfiles" id="oval:ssg-object_local_db_modified_time:obj:1" version="1">
+    <ind:var_ref>oval:ssg-var_dconf_local_db_modified_time:var:1</ind:var_ref>
+  </ind:variable_object>
+  <ind:variable_state id="oval:ssg-state_local_db_is_up_to_date:ste:1" version="1">
+    <ind:value datatype="int" operation="less than or equal" var_check="all" var_ref="oval:ssg-var_dconf_local_keyfiles_modified_time:var:1"/>
+  </ind:variable_state>
+  <local_variable comment="When dconf keyfiles in the 'local' tree have been modified" datatype="int" id="oval:ssg-var_dconf_local_keyfiles_modified_time:var:1" version="1">
+    <time_difference format_2="seconds_since_epoch">
+      <object_component item_field="m_time" object_ref="oval:ssg-obj_dconf_local_config:obj:1"/>
+    </time_difference>
+  </local_variable>
+  <ind:variable_test check="all" check_existence="all_exist" comment="Check if the local dconf DB is up-to-date with keyfiles in the local tree." id="oval:ssg-test_dconf_local_up_to_date:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_local_db_modified_time:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_local_db_is_up_to_date:ste:1"/>
+  </ind:variable_test>
+  <unix:file_object comment="The binary system-wide dconf database with 'local' settings" id="oval:ssg-obj_dconf_local_db:obj:1" version="1">
+    <unix:filepath>/etc/dconf/db/local</unix:filepath>
+  </unix:file_object>
+</def-group>

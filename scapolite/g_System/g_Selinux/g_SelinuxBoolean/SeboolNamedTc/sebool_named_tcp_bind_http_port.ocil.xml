@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-sebool_named_tcp_bind_http_port_ocil:questionnaire:1">
+          <title>Disable the named_tcp_bind_http_port SELinux Boolean</title>
+          <actions>
+            <test_action_ref>ocil:ssg-sebool_named_tcp_bind_http_port_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-sebool_named_tcp_bind_http_port_question:question:1">
+          <question_text>
+Run the following command to determine if the named_tcp_bind_http_port SELinux boolean is disabled:
+$ getsebool named_tcp_bind_http_port
+If properly configured, the output should show the following:
+named_tcp_bind_http_port --&gt; off
+      Is it the case that named_tcp_bind_http_port is not disabled?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-sebool_named_tcp_bind_http_port_action:testaction:1" question_ref="ocil:ssg-sebool_named_tcp_bind_http_port_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

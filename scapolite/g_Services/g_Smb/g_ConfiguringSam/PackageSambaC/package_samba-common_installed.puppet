@@ -1,0 +1,9 @@
+include install_samba-common
+
+class install_samba-common {
+  package { 'samba-common':
+    ensure => 'installed',
+  }
+}
+
+              

@@ -1,0 +1,84 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-kernel_module_hfs_disabled:def:1" version="1">
+    <metadata>
+      <title>Disable hfs Kernel Module</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The kernel module hfs should be disabled.</description>
+      <reference ref_id="kernel_module_hfs_disabled" source="ssg"/>
+    </metadata>
+    <criteria operator="OR">
+      <criterion comment="kernel module hfs disabled in /etc/modprobe.d" test_ref="oval:ssg-test_kernmod_hfs_disabled:tst:1"/>
+      <criterion comment="kernel module hfs disabled in /etc/modprobe.conf" test_ref="oval:ssg-test_kernmod_hfs_modprobeconf:tst:1"/>
+      <criterion comment="kernel module hfs disabled in /etc/modules-load.d" test_ref="oval:ssg-test_kernmod_hfs_etcmodules-load:tst:1"/>
+      <criterion comment="kernel module hfs disabled in /run/modules-load.d" test_ref="oval:ssg-test_kernmod_hfs_runmodules-load:tst:1"/>
+      <criterion comment="kernel module hfs disabled in /usr/lib/modules-load.d" test_ref="oval:ssg-test_kernmod_hfs_libmodules-load:tst:1"/>
+      <criterion comment="kernel module hfs disabled in /run/modprobe.d" test_ref="oval:ssg-test_kernmod_hfs_runmodprobed:tst:1"/>
+      <criterion comment="kernel module hfs disabled in /usr/lib/modprobe.d" test_ref="oval:ssg-test_kernmod_hfs_libmodprobed:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_object comment="kernel module hfs disabled in /run/modules-load.d" id="oval:ssg-obj_kernmod_hfs_runmodules-load:obj:1" version="1">
+    <ind:path>/run/modules-load.d</ind:path>
+    <ind:filename operation="pattern match">^.*\.conf$</ind:filename>
+    <ind:pattern operation="pattern match">^\s*install\s+hfs\s+(/bin/false|/bin/true)$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" comment="kernel module hfs disabled in /run/modprobe.d" id="oval:ssg-test_kernmod_hfs_runmodprobed:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-obj_kernmod_hfs_runmodprobed:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object comment="Check deprecated /etc/modprobe.conf for disablement of hfs" id="oval:ssg-obj_kernmod_hfs_modprobeconf:obj:1" version="1">
+    <ind:filepath>/etc/modprobe.conf</ind:filepath>
+    <ind:pattern operation="pattern match">^\s*install\s+hfs\s+(/bin/false|/bin/true)$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_object comment="kernel module hfs disabled in /etc/modules-load.d" id="oval:ssg-obj_kernmod_hfs_etcmodules-load:obj:1" version="1">
+    <ind:path>/etc/modules-load.d</ind:path>
+    <ind:filename operation="pattern match">^.*\.conf$</ind:filename>
+    <ind:pattern operation="pattern match">^\s*install\s+hfs\s+(/bin/false|/bin/true)$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_object comment="kernel module hfs disabled in /usr/lib/modprobe.d" id="oval:ssg-obj_kernmod_hfs_libmodprobed:obj:1" version="1">
+    <ind:path>/usr/lib/modprobe.d</ind:path>
+    <ind:filename operation="pattern match">^.*\.conf$</ind:filename>
+    <ind:pattern operation="pattern match">^\s*install\s+hfs\s+(/bin/false|/bin/true)$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" comment="kernel module hfs disabled in /etc/modules-load.d" id="oval:ssg-test_kernmod_hfs_etcmodules-load:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-obj_kernmod_hfs_etcmodules-load:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object comment="kernel module hfs disabled in /run/modprobe.d" id="oval:ssg-obj_kernmod_hfs_runmodprobed:obj:1" version="1">
+    <ind:path>/run/modprobe.d</ind:path>
+    <ind:filename operation="pattern match">^.*\.conf$</ind:filename>
+    <ind:pattern operation="pattern match">^\s*install\s+hfs\s+(/bin/false|/bin/true)$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" comment="kernel module hfs disabled in /run/modules-load.d" id="oval:ssg-test_kernmod_hfs_runmodules-load:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-obj_kernmod_hfs_runmodules-load:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_test check="all" comment="kernel module hfs disabled in /etc/modprobe.conf" id="oval:ssg-test_kernmod_hfs_modprobeconf:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-obj_kernmod_hfs_modprobeconf:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object comment="kernel module hfs disabled" id="oval:ssg-obj_kernmod_hfs_disabled:obj:1" version="1">
+    <ind:path>/etc/modprobe.d</ind:path>
+    <ind:filename operation="pattern match">^.*\.conf$</ind:filename>
+    <ind:pattern operation="pattern match">^\s*install\s+hfs\s+(/bin/false|/bin/true)$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" comment="kernel module hfs disabled in /usr/lib/modprobe.d" id="oval:ssg-test_kernmod_hfs_libmodprobed:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-obj_kernmod_hfs_libmodprobed:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_test check="all" comment="kernel module hfs disabled" id="oval:ssg-test_kernmod_hfs_disabled:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-obj_kernmod_hfs_disabled:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_test check="all" comment="kernel module hfs disabled in /usr/lib/modules-load.d" id="oval:ssg-test_kernmod_hfs_libmodules-load:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-obj_kernmod_hfs_libmodules-load:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object comment="kernel module hfs disabled in /usr/lib/modules-load.d" id="oval:ssg-obj_kernmod_hfs_libmodules-load:obj:1" version="1">
+    <ind:path>/usr/lib/modules-load.d</ind:path>
+    <ind:filename operation="pattern match">^.*\.conf$</ind:filename>
+    <ind:pattern operation="pattern match">^\s*install\s+hfs\s+(/bin/false|/bin/true)$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+</def-group>

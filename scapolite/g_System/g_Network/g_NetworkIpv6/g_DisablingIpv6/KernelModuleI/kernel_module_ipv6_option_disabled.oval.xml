@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-kernel_module_ipv6_option_disabled:def:1" version="1">
+    <metadata>
+      <title>Disable IPv6 Kernel Module Functionality via Disable Option</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The disable option will allow the IPv6 module to be inserted, but prevent address assignment and activation of the network stack.</description>
+      <reference ref_id="kernel_module_ipv6_option_disabled" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="ipv6 disabled any modprobe conf file" test_ref="oval:ssg-test_kernel_module_ipv6_option_disabled:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_test check="all" comment="ipv6 disabled any modprobe conf file" id="oval:ssg-test_kernel_module_ipv6_option_disabled:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_kernel_module_ipv6_option_disabled:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object comment="ipv6 disabled any modprobe conf file" id="oval:ssg-object_kernel_module_ipv6_option_disabled:obj:1" version="1">
+    <ind:path>/etc/modprobe.d</ind:path>
+    <ind:filename operation="pattern match">^.*\.conf$</ind:filename>
+    <ind:pattern operation="pattern match">^\s*options\s+ipv6\s+.*disable=1.*$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+</def-group>

@@ -1,0 +1,80 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-system_info_architecture_x86:def:1'
+- 'oval:ssg-test_system_info_architecture_x86:tst:1'
+- 'oval:ssg-object_system_info_architecture_x86:obj:1'
+- 'oval:ssg-state_system_info_architecture_x86:ste:1'  -->
+  <definition class="compliance" id="oval:ssg-install_PAE_kernel_on_x86-32:def:1" version="2">
+    <metadata>
+      <title>Package kernel-PAE Installed</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The RPM package kernel-PAE should be installed on 32-bit
+      systems.</description>
+      <reference ref_id="install_PAE_kernel_on_x86-32" source="ssg"/>
+    </metadata>
+    <criteria operator="OR">
+      <extend_definition comment="Not a 32-bit system" definition_ref="oval:ssg-system_info_architecture_x86:def:1" negate="true"/>
+      <criteria operator="OR">
+        <criterion comment="Check if PAE or NX is supported by the CPUs" negate="true" test_ref="oval:ssg-test_PAE_NX_cpu_support:tst:1"/>
+        <criteria operator="AND">
+          <extend_definition comment="A 32-bit system" definition_ref="oval:ssg-system_info_architecture_x86:def:1"/>
+          <criterion comment="Package kernel-PAE is installed" test_ref="oval:ssg-test_package_kernel-PAE_installed:tst:1"/>
+          <criterion comment="check for DEFAULTKERNEL set to kernel-PAE in /etc/sysconfig/kernel" test_ref="oval:ssg-test_defaultkernel_sysconfig_kernel:tst:1"/>
+        </criteria>
+      </criteria>
+    </criteria>
+  </definition>
+  <linux:rpminfo_test check="all" check_existence="all_exist" comment="Package kernel-PAE is installed" id="oval:ssg-test_package_kernel-PAE_installed:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_package_kernel-PAE_installed:obj:1"/>
+  </linux:rpminfo_test>
+  <definition class="compliance" id="oval:ssg-system_info_architecture_x86:def:1" version="1">
+    <metadata>
+      <title>Test for x86 Architecture</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Generic test for x86 architecture to be used by other tests</description>
+      <reference ref_id="system_info_architecture_x86" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="Generic test for x86 architecture" test_ref="oval:ssg-test_system_info_architecture_x86:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_object id="oval:ssg-obj_PAE_NX_cpu_support:obj:1" version="1">
+    <ind:filepath>/proc/cpuinfo</ind:filepath>
+    <ind:pattern operation="pattern match">^flags[\s]+:.*[\s]+pae[\s]+.*[\s]+nx[\s]+.*$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_object id="oval:ssg-object_defaultkernel_sysconfig_kernel:obj:1" version="1">
+    <ind:filepath>/etc/sysconfig/kernel</ind:filepath>
+    <ind:pattern operation="pattern match">^\s*DEFAULTKERNEL[\s]*=[\s]*kernel-PAE$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="CPUs support PAE kernel or NX bit" id="oval:ssg-test_PAE_NX_cpu_support:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-obj_PAE_NX_cpu_support:obj:1"/>
+  </ind:textfilecontent54_test>
+  <unix:uname_test check="all" comment="32 bit architecture" id="oval:ssg-test_system_info_architecture_x86:tst:1" version="1">
+    <unix:object object_ref="oval:ssg-object_system_info_architecture_x86:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_system_info_architecture_x86:ste:1"/>
+  </unix:uname_test>
+  <unix:uname_object comment="32 bit architecture" id="oval:ssg-object_system_info_architecture_x86:obj:1" version="1"/>
+  <linux:rpminfo_object id="oval:ssg-obj_package_kernel-PAE_installed:obj:1" version="1">
+    <linux:name>kernel-PAE</linux:name>
+  </linux:rpminfo_object>
+  <unix:uname_state comment="32 bit architecture" id="oval:ssg-state_system_info_architecture_x86:ste:1" version="1">
+    <unix:processor_type operation="equals">i686</unix:processor_type>
+  </unix:uname_state>
+  <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="check for DEFAULTKERNEL set to kernel-PAE in /etc/sysconfig/kernel" id="oval:ssg-test_defaultkernel_sysconfig_kernel:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_defaultkernel_sysconfig_kernel:obj:1"/>
+  </ind:textfilecontent54_test>
+</def-group>

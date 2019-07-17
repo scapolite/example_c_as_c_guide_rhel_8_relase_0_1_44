@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-accounts_tmout_ocil:questionnaire:1">
+          <title>Set Interactive Session Timeout</title>
+          <actions>
+            <test_action_ref>ocil:ssg-accounts_tmout_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-accounts_tmout_question:question:1">
+          <question_text>Run the following command to ensure the TMOUT value is configured for all users
+on the system:
+$ sudo grep TMOUT /etc/profile
+The output should return the following:
+TMOUT=
+      Is it the case that value of TMOUT is not less than or equal to expected setting?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-accounts_tmout_action:testaction:1" question_ref="ocil:ssg-accounts_tmout_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

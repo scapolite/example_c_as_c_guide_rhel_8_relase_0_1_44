@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-banner_etc_issue:def:1" version="2">
+    <metadata>
+      <title>System Login Banner Compliance</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The system login banner text should be set correctly.</description>
+      <reference ref_id="CCE-80763-6" source="CCE"/>
+      <reference ref_id="banner_etc_issue" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="/etc/issue is set appropriately" test_ref="oval:ssg-test_banner_etc_issue:tst:1"/>
+    </criteria>
+  </definition>
+  <external_variable comment="warning banner text variable" datatype="string" id="oval:ssg-login_banner_text:var:1" version="1"/>
+  <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="correct banner in /etc/issue" id="oval:ssg-test_banner_etc_issue:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_banner_etc_issue:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object id="oval:ssg-object_banner_etc_issue:obj:1" version="1">
+    <ind:filepath>/etc/issue</ind:filepath>
+    <ind:pattern operation="pattern match" var_ref="oval:ssg-login_banner_text:var:1"/>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+</def-group>

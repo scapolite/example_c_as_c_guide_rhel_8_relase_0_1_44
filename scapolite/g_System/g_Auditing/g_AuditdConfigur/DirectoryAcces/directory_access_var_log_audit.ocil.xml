@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-directory_access_var_log_audit_ocil:questionnaire:1">
+          <title>Record Access Events to Audit Log directory</title>
+          <actions>
+            <test_action_ref>ocil:ssg-directory_access_var_log_audit_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-directory_access_var_log_audit_action:testaction:1" question_ref="ocil:ssg-directory_access_var_log_audit_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-directory_access_var_log_audit_question:question:1">
+          <question_text>To determine if the system is configured to audit accesses to
+/var/log/audit directory, run the following command:
+preserve$ sudo grep "dir=/var/log/audit" /etc/audit/audit.rules
+If the system is configured to audit this activity, it will return a line.
+      Is it the case that no line is returned?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

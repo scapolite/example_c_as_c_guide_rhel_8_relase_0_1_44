@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-accounts_max_concurrent_login_sessions:def:1" version="1">
+    <metadata>
+      <title>Set Maximum Number of Concurrent Login Sessions Per User</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The maximum number of concurrent login sessions per user should meet
+      minimum requirements.</description>
+      <reference ref_id="CCE-80955-8" source="CCE"/>
+      <reference ref_id="accounts_max_concurrent_login_sessions" source="ssg"/>
+    </metadata>
+    <criteria operator="OR">
+      <criterion comment="the value maxlogins should be set appropriately in /etc/security/limits.d/*.conf" test_ref="oval:ssg-test_limitsd_maxlogins:tst:1"/>
+      <criteria operator="AND">
+        <criterion comment="the value maxlogins should not be set at all in /etc/security/limits.d/*.conf" negate="true" test_ref="oval:ssg-test_limitsd_maxlogins_exists:tst:1"/>
+        <criterion comment="the value maxlogins should be set appropriately in /etc/security/limits.conf" test_ref="oval:ssg-test_maxlogins:tst:1"/>
+      </criteria>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_object id="oval:ssg-object_etc_security_limitsd_conf_maxlogins_exists:obj:1" version="1">
+    <ind:path>/etc/security/limits.d</ind:path>
+    <ind:filename operation="pattern match">^.*\.conf$</ind:filename>
+    <ind:pattern operation="pattern match">^[\s]*\*[\s]+(?:(?:hard)|(?:-))[\s]+maxlogins</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_state id="oval:ssg-state_maxlogins:ste:1" version="1">
+    <ind:subexpression datatype="int" operation="less than or equal" var_ref="oval:ssg-var_accounts_max_concurrent_login_sessions:var:1"/>
+  </ind:textfilecontent54_state>
+  <ind:textfilecontent54_test check="all" comment="the value maxlogins should be set appropriately in /etc/security/limits.d/*.conf" id="oval:ssg-test_limitsd_maxlogins:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_etc_security_limitsd_conf_maxlogins:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_maxlogins:ste:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_test check="all" comment="the value maxlogins should be set appropriately in /etc/security/limits.conf" id="oval:ssg-test_maxlogins:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_etc_security_limits_conf_maxlogins:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_maxlogins:ste:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_test check="all" comment="the value maxlogins should be set appropriately in /etc/security/limits.d/*.conf" id="oval:ssg-test_limitsd_maxlogins_exists:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_etc_security_limitsd_conf_maxlogins_exists:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object id="oval:ssg-object_etc_security_limits_conf_maxlogins:obj:1" version="1">
+    <ind:filepath>/etc/security/limits.conf</ind:filepath>
+    <ind:pattern operation="pattern match">^[\s]*\*[\s]+(?:(?:hard)|(?:-))[\s]+maxlogins[\s]+(\d+)\s*$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_object id="oval:ssg-object_etc_security_limitsd_conf_maxlogins:obj:1" version="1">
+    <ind:path>/etc/security/limits.d</ind:path>
+    <ind:filename operation="pattern match">^.*\.conf$</ind:filename>
+    <ind:pattern operation="pattern match">^[\s]*\*[\s]+(?:(?:hard)|(?:-))[\s]+maxlogins[\s]+(\d+)\s*$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <external_variable comment="maximum number of concurrent logins per user" datatype="int" id="oval:ssg-var_accounts_max_concurrent_login_sessions:var:1" version="1"/>
+</def-group>

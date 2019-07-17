@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-mount_option_nosuid_remote_filesystems_ocil:questionnaire:1">
+          <title>Mount Remote Filesystems with nosuid</title>
+          <actions>
+            <test_action_ref>ocil:ssg-mount_option_nosuid_remote_filesystems_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-mount_option_nosuid_remote_filesystems_question:question:1">
+          <question_text>To verify the nosuid option is configured for all NFS mounts, run
+the following command:
+$ mount | grep nfs
+All NFS mounts should show the nosuid setting in parentheses. This
+is not applicable if NFS is not implemented.
+      Is it the case that the setting does not show?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-mount_option_nosuid_remote_filesystems_action:testaction:1" question_ref="ocil:ssg-mount_option_nosuid_remote_filesystems_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

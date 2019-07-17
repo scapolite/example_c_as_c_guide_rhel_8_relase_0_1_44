@@ -1,0 +1,9 @@
+include remove_xinetd
+
+class remove_xinetd {
+  package { 'xinetd':
+    ensure => 'purged',
+  }
+}
+
+              

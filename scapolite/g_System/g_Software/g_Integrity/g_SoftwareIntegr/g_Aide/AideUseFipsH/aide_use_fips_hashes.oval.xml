@@ -1,0 +1,333 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-test_rhel7_unix_family:tst:1'
+- 'oval:ssg-obj_rhel_computenode:obj:1'
+- 'oval:ssg-test_rhel7_workstation:tst:1'
+- 'oval:ssg-test_rhel_computenode:tst:1'
+- 'oval:ssg-state_rhel_server:ste:1'
+- 'oval:ssg-obj_rhel_server:obj:1'
+- 'oval:ssg-obj_ol7_system:obj:1'
+- 'oval:ssg-obj_redhat_release_virtualization_host_rpm:obj:1'
+- 'oval:ssg-test_rhel_server:tst:1'
+- 'oval:ssg-installed_OS_is_rhel7:def:1'
+- 'oval:ssg-state_rhel_workstation:ste:1'
+- 'oval:ssg-obj_rhel7_computenode:obj:1'
+- 'oval:ssg-test_redhat_release_virtualization_host_rpm:tst:1'
+- 'oval:ssg-test_rhel_workstation:tst:1'
+- 'oval:ssg-obj_rhel7_client:obj:1'
+- 'oval:ssg-obj_rhel7_unix_family:obj:1'
+- 'oval:ssg-state_ol7_system:ste:1'
+- 'oval:ssg-state_rhel7_unix_family:ste:1'
+- 'oval:ssg-installed_OS_is_rhel6:def:1'
+- 'oval:ssg-state_rhel7_workstation:ste:1'
+- 'oval:ssg-test_rhel7_client:tst:1'
+- 'oval:ssg-state_rhel_client:ste:1'
+- 'oval:ssg-state_rhel7_server:ste:1'
+- 'oval:ssg-test_ol7_system:tst:1'
+- 'oval:ssg-obj_package_aide_installed:obj:1'
+- 'oval:ssg-state_rhel7_client:ste:1'
+- 'oval:ssg-obj_rhel_client:obj:1'
+- 'oval:ssg-installed_OS_is_ol7_family:def:1'
+- 'oval:ssg-test_rhel7_server:tst:1'
+- 'oval:ssg-test_package_aide_installed:tst:1'
+- 'oval:ssg-test_rhel7_computenode:tst:1'
+- 'oval:ssg-installed_OS_is_FIPS_certified:def:1'
+- 'oval:ssg-installed_OS_is_part_of_Unix_family:def:1'
+- 'oval:ssg-object_unix_family:obj:1'
+- 'oval:ssg-test_unix_family:tst:1'
+- 'oval:ssg-package_aide_installed:def:1'
+- 'oval:ssg-state_rhel_computenode:ste:1'
+- 'oval:ssg-obj_rhel7_workstation:obj:1'
+- 'oval:ssg-state_rhel7_computenode:ste:1'
+- 'oval:ssg-state_rhevh_rhel_version:ste:1'
+- 'oval:ssg-obj_rhel7_server:obj:1'
+- 'oval:ssg-test_rhel_client:tst:1'
+- 'oval:ssg-obj_rhevh_rhel_version:obj:1'
+- 'oval:ssg-test_rhev_rhel_version:tst:1'
+- 'oval:ssg-state_unix_family:ste:1'
+- 'oval:ssg-obj_rhel_workstation:obj:1'  -->
+  <definition class="compliance" id="oval:ssg-aide_use_fips_hashes:def:1" version="1">
+    <metadata>
+      <title>Configure AIDE to Use FIPS 140-2 for Validating Hashes</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>AIDE should be configured to use the FIPS 140-2 
+      cryptographic hashes.</description>
+      <reference ref_id="aide_use_fips_hashes" source="ssg"/>
+    </metadata>
+    <criteria operator="AND">
+      <extend_definition comment="Installed OS is FIPS certified" definition_ref="oval:ssg-installed_OS_is_FIPS_certified:def:1"/>
+      <extend_definition comment="Aide is installed" definition_ref="oval:ssg-package_aide_installed:def:1"/>
+      <criterion comment="non-FIPS hashes are not configured" test_ref="oval:ssg-test_aide_non_fips_hashes:tst:1"/>
+      <criterion comment="FIPS hashes are configured" test_ref="oval:ssg-test_aide_use_fips_hashes:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:family_test check="all" check_existence="at_least_one_exists" comment="installed OS part of unix family" id="oval:ssg-test_rhel7_unix_family:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-obj_rhel7_unix_family:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_rhel7_unix_family:ste:1"/>
+  </ind:family_test>
+  <linux:rpminfo_object id="oval:ssg-obj_rhel_computenode:obj:1" version="1">
+    <linux:name>redhat-release-computenode</linux:name>
+  </linux:rpminfo_object>
+  <linux:rpminfo_test check="all" check_existence="at_least_one_exists" comment="redhat-release-workstation is version 7" id="oval:ssg-test_rhel7_workstation:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_rhel7_workstation:obj:1"/>
+    <linux:state state_ref="oval:ssg-state_rhel7_workstation:ste:1"/>
+  </linux:rpminfo_test>
+  <linux:rpminfo_test check="all" check_existence="at_least_one_exists" comment="redhat-release-computenode is version 6" id="oval:ssg-test_rhel_computenode:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_rhel_computenode:obj:1"/>
+    <linux:state state_ref="oval:ssg-state_rhel_computenode:ste:1"/>
+  </linux:rpminfo_test>
+  <linux:rpminfo_state id="oval:ssg-state_rhel_server:ste:1" version="1">
+    <linux:version operation="pattern match">^6.*$</linux:version>
+  </linux:rpminfo_state>
+  <linux:rpminfo_object id="oval:ssg-obj_rhel_server:obj:1" version="1">
+    <linux:name>redhat-release-server</linux:name>
+  </linux:rpminfo_object>
+  <linux:rpminfo_object id="oval:ssg-obj_ol7_system:obj:1" version="1">
+    <linux:name>oraclelinux-release</linux:name>
+  </linux:rpminfo_object>
+  <linux:rpminfo_object id="oval:ssg-obj_redhat_release_virtualization_host_rpm:obj:1" version="1">
+    <linux:name>redhat-release-virtualization-host</linux:name>
+  </linux:rpminfo_object>
+  <linux:rpminfo_test check="all" check_existence="at_least_one_exists" comment="redhat-release-server is version 6" id="oval:ssg-test_rhel_server:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_rhel_server:obj:1"/>
+    <linux:state state_ref="oval:ssg-state_rhel_server:ste:1"/>
+  </linux:rpminfo_test>
+  <definition class="inventory" id="oval:ssg-installed_OS_is_rhel7:def:1" version="1">
+    <metadata>
+      <title>Red Hat Enterprise Linux 7</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <reference ref_id="cpe:/o:redhat:enterprise_linux:7" source="CPE"/>
+      <description>The operating system installed on the system is
+      Red Hat Enterprise Linux 7</description>
+      <reference ref_id="installed_OS_is_rhel7" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="Installed operating system is part of the unix family" test_ref="oval:ssg-test_rhel7_unix_family:tst:1"/>
+      <criteria operator="OR">
+        <criterion comment="RHEL 7 Client is installed" test_ref="oval:ssg-test_rhel7_client:tst:1"/>
+        <criterion comment="RHEL 7 Workstation is installed" test_ref="oval:ssg-test_rhel7_workstation:tst:1"/>
+        <criterion comment="RHEL 7 Server is installed" test_ref="oval:ssg-test_rhel7_server:tst:1"/>
+        <criterion comment="RHEL 7 Compute Node is installed" test_ref="oval:ssg-test_rhel7_computenode:tst:1"/>
+        <criteria comment="Red Hat Enterpise Virtualization Host is installed" operator="AND">
+          <criterion comment="redhat-release-virtualization-host RPM package is installed" test_ref="oval:ssg-test_redhat_release_virtualization_host_rpm:tst:1"/>
+          <criterion comment="Red Hat Enterpise Virtualization Host is based on RHEL 7" test_ref="oval:ssg-test_rhev_rhel_version:tst:1"/>
+        </criteria>
+      </criteria>
+    </criteria>
+  </definition>
+  <linux:rpminfo_state id="oval:ssg-state_rhel_workstation:ste:1" version="1">
+    <linux:version operation="pattern match">^6.*$</linux:version>
+  </linux:rpminfo_state>
+  <ind:textfilecontent54_object id="oval:ssg-object_aide_use_fips_hashes:obj:1" version="1">
+    <ind:filepath>/etc/aide.conf</ind:filepath>
+    <ind:pattern operation="pattern match">^[A-Z]*[\s]*=[\s]*([a-z0-9\+]*)$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <linux:rpminfo_object id="oval:ssg-obj_rhel7_computenode:obj:1" version="1">
+    <linux:name>redhat-release-computenode</linux:name>
+  </linux:rpminfo_object>
+  <linux:rpminfo_test check="all" check_existence="only_one_exists" comment="redhat-release-virtualization-host RPM package is installed" id="oval:ssg-test_redhat_release_virtualization_host_rpm:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_redhat_release_virtualization_host_rpm:obj:1"/>
+  </linux:rpminfo_test>
+  <linux:rpminfo_test check="all" check_existence="at_least_one_exists" comment="redhat-release-workstation is version 6" id="oval:ssg-test_rhel_workstation:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_rhel_workstation:obj:1"/>
+    <linux:state state_ref="oval:ssg-state_rhel_workstation:ste:1"/>
+  </linux:rpminfo_test>
+  <linux:rpminfo_object id="oval:ssg-obj_rhel7_client:obj:1" version="1">
+    <linux:name>redhat-release-client</linux:name>
+  </linux:rpminfo_object>
+  <ind:family_object id="oval:ssg-obj_rhel7_unix_family:obj:1" version="1"/>
+  <linux:rpminfo_state id="oval:ssg-state_ol7_system:ste:1" version="1">
+    <linux:version operation="pattern match">^7.*$</linux:version>
+  </linux:rpminfo_state>
+  <ind:family_state id="oval:ssg-state_rhel7_unix_family:ste:1" version="1">
+    <ind:family>unix</ind:family>
+  </ind:family_state>
+  <definition class="inventory" id="oval:ssg-installed_OS_is_rhel6:def:1" version="2">
+    <metadata>
+      <title>Red Hat Enterprise Linux 6</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <reference ref_id="cpe:/o:redhat:enterprise_linux:6" source="CPE"/>
+      <description>The operating system installed on the system is
+      Red Hat Enterprise Linux 6</description>
+      <reference ref_id="installed_OS_is_rhel6" source="ssg"/>
+    </metadata>
+    <criteria operator="AND">
+      <extend_definition comment="Installed OS is part of the Unix family" definition_ref="oval:ssg-installed_OS_is_part_of_Unix_family:def:1"/>
+      <criteria operator="OR">
+        <criterion comment="RHEL 6 Client is installed" test_ref="oval:ssg-test_rhel_client:tst:1"/>
+        <criterion comment="RHEL 6 Workstation is installed" test_ref="oval:ssg-test_rhel_workstation:tst:1"/>
+        <criterion comment="RHEL 6 Server is installed" test_ref="oval:ssg-test_rhel_server:tst:1"/>
+        <criterion comment="RHEL 6 Compute Node is installed" test_ref="oval:ssg-test_rhel_computenode:tst:1"/>
+      </criteria>
+    </criteria>
+  </definition>
+  <linux:rpminfo_state id="oval:ssg-state_rhel7_workstation:ste:1" version="1">
+    <linux:version operation="pattern match">^7.*$</linux:version>
+  </linux:rpminfo_state>
+  <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="Verify FIPS hashes are configured in /etc/aide.conf" id="oval:ssg-test_aide_use_fips_hashes:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_aide_use_fips_hashes:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_aide_use_fips_hashes:ste:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_test check="all" check_existence="none_exist" comment="Verify non-FIPS hashes are not configured in /etc/aide.conf" id="oval:ssg-test_aide_non_fips_hashes:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_aide_non_fips_hashes:obj:1"/>
+  </ind:textfilecontent54_test>
+  <linux:rpminfo_test check="all" check_existence="at_least_one_exists" comment="redhat-release-client is version 7" id="oval:ssg-test_rhel7_client:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_rhel7_client:obj:1"/>
+    <linux:state state_ref="oval:ssg-state_rhel7_client:ste:1"/>
+  </linux:rpminfo_test>
+  <ind:textfilecontent54_object id="oval:ssg-object_aide_non_fips_hashes:obj:1" version="1">
+    <ind:filepath>/etc/aide.conf</ind:filepath>
+    <ind:pattern operation="pattern match">^[A-Z]*[\s]*=[\s]*.*(sha1|rmd160|sha256|whirlpool|tiger|haval|gost|crc32).*$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">0</ind:instance>
+  </ind:textfilecontent54_object>
+  <linux:rpminfo_state id="oval:ssg-state_rhel_client:ste:1" version="1">
+    <linux:version operation="pattern match">^6.*$</linux:version>
+  </linux:rpminfo_state>
+  <linux:rpminfo_state id="oval:ssg-state_rhel7_server:ste:1" version="1">
+    <linux:version operation="pattern match">^7.*$</linux:version>
+  </linux:rpminfo_state>
+  <linux:rpminfo_test check="all" check_existence="at_least_one_exists" comment="oraclelinux-release is version 7" id="oval:ssg-test_ol7_system:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_ol7_system:obj:1"/>
+    <linux:state state_ref="oval:ssg-state_ol7_system:ste:1"/>
+  </linux:rpminfo_test>
+  <ind:textfilecontent54_state id="oval:ssg-state_aide_use_fips_hashes:ste:1" version="1">
+    <ind:subexpression operation="pattern match">^.*sha512.*$</ind:subexpression>
+  </ind:textfilecontent54_state>
+  <linux:rpminfo_object id="oval:ssg-obj_package_aide_installed:obj:1" version="1">
+    <linux:name>aide</linux:name>
+  </linux:rpminfo_object>
+  <linux:rpminfo_state id="oval:ssg-state_rhel7_client:ste:1" version="1">
+    <linux:version operation="pattern match">^7.*$</linux:version>
+  </linux:rpminfo_state>
+  <linux:rpminfo_object id="oval:ssg-obj_rhel_client:obj:1" version="1">
+    <linux:name>redhat-release-client</linux:name>
+  </linux:rpminfo_object>
+  <definition class="inventory" id="oval:ssg-installed_OS_is_ol7_family:def:1" version="1">
+    <metadata>
+      <title>Oracle Linux 7</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <reference ref_id="cpe:/o:oracle:linux:7" source="CPE"/>
+      <description>The operating system installed on the system is
+      Oracle Linux 7</description>
+      <reference ref_id="installed_OS_is_ol7_family" source="ssg"/>
+    </metadata>
+    <criteria>
+      <extend_definition comment="Installed OS is part of the Unix family" definition_ref="oval:ssg-installed_OS_is_part_of_Unix_family:def:1"/>
+      <criteria operator="OR">
+        <criterion comment="Oracle Linux 7 System is installed" test_ref="oval:ssg-test_ol7_system:tst:1"/>
+      </criteria>
+    </criteria>
+  </definition>
+  <linux:rpminfo_test check="all" check_existence="at_least_one_exists" comment="redhat-release-server is version 7" id="oval:ssg-test_rhel7_server:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_rhel7_server:obj:1"/>
+    <linux:state state_ref="oval:ssg-state_rhel7_server:ste:1"/>
+  </linux:rpminfo_test>
+  <linux:rpminfo_test check="all" check_existence="all_exist" comment="package aide is installed" id="oval:ssg-test_package_aide_installed:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_package_aide_installed:obj:1"/>
+  </linux:rpminfo_test>
+  <linux:rpminfo_test check="all" check_existence="at_least_one_exists" comment="redhat-release-computenode is version 7" id="oval:ssg-test_rhel7_computenode:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_rhel7_computenode:obj:1"/>
+    <linux:state state_ref="oval:ssg-state_rhel7_computenode:ste:1"/>
+  </linux:rpminfo_test>
+  <definition class="compliance" id="oval:ssg-installed_OS_is_FIPS_certified:def:1" version="1">
+    <metadata>
+      <title>FIPS 140-2 Certified Operating System</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>
+          The operating system installed on the system is a certified operating system that meets FIPS 140-2 requirements.
+      </description>
+      <reference ref_id="CCE-80830-3" source="CCE"/>
+      <reference ref_id="installed_OS_is_FIPS_certified" source="ssg"/>
+    </metadata>
+    <criteria comment="Installed operating system is a certified operating system" operator="OR">
+      <extend_definition comment="Installed OS is RHEL6" definition_ref="oval:ssg-installed_OS_is_rhel6:def:1"/>
+      <extend_definition comment="Installed OS is RHEL7" definition_ref="oval:ssg-installed_OS_is_rhel7:def:1"/>
+      <extend_definition comment="Installed OS is OL7" definition_ref="oval:ssg-installed_OS_is_ol7_family:def:1"/>
+    </criteria>
+  </definition>
+  <definition class="inventory" id="oval:ssg-installed_OS_is_part_of_Unix_family:def:1" version="1">
+    <metadata>
+      <title>Installed operating system is part of the Unix family</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The operating system installed on the system is part of the Unix OS family</description>
+      <reference ref_id="installed_OS_is_part_of_Unix_family" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="Installed operating system is part of the unix family" test_ref="oval:ssg-test_unix_family:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:family_object id="oval:ssg-object_unix_family:obj:1" version="1"/>
+  <ind:family_test check="all" check_existence="at_least_one_exists" comment="Test installed OS is part of the unix family" id="oval:ssg-test_unix_family:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_unix_family:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_unix_family:ste:1"/>
+  </ind:family_test>
+  <definition class="compliance" id="oval:ssg-package_aide_installed:def:1" version="1">
+    <metadata>
+      <title>Package aide Installed</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The RPM package aide should be installed.</description>
+      <reference ref_id="CCE-80844-4" source="CCE"/>
+      <reference ref_id="package_aide_installed" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="package aide is installed" test_ref="oval:ssg-test_package_aide_installed:tst:1"/>
+    </criteria>
+  </definition>
+  <linux:rpminfo_state id="oval:ssg-state_rhel_computenode:ste:1" version="1">
+    <linux:version operation="pattern match">^6.*$</linux:version>
+  </linux:rpminfo_state>
+  <linux:rpminfo_object id="oval:ssg-obj_rhel7_workstation:obj:1" version="1">
+    <linux:name>redhat-release-workstation</linux:name>
+  </linux:rpminfo_object>
+  <linux:rpminfo_state id="oval:ssg-state_rhel7_computenode:ste:1" version="1">
+    <linux:version operation="pattern match">^7.*$</linux:version>
+  </linux:rpminfo_state>
+  <ind:textfilecontent54_state id="oval:ssg-state_rhevh_rhel_version:ste:1" version="1">
+    <ind:subexpression operation="pattern match">7</ind:subexpression>
+  </ind:textfilecontent54_state>
+  <linux:rpminfo_object id="oval:ssg-obj_rhel7_server:obj:1" version="1">
+    <linux:name>redhat-release-server</linux:name>
+  </linux:rpminfo_object>
+  <linux:rpminfo_test check="all" check_existence="at_least_one_exists" comment="redhat-release-client is version 6" id="oval:ssg-test_rhel_client:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_rhel_client:obj:1"/>
+    <linux:state state_ref="oval:ssg-state_rhel_client:ste:1"/>
+  </linux:rpminfo_test>
+  <ind:textfilecontent54_object id="oval:ssg-obj_rhevh_rhel_version:obj:1" version="1">
+    <ind:filepath>/etc/redhat-release</ind:filepath>
+    <ind:pattern operation="pattern match">^Red Hat Enterprise Linux release (\d)\.\d+$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" comment="RHEVH base RHEL is version 7" id="oval:ssg-test_rhev_rhel_version:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-obj_rhevh_rhel_version:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_rhevh_rhel_version:ste:1"/>
+  </ind:textfilecontent54_test>
+  <ind:family_state id="oval:ssg-state_unix_family:ste:1" version="1">
+    <ind:family>unix</ind:family>
+  </ind:family_state>
+  <linux:rpminfo_object id="oval:ssg-obj_rhel_workstation:obj:1" version="1">
+    <linux:name>redhat-release-workstation</linux:name>
+  </linux:rpminfo_object>
+</def-group>

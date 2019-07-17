@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-package_opensc_installed:def:1" version="1">
+    <metadata>
+      <title>Package opensc Installed</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The RPM package opensc should be installed.</description>
+      <reference ref_id="CCE-80846-9" source="CCE"/>
+      <reference ref_id="package_opensc_installed" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="package opensc is installed" test_ref="oval:ssg-test_package_opensc_installed:tst:1"/>
+    </criteria>
+  </definition>
+  <linux:rpminfo_object id="oval:ssg-obj_package_opensc_installed:obj:1" version="1">
+    <linux:name>opensc</linux:name>
+  </linux:rpminfo_object>
+  <linux:rpminfo_test check="all" check_existence="all_exist" comment="package opensc is installed" id="oval:ssg-test_package_opensc_installed:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_package_opensc_installed:obj:1"/>
+  </linux:rpminfo_test>
+</def-group>

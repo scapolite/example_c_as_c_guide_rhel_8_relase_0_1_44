@@ -1,0 +1,27 @@
+<ocil-group><questionnaire  id="ocil:ssg-dconf_gnome_login_retries_ocil:questionnaire:1">
+          <title>Set the GNOME3 Login Number of Failures</title>
+          <actions>
+            <test_action_ref>ocil:ssg-dconf_gnome_login_retries_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-dconf_gnome_login_retries_action:testaction:1" question_ref="ocil:ssg-dconf_gnome_login_retries_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-dconf_gnome_login_retries_question:question:1">
+          <question_text>To ensure the login screen resets after a specified number of failures,
+run the following command:
+$ grep allowed-failures /etc/dconf/db/gdm.d/*
+The output should be 3 or less.
+To ensure that users cannot change or configure the resets after a specified
+number of failures on the login screen, run the following:
+$ grep allowed-failures /etc/dconf/db/gdm.d/locks/*
+If properly configured, the output should be /org/gnome/login-screen/allowed-failures
+      Is it the case that allowed-failures is not equal to or less than the expected value?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

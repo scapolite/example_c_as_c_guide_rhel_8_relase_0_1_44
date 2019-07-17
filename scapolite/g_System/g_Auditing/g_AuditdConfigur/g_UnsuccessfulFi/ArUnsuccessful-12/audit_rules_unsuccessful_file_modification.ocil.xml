@@ -1,0 +1,22 @@
+<ocil-group><questionnaire  id="ocil:ssg-audit_rules_unsuccessful_file_modification_ocil:questionnaire:1">
+          <title>Ensure auditd Collects Unauthorized Access Attempts to Files (unsuccessful)</title>
+          <actions>
+            <test_action_ref>ocil:ssg-audit_rules_unsuccessful_file_modification_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-audit_rules_unsuccessful_file_modification_question:question:1">
+          <question_text>To verify that the audit system collects unauthorized file accesses, run the following commands:
+$ sudo grep EACCES /etc/audit/audit.rules
+$ sudo grep EPERM /etc/audit/audit.rules
+      Is it the case that 32-bit and 64-bit system calls to creat, open, openat, open_by_handle_at, truncate, and ftruncate are not audited during EACCES and EPERM?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-audit_rules_unsuccessful_file_modification_action:testaction:1" question_ref="ocil:ssg-audit_rules_unsuccessful_file_modification_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

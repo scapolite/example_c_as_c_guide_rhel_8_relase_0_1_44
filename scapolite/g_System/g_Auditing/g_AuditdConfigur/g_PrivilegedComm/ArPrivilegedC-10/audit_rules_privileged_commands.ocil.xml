@@ -1,0 +1,28 @@
+<ocil-group><questionnaire  id="ocil:ssg-audit_rules_privileged_commands_ocil:questionnaire:1">
+          <title>Ensure auditd Collects Information on the Use of Privileged Commands</title>
+          <actions>
+            <test_action_ref>ocil:ssg-audit_rules_privileged_commands_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-audit_rules_privileged_commands_question:question:1">
+          <question_text>To verify that auditing of privileged command use is configured, run the
+following command for each local partition PART to find relevant
+setuid / setgid programs:
+$ sudo find PART -xdev -type f -perm -4000 -o -type f -perm -2000 2&gt;/dev/null
+Run the following command to verify entries in the audit rules for all programs
+found with the previous command:
+$ sudo grep path /etc/audit/audit.rules
+It should be the case that all relevant setuid / setgid programs have a line
+in the audit rules.
+      Is it the case that it is not the case?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-audit_rules_privileged_commands_action:testaction:1" question_ref="ocil:ssg-audit_rules_privileged_commands_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-accounts_umask_interactive_users_ocil:questionnaire:1">
+          <title>Ensure the Default Umask is Set Correctly For Interactive Users</title>
+          <actions>
+            <test_action_ref>ocil:ssg-accounts_umask_interactive_users_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-accounts_umask_interactive_users_question:question:1">
+          <question_text>Verify the UMASK setting is not configured for interactive users,
+run the following command:
+$ sudo grep -ri "UMASK" /home
+There should be no output.
+      Is it the case that the above command returns no output, or if the umask is configured incorrectly?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-accounts_umask_interactive_users_action:testaction:1" question_ref="ocil:ssg-accounts_umask_interactive_users_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

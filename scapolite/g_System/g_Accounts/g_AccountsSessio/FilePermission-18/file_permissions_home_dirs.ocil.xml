@@ -1,0 +1,21 @@
+<ocil-group><questionnaire  id="ocil:ssg-file_permissions_home_dirs_ocil:questionnaire:1">
+          <title>Ensure that User Home Directories are not Group-Writable or World-Readable</title>
+          <actions>
+            <test_action_ref>ocil:ssg-file_permissions_home_dirs_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-file_permissions_home_dirs_action:testaction:1" question_ref="ocil:ssg-file_permissions_home_dirs_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-file_permissions_home_dirs_question:question:1">
+          <question_text>To ensure the user home directory is not group-writable or world-readable, run the following:
+# ls -ld /home/USER
+      Is it the case that the user home directory is group-writable or world-readable?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

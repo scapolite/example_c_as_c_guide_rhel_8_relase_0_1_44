@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-httpd_encrypt_file_uploads_ocil:questionnaire:1">
+          <title>Encrypt All File Uploads</title>
+          <actions>
+            <test_action_ref>ocil:ssg-httpd_encrypt_file_uploads_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-httpd_encrypt_file_uploads_action:testaction:1" question_ref="ocil:ssg-httpd_encrypt_file_uploads_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-httpd_encrypt_file_uploads_question:question:1">
+          <question_text>Determine if there is a process for the uploading of files to the web site.
+This process should include the requirement for the use of a secure encrypted
+logon and secure encrypted connection. If the remote users are uploading files
+without utilizing approved encryption methods, this is a finding.
+      Is it the case that it is not?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

@@ -1,0 +1,30 @@
+<ocil-group><questionnaire  id="ocil:ssg-selinux_user_login_roles_ocil:questionnaire:1">
+          <title>Map System Users To The Appropriate SELinux Role</title>
+          <actions>
+            <test_action_ref>ocil:ssg-selinux_user_login_roles_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-selinux_user_login_roles_action:testaction:1" question_ref="ocil:ssg-selinux_user_login_roles_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-selinux_user_login_roles_question:question:1">
+          <question_text>To verify the operating system prevents non-privileged users from executing
+privileged functions to include disabling, circumventing, or altering
+implemented security safeguards/countermeasures, run the following
+command:
+$ sudo semanage login -l
+All administrators must be mapped to the sysadm_u or staff_u
+users with the appropriate domains (sysadm_t and staff_t).
+
+All authorized non-administrative
+users must be mapped to the user_u role or the appropriate domain
+(user_t).
+      Is it the case that non-admin users are not confined correctly?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

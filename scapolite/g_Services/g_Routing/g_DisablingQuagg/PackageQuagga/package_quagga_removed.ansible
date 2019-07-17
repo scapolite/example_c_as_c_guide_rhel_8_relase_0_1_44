@@ -1,0 +1,14 @@
+- name: Ensure quagga is removed
+  package:
+    name: quagga
+    state: absent
+  tags:
+    - package_quagga_removed
+    - medium_severity
+    - disable_strategy
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+    - NIST-800-53-SC-32
+
+              

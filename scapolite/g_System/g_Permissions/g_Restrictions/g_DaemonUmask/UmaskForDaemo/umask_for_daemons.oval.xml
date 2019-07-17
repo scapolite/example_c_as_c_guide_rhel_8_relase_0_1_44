@@ -1,0 +1,123 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-var_second_digit_of_umask_from_var_umask_for_daemons:var:1'
+- 'oval:ssg-var_umask_for_daemons_umask_as_number:var:1'
+- 'oval:ssg-var_first_digit_of_umask_from_var_umask_for_daemons:var:1'
+- 'oval:ssg-test_existence_of_var_umask_for_daemons_as_number_variable:tst:1'
+- 'oval:ssg-var_umask_for_daemons:var:1'
+- 'oval:ssg-var_third_digit_of_umask_from_var_umask_for_daemons:var:1'
+- 'oval:ssg-object_var_umask_for_daemons_umask_as_number:obj:1'  -->
+  <definition class="compliance" id="oval:ssg-umask_for_daemons:def:1" version="2">
+    <metadata>
+      <title>Set Daemon umask</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The daemon umask should be set as appropriate</description>
+      <reference ref_id="umask_for_daemons" source="ssg"/>
+    </metadata>
+    <criteria operator="AND">
+      <extend_definition comment="Get value of var_accounts_user_umask variable as octal number" definition_ref="oval:ssg-var_umask_for_daemons_as_number:def:1"/>
+      <criterion test_ref="oval:ssg-tst_umask_for_daemons:tst:1"/>
+    </criteria>
+  </definition>
+  <definition class="compliance" id="oval:ssg-var_umask_for_daemons_as_number:def:1" version="1">
+    <metadata>
+      <title>Value of 'var_umask_for_daemons' variable represented as octal number</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Value of 'var_umask_for_daemons' variable represented as octal number</description>
+      <reference ref_id="var_umask_for_daemons_as_number" source="ssg"/>
+    </metadata>
+    <criteria operator="AND">
+      <criterion test_ref="oval:ssg-test_existence_of_var_umask_for_daemons_as_number_variable:tst:1"/>
+    </criteria>
+  </definition>
+  <local_variable comment="/etc/init.d/functions umask converted from string to a number" datatype="int" id="oval:ssg-var_etc_init_d_functions_umask_as_number:var:1" version="1">
+    <arithmetic arithmetic_operation="add">
+      <arithmetic arithmetic_operation="multiply">
+        <literal_component datatype="int">64</literal_component>
+        <variable_component var_ref="oval:ssg-var_first_digit_of_umask_from_etc_init_d_functions:var:1"/>
+      </arithmetic>
+      <arithmetic arithmetic_operation="multiply">
+        <literal_component datatype="int">8</literal_component>
+        <variable_component var_ref="oval:ssg-var_second_digit_of_umask_from_etc_init_d_functions:var:1"/>
+      </arithmetic>
+      <variable_component var_ref="oval:ssg-var_third_digit_of_umask_from_etc_init_d_functions:var:1"/>
+    </arithmetic>
+  </local_variable>
+  <local_variable comment="Second octal digit of umask from var_umask_for_daemons" datatype="int" id="oval:ssg-var_second_digit_of_umask_from_var_umask_for_daemons:var:1" version="1">
+    <substring substring_length="1" substring_start="2">
+      <variable_component var_ref="oval:ssg-var_umask_for_daemons:var:1"/>
+    </substring>
+  </local_variable>
+  <local_variable comment="var_umask_for_daemons umask converted from string to a number" datatype="int" id="oval:ssg-var_umask_for_daemons_umask_as_number:var:1" version="1">
+    <arithmetic arithmetic_operation="add">
+      <arithmetic arithmetic_operation="multiply">
+        <literal_component datatype="int">64</literal_component>
+        <variable_component var_ref="oval:ssg-var_first_digit_of_umask_from_var_umask_for_daemons:var:1"/>
+      </arithmetic>
+      <arithmetic arithmetic_operation="multiply">
+        <literal_component datatype="int">8</literal_component>
+        <variable_component var_ref="oval:ssg-var_second_digit_of_umask_from_var_umask_for_daemons:var:1"/>
+      </arithmetic>
+      <variable_component var_ref="oval:ssg-var_third_digit_of_umask_from_var_umask_for_daemons:var:1"/>
+    </arithmetic>
+  </local_variable>
+  <local_variable comment="First octal digit of umask from var_umask_for_daemons" datatype="int" id="oval:ssg-var_first_digit_of_umask_from_var_umask_for_daemons:var:1" version="1">
+    <substring substring_length="1" substring_start="1">
+      <variable_component var_ref="oval:ssg-var_umask_for_daemons:var:1"/>
+    </substring>
+  </local_variable>
+  <local_variable comment="Second octal digit of umask from /etc/init.d/functions" datatype="int" id="oval:ssg-var_second_digit_of_umask_from_etc_init_d_functions:var:1" version="1">
+    <substring substring_length="1" substring_start="2">
+      <object_component item_field="subexpression" object_ref="oval:ssg-obj_umask_from_etc_init_d_functions:obj:1"/>
+    </substring>
+  </local_variable>
+  <ind:variable_state id="oval:ssg-ste_umask_for_daemons:ste:1" version="1">
+    <ind:value datatype="int" operation="bitwise and" var_ref="oval:ssg-var_umask_for_daemons_umask_as_number:var:1"/>
+  </ind:variable_state>
+  <local_variable comment="First octal digit of umask from /etc/init.d/functions" datatype="int" id="oval:ssg-var_first_digit_of_umask_from_etc_init_d_functions:var:1" version="1">
+    <substring substring_length="1" substring_start="1">
+      <object_component item_field="subexpression" object_ref="oval:ssg-obj_umask_from_etc_init_d_functions:obj:1"/>
+    </substring>
+  </local_variable>
+  <ind:textfilecontent54_object comment="Umask value from /etc/init.d/functions" id="oval:ssg-obj_umask_from_etc_init_d_functions:obj:1" version="1">
+    <ind:filepath>/etc/init.d/functions</ind:filepath>
+    <ind:pattern operation="pattern match">^[\s]*(?i)UMASK(?-i)[\s]+([^#\s]*)</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:variable_test check="all" check_existence="at_least_one_exists" comment="Verify the existence of var_umask_for_daemons_as_number variable" id="oval:ssg-test_existence_of_var_umask_for_daemons_as_number_variable:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_var_umask_for_daemons_umask_as_number:obj:1"/>
+  </ind:variable_test>
+  <local_variable comment="Third octal digit of umask from /etc/init.d/functions" datatype="int" id="oval:ssg-var_third_digit_of_umask_from_etc_init_d_functions:var:1" version="1">
+    <substring substring_length="1" substring_start="3">
+      <object_component item_field="subexpression" object_ref="oval:ssg-obj_umask_from_etc_init_d_functions:obj:1"/>
+    </substring>
+  </local_variable>
+  <external_variable comment="Value of var_umask_for_daemons (the required umask) as string" datatype="string" id="oval:ssg-var_umask_for_daemons:var:1" version="1"/>
+  <ind:variable_object id="oval:ssg-obj_umask_for_daemons:obj:1" version="1">
+    <ind:var_ref>oval:ssg-var_etc_init_d_functions_umask_as_number:var:1</ind:var_ref>
+  </ind:variable_object>
+  <ind:variable_test check="all" comment="Test the retrieved /etc/init.d/functions umask value(s) match the var_umask_for_daemons requirement" id="oval:ssg-tst_umask_for_daemons:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-obj_umask_for_daemons:obj:1"/>
+    <ind:state state_ref="oval:ssg-ste_umask_for_daemons:ste:1"/>
+  </ind:variable_test>
+  <local_variable comment="Third octal digit of umask from var_umask_for_daemons" datatype="int" id="oval:ssg-var_third_digit_of_umask_from_var_umask_for_daemons:var:1" version="1">
+    <substring substring_length="1" substring_start="3">
+      <variable_component var_ref="oval:ssg-var_umask_for_daemons:var:1"/>
+    </substring>
+  </local_variable>
+  <ind:variable_object id="oval:ssg-object_var_umask_for_daemons_umask_as_number:obj:1" version="1">
+    <ind:var_ref>oval:ssg-var_umask_for_daemons_umask_as_number:var:1</ind:var_ref>
+  </ind:variable_object>
+</def-group>

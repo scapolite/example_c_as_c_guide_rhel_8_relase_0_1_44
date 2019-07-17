@@ -1,0 +1,3 @@
+echo > /etc/securetty
+
+                

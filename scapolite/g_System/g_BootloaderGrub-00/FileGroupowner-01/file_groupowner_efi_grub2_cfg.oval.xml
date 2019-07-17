@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-system_boot_mode_is_uefi:def:1'
+- 'oval:ssg-object_file_sys_firmware_efi:obj:1'
+- 'oval:ssg-test_efi_dir_existence:tst:1'  -->
+  <definition class="compliance" id="oval:ssg-file_groupowner_efi_grub2_cfg:def:1" version="1">
+    <metadata>
+      <title>Verify the UEFI Boot Loader grub.cfg Group Owner</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Verify that UEFI Boot Loader grub.cfg is group owned by 0.</description>
+      <reference ref_id="file_groupowner_efi_grub2_cfg" source="ssg"/>
+    </metadata>
+    <criteria operator="OR">
+      <extend_definition comment="Pass if system boot mode is not UEFI" definition_ref="oval:ssg-system_boot_mode_is_uefi:def:1" negate="true"/>
+      <criterion comment="Check file group ownership of /boot/efi/EFI/redhat/grub.cfg" test_ref="oval:ssg-test_file_groupowner_efi_grub2_cfg:tst:1"/>
+    </criteria>
+  </definition>
+  <unix:file_object comment="/boot/efi/EFI/redhat/grub.cfg" id="oval:ssg-object_file_groupowner_efi_grub2_cfg:obj:1" version="1">
+    <unix:filepath operation="pattern match">^/boot/efi/EFI/(redhat|fedora)/grub.cfg$</unix:filepath>
+  </unix:file_object>
+  <definition class="compliance" id="oval:ssg-system_boot_mode_is_uefi:def:1" version="1">
+    <metadata>
+      <title>UEFI system boot mode check</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Check if system boot mode is UEFI.</description>
+      <reference ref_id="system_boot_mode_is_uefi" source="ssg"/>
+    </metadata>
+    <criteria operator="AND">
+      <criterion comment="check if /sys/firmware/efi folder exists" test_ref="oval:ssg-test_efi_dir_existence:tst:1"/>
+    </criteria>
+  </definition>
+  <unix:file_object comment="/sys/firmware/efi" id="oval:ssg-object_file_sys_firmware_efi:obj:1" version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <unix:path>/sys/firmware/efi</unix:path>
+    <unix:filename xsi:nil="true"/>
+  </unix:file_object>
+  <unix:file_state id="oval:ssg-state_file_groupowner_efi_grub2_cfg_gid_0:ste:1" version="1">
+    <unix:group_id datatype="int">0</unix:group_id>
+  </unix:file_state>
+  <unix:file_test check="all" check_existence="all_exist" comment="Verify group ownership of /boot/efi/EFI/redhat/grub.cfg" id="oval:ssg-test_file_groupowner_efi_grub2_cfg:tst:1" version="1">
+    <unix:object object_ref="oval:ssg-object_file_groupowner_efi_grub2_cfg:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_file_groupowner_efi_grub2_cfg_gid_0:ste:1"/>
+  </unix:file_test>
+  <unix:file_test check="all" check_existence="at_least_one_exists" comment="Verify if /sys/firmware/efi folder exists" id="oval:ssg-test_efi_dir_existence:tst:1" version="1">
+    <unix:object object_ref="oval:ssg-object_file_sys_firmware_efi:obj:1"/>
+  </unix:file_test>
+</def-group>

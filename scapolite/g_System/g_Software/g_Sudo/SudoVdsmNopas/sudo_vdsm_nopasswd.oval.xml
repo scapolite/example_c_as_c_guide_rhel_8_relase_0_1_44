@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-sudo_vdsm_nopasswd:def:1" version="1">
+    <metadata>
+      <title>Ensure NOPASSWD Is Used Only for the VDSM User in Sudo</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Checks sudo usage for the vdsm user without a password</description>
+      <reference ref_id="sudo_vdsm_nopasswd" source="ssg"/>
+    </metadata>
+    <criteria operator="AND">
+      <criterion comment="NOPASSWD only exists for vdsm user in /etc/sudoers" test_ref="oval:ssg-test_vdsm_nopasswd_etc_sudoers:tst:1"/>
+      <criterion comment="NOPASSWD only exists for vdsm user in /etc/sudoers.d" test_ref="oval:ssg-test_vdsm_nopasswd_etc_sudoers_d:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_object id="oval:ssg-object_vdsm_nopasswd_etc_sudoers:obj:1" version="1">
+    <ind:filepath>/etc/sudoers</ind:filepath>
+    <ind:pattern operation="pattern match">^(?!(#|vdsm.*)).*[\s]+NOPASSWD[\s]*\:.*$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" check_existence="none_exist" comment="NOPASSWD only exists for vdsm user in /etc/sudoers" id="oval:ssg-test_vdsm_nopasswd_etc_sudoers:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_vdsm_nopasswd_etc_sudoers:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object id="oval:ssg-object_vdsm_nopasswd_etc_sudoers_d:obj:1" version="1">
+    <ind:path>/etc/sudoers.d</ind:path>
+    <ind:filename operation="pattern match">^.*$</ind:filename>
+    <ind:pattern operation="pattern match">^(?!(#|vdsm.*)).*[\s]+NOPASSWD[\s]*\:.*$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" check_existence="none_exist" comment="NOPASSWD only exists for vdsm user in /etc/sudoers.d" id="oval:ssg-test_vdsm_nopasswd_etc_sudoers_d:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_vdsm_nopasswd_etc_sudoers_d:obj:1"/>
+  </ind:textfilecontent54_test>
+</def-group>

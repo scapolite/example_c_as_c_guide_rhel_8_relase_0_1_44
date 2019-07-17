@@ -1,0 +1,21 @@
+<ocil-group><questionnaire  id="ocil:ssg-accounts_minimum_age_login_defs_ocil:questionnaire:1">
+          <title>Set Password Minimum Age</title>
+          <actions>
+            <test_action_ref>ocil:ssg-accounts_minimum_age_login_defs_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-accounts_minimum_age_login_defs_question:question:1">
+          <question_text>To check the minimum password age, run the command:
+$ grep PASS_MIN_DAYS /etc/login.defs
+      Is it the case that it is not equal to or greater than the required value?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-accounts_minimum_age_login_defs_action:testaction:1" question_ref="ocil:ssg-accounts_minimum_age_login_defs_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

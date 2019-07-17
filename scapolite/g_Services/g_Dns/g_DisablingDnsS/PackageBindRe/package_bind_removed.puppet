@@ -1,0 +1,9 @@
+include remove_bind
+
+class remove_bind {
+  package { 'bind':
+    ensure => 'purged',
+  }
+}
+
+              

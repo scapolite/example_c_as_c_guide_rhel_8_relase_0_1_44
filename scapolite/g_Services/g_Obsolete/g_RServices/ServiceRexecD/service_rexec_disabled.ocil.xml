@@ -1,0 +1,46 @@
+<ocil-group><questionnaire  id="ocil:ssg-service_rexec_disabled_ocil:questionnaire:1">
+          <title>Disable rexec Service</title>
+          <actions>
+            <test_action_ref>ocil:ssg-service_rexec_disabled_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-service_rexec_disabled_question:question:1">
+          <question_text>
+To check that the rexec service is disabled in system boot configuration with xinetd, run the following command:
+$ chkconfig rexec --list
+Output should indicate the rexec service has either not been installed, or has been disabled, as shown in the example below:
+$ chkconfig rexec --list
+
+Note: This output shows SysV services only and does not include native
+systemd services. SysV configuration data might be overridden by native
+systemd configuration.
+
+If you want to list systemd services use 'systemctl list-unit-files'.
+To see services enabled on particular target use
+'systemctl list-dependencies [target]'.
+
+rexec       off
+
+To check that the rexec socket is disabled in system boot configuration with systemd, run the following command:
+$ systemctl is-enabled rexec
+Output should indicate the rexec socket has either not been installed,
+or has been disabled at all runlevels, as shown in the example below:
+$ systemctl is-enabled rexecdisabled
+
+Run the following command to verify rexec is not active (i.e. not running) through current runtime configuration:
+systemctl is-active rexec
+
+If the socket is not running the command will return the following output:
+inactive
+      Is it the case that service and/or socket are running?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-service_rexec_disabled_action:testaction:1" question_ref="ocil:ssg-service_rexec_disabled_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

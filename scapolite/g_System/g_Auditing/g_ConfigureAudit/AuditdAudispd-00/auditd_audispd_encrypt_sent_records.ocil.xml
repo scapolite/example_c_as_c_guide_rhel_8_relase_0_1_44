@@ -1,0 +1,25 @@
+<ocil-group><questionnaire  id="ocil:ssg-auditd_audispd_encrypt_sent_records_ocil:questionnaire:1">
+          <title>Encrypt Audit Records Sent With audispd Plugin</title>
+          <actions>
+            <test_action_ref>ocil:ssg-auditd_audispd_encrypt_sent_records_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-auditd_audispd_encrypt_sent_records_action:testaction:1" question_ref="ocil:ssg-auditd_audispd_encrypt_sent_records_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-auditd_audispd_encrypt_sent_records_question:question:1">
+          <question_text>To verify the audispd plugin encrypts audit records off-loaded onto a different
+system or media from the system being audited, run the following command:
+
+$ sudo grep -i transport /etc/audit/audisp-remote.conf
+The output should return the following:
+transport = KRB5
+      Is it the case that audispd is not encrypting audit records when sent over the network?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

@@ -1,0 +1,27 @@
+<ocil-group><questionnaire  id="ocil:ssg-no_files_unowned_by_user_ocil:questionnaire:1">
+          <title>Ensure All Files Are Owned by a User</title>
+          <actions>
+            <test_action_ref>ocil:ssg-no_files_unowned_by_user_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-no_files_unowned_by_user_question:question:1">
+          <question_text>The following command will discover and print any
+files on local partitions which do not belong to a valid user.
+$ sudo find / -xdev -fstype local -nouser
+
+Either remove all files and directories from the system that do not have a
+valid user, or assign a valid user to all unowned files and directories on
+the system with the chown command:
+$ sudo chown user file
+      Is it the case that files exist that are not owned by a valid user?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-no_files_unowned_by_user_action:testaction:1" question_ref="ocil:ssg-no_files_unowned_by_user_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

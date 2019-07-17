@@ -1,0 +1,25 @@
+<ocil-group><questionnaire  id="ocil:ssg-audit_rules_mac_modification_ocil:questionnaire:1">
+          <title>Record Events that Modify the System's Mandatory Access Controls</title>
+          <actions>
+            <test_action_ref>ocil:ssg-audit_rules_mac_modification_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-audit_rules_mac_modification_question:question:1">
+          <question_text>To determine if the system is configured to audit changes to its SELinux
+configuration files, run the following command:
+$ sudo auditctl -l | grep "dir=/etc/selinux"
+If the system is configured to watch for changes to its SELinux
+configuration, a line should be returned (including
+perm=wa indicating permissions that are watched).
+      Is it the case that the system is not configured to audit attempts to change the MAC policy?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-audit_rules_mac_modification_action:testaction:1" question_ref="ocil:ssg-audit_rules_mac_modification_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

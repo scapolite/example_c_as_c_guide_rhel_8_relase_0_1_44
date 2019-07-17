@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-configure_openssl_crypto_policy_ocil:questionnaire:1">
+          <title>Configure OpenSSL library to use System Crypto Policy</title>
+          <actions>
+            <test_action_ref>ocil:ssg-configure_openssl_crypto_policy_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-configure_openssl_crypto_policy_question:question:1">
+          <question_text>To verify that OpenSSL uses the system crypro policy, check out that the OpenSSL config file
+/etc/pki/tls/openssl.cnf contains the [ crypto_policy ] section with the
+.include /etc/crypto-policies/back-ends/openssl.config directive:
+grep '\.include\s* /etc/crypto-policies/back-ends/openssl.config$' /etc/pki/tls/openssl.cnf.
+      Is it the case that the OpenSSL config file doesn't contain the whole section,
+or that the section doesn't have the &lt;pre&gt;.include /etc/crypto-policies/back-ends/openssl.config&lt;/pre&gt; directive?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-configure_openssl_crypto_policy_action:testaction:1" question_ref="ocil:ssg-configure_openssl_crypto_policy_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

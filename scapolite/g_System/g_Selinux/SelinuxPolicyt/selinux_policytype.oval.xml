@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-selinux_policytype:def:1" version="1">
+    <metadata>
+      <title>Enable SELinux</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The SELinux policy should be set appropriately.</description>
+      <reference ref_id="CCE-80868-3" source="CCE"/>
+      <reference ref_id="selinux_policytype" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion test_ref="oval:ssg-test_selinux_policy:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_state id="oval:ssg-state_selinux_policy:ste:1" version="1">
+    <ind:subexpression operation="equals" var_check="all" var_ref="oval:ssg-var_selinux_policy_name:var:1"/>
+  </ind:textfilecontent54_state>
+  <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="Tests the value of the ^[\s]*SELINUXTYPE[\s]*=[\s]*([^#]*) expression in the /etc/selinux/config file" id="oval:ssg-test_selinux_policy:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-obj_selinux_policy:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_selinux_policy:ste:1"/>
+  </ind:textfilecontent54_test>
+  <external_variable comment="External variable: name of selinux policy in /etc/selinux/config" datatype="string" id="oval:ssg-var_selinux_policy_name:var:1" version="1"/>
+  <ind:textfilecontent54_object id="oval:ssg-obj_selinux_policy:obj:1" version="1">
+    <ind:filepath>/etc/selinux/config</ind:filepath>
+    <ind:pattern operation="pattern match">^[\s]*SELINUXTYPE[\s]*=[\s]*([^\s]*)</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+</def-group>

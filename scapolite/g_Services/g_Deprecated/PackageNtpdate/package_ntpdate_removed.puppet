@@ -1,0 +1,9 @@
+include remove_ntpdate
+
+class remove_ntpdate {
+  package { 'ntpdate':
+    ensure => 'purged',
+  }
+}
+
+            

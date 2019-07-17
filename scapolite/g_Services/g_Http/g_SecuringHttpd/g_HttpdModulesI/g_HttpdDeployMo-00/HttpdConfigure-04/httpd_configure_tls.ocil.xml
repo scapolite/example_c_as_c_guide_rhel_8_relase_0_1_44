@@ -1,0 +1,27 @@
+<ocil-group><questionnaire  id="ocil:ssg-httpd_configure_tls_ocil:questionnaire:1">
+          <title>Enable Transport Layer Security (TLS) Encryption</title>
+          <actions>
+            <test_action_ref>ocil:ssg-httpd_configure_tls_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-httpd_configure_tls_action:testaction:1" question_ref="ocil:ssg-httpd_configure_tls_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-httpd_configure_tls_question:question:1">
+          <question_text>To verify that TLS is configured properly in
+/etc/httpd/conf.modules.d/ssl.conf, run the following command:
+$ grep -i "sslengine\|sslprotocol" /etc/httpd/conf.d/ssl.conf
+The output should return the following:
+
+SSLEngine on
+SSLProtocol all -SSLv2 -SSLv3 -TLSv1 -TLSv1.1
+
+      Is it the case that it is not?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

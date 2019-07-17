@@ -1,0 +1,18 @@
+- name: XCCDF Value var_accounts_fail_delay # promote to variable
+  set_fact:
+    var_accounts_fail_delay: !!str <sub idref="org.ssgproject.RHEL-8:var_accounts_fail_delay" use="legacy"/>
+  tags:
+    - always
+
+- name: Set accounts logon fail delay
+  lineinfile:
+    dest: /etc/login.defs
+    regexp: ^FAIL_DELAY
+    line: FAIL_DELAY {{ var_accounts_fail_delay }}
+  tags:
+    - accounts_logon_fail_delay
+    - low_severity
+    - NIST-800-53-AC-7(b)
+    - NIST-800-53-CM-6(b)
+
+              

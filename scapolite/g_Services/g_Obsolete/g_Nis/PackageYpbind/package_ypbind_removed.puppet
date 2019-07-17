@@ -1,0 +1,9 @@
+include remove_ypbind
+
+class remove_ypbind {
+  package { 'ypbind':
+    ensure => 'purged',
+  }
+}
+
+              

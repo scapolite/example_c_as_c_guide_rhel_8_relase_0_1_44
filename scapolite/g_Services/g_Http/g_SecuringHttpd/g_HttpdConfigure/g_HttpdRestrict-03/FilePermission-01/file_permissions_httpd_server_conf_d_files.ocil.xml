@@ -1,0 +1,20 @@
+<ocil-group><questionnaire  id="ocil:ssg-file_permissions_httpd_server_conf_d_files_ocil:questionnaire:1">
+          <title>Set Permissions on All Configuration Files Inside /etc/httpd/conf.d/</title>
+          <actions>
+            <test_action_ref>ocil:ssg-file_permissions_httpd_server_conf_d_files_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-file_permissions_httpd_server_conf_d_files_action:testaction:1" question_ref="ocil:ssg-file_permissions_httpd_server_conf_d_files_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-file_permissions_httpd_server_conf_d_files_question:question:1">
+          <question_text>To check the permissions of /etc/http/conf.d/*, run the command: $ ls -l /etc/http/conf.d/* If properly configured, the output should indicate the following permissions: -rw-r-----
+      Is it the case that /etc/http/conf.d/* has unix mode -rw-r-----?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

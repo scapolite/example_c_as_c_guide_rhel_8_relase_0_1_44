@@ -1,0 +1,9 @@
+include remove_talk
+
+class remove_talk {
+  package { 'talk':
+    ensure => 'purged',
+  }
+}
+
+              

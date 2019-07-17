@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-httpd_disable_anonymous_ftp_access_ocil:questionnaire:1">
+          <title>Disable Anonymous FTP Access</title>
+          <actions>
+            <test_action_ref>ocil:ssg-httpd_disable_anonymous_ftp_access_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-httpd_disable_anonymous_ftp_access_question:question:1">
+          <question_text>Locate the directories containing the CGI scripts. These directories should be
+language-specific (e.g., PERL, ASP, JS, JSP, etc.). Examine the file permissions
+on the directories using the following command:
+ls -l directories
+Anonymous FTP users must not have access to these directories.
+      Is it the case that it is not?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-httpd_disable_anonymous_ftp_access_action:testaction:1" question_ref="ocil:ssg-httpd_disable_anonymous_ftp_access_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-package_tftp_removed:def:1" version="1">
+    <metadata>
+      <title>Package tftp Removed</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The RPM package tftp should be removed.</description>
+      <reference ref_id="package_tftp_removed" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="package tftp is removed" test_ref="oval:ssg-test_package_tftp_removed:tst:1"/>
+    </criteria>
+  </definition>
+  <linux:rpminfo_object id="oval:ssg-obj_package_tftp_removed:obj:1" version="1">
+    <linux:name>tftp</linux:name>
+  </linux:rpminfo_object>
+  <linux:rpminfo_test check="all" check_existence="none_exist" comment="package tftp is removed" id="oval:ssg-test_package_tftp_removed:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_package_tftp_removed:obj:1"/>
+  </linux:rpminfo_test>
+</def-group>

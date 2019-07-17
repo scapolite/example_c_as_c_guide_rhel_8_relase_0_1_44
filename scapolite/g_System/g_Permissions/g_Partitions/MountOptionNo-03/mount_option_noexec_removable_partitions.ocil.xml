@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-mount_option_noexec_removable_partitions_ocil:questionnaire:1">
+          <title>Add noexec Option to Removable Media Partitions</title>
+          <actions>
+            <test_action_ref>ocil:ssg-mount_option_noexec_removable_partitions_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-mount_option_noexec_removable_partitions_action:testaction:1" question_ref="ocil:ssg-mount_option_noexec_removable_partitions_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-mount_option_noexec_removable_partitions_question:question:1">
+          <question_text>To verify that binaries cannot be directly executed from removable media, run the following command:
+$ grep -v noexec /etc/fstab
+The resulting output will show partitions which do not have the noexec flag. Verify all partitions
+in the output are not removable media.
+      Is it the case that removable media partitions are present?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

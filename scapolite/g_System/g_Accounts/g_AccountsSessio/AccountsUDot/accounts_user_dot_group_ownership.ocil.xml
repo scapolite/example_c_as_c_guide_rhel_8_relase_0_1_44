@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-accounts_user_dot_group_ownership_ocil:questionnaire:1">
+          <title>User Initialization Files Must Be Group-Owned By The Primary User</title>
+          <actions>
+            <test_action_ref>ocil:ssg-accounts_user_dot_group_ownership_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-accounts_user_dot_group_ownership_question:question:1">
+          <question_text>To verify the local initialization files of all local interactive users are group-
+owned by the appropriate user, inspect the primary group of the respective
+users in /etc/passwd and verify all initialization files under the
+respective users home directory. Check the group owner of all local interactive users
+initialization files.
+      Is it the case that they are not?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-accounts_user_dot_group_ownership_action:testaction:1" question_ref="ocil:ssg-accounts_user_dot_group_ownership_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

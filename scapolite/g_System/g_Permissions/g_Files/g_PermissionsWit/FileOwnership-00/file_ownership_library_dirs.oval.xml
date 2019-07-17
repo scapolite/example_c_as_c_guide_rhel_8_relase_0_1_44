@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-file_ownership_library_dirs:def:1" version="1">
+    <metadata>
+      <title>Verify that Shared Library Files Have Root Ownership</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>
+        Checks that /lib, /lib64, /usr/lib, /usr/lib64, /lib/modules, and
+        objects therein, are owned by root.
+      </description>
+      <reference ref_id="CCE-80807-1" source="CCE"/>
+      <reference ref_id="file_ownership_library_dirs" source="ssg"/>
+    </metadata>
+    <criteria operator="AND">
+      <criterion test_ref="oval:ssg-test_ownership_lib_dir:tst:1"/>
+      <criterion test_ref="oval:ssg-test_ownership_lib_files:tst:1"/>
+    </criteria>
+  </definition>
+  <unix:file_object comment="library directories" id="oval:ssg-object_file_ownership_lib_dir:obj:1" version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <unix:path operation="pattern match">^\/lib(|64)\/|^\/usr\/lib(|64)\/</unix:path>
+    <unix:filename xsi:nil="true"/>
+    <filter action="include">oval:ssg-state_owner_libraries_not_root:ste:1</filter>
+  </unix:file_object>
+  <unix:file_object comment="library files" id="oval:ssg-object_file_ownership_lib_files:obj:1" version="1">
+    <unix:path operation="pattern match">^\/lib(|64)\/|^\/usr\/lib(|64)\/</unix:path>
+    <unix:filename operation="pattern match">^.*$</unix:filename>
+    <filter action="include">oval:ssg-state_owner_libraries_not_root:ste:1</filter>
+  </unix:file_object>
+  <unix:file_state id="oval:ssg-state_owner_libraries_not_root:ste:1" version="1">
+    <unix:user_id datatype="int" operation="not equal">0</unix:user_id>
+  </unix:file_state>
+  <unix:file_test check="all" check_existence="none_exist" comment="library directories uid root" id="oval:ssg-test_ownership_lib_dir:tst:1" version="1">
+    <unix:object object_ref="oval:ssg-object_file_ownership_lib_dir:obj:1"/>
+  </unix:file_test>
+  <unix:file_test check="all" check_existence="none_exist" comment="library files uid root" id="oval:ssg-test_ownership_lib_files:tst:1" version="1">
+    <unix:object object_ref="oval:ssg-object_file_ownership_lib_files:obj:1"/>
+  </unix:file_test>
+</def-group>

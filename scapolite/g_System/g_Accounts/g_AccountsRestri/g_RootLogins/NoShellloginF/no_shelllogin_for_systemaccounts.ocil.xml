@@ -1,0 +1,25 @@
+<ocil-group><questionnaire  id="ocil:ssg-no_shelllogin_for_systemaccounts_ocil:questionnaire:1">
+          <title>Ensure that System Accounts Do Not Run a Shell Upon Login</title>
+          <actions>
+            <test_action_ref>ocil:ssg-no_shelllogin_for_systemaccounts_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-no_shelllogin_for_systemaccounts_question:question:1">
+          <question_text>To obtain a listing of all users, their UIDs, and their shells, run the
+command: $ awk -F: '{print $1 ":" $3 ":" $7}' /etc/passwd Identify
+the system accounts from this listing. These will primarily be the accounts
+with UID numbers less than UID_MIN, other than root. Value of the UID_MIN
+directive is set in /etc/login.defs configuration file. In the default
+configuration UID_MIN is set to 1000.
+      Is it the case that any system account (other than root) has a login shell?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-no_shelllogin_for_systemaccounts_action:testaction:1" question_ref="ocil:ssg-no_shelllogin_for_systemaccounts_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

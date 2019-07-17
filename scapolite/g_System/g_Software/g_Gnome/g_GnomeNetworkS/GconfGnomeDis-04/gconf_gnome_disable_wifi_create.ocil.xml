@@ -1,0 +1,22 @@
+<ocil-group><questionnaire  id="ocil:ssg-gconf_gnome_disable_wifi_create_ocil:questionnaire:1">
+          <title>Disable WIFI Network Connection Creation in GNOME</title>
+          <actions>
+            <test_action_ref>ocil:ssg-gconf_gnome_disable_wifi_create_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-gconf_gnome_disable_wifi_create_question:question:1">
+          <question_text>To ensure that WIFI connections cannot be created, run the following command:
+$ gconftool-2 -g /apps/nm-applet/disable-wifi-create
+The output should return true.
+      Is it the case that WIFI connections can be created through GNOME?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-gconf_gnome_disable_wifi_create_action:testaction:1" question_ref="ocil:ssg-gconf_gnome_disable_wifi_create_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

@@ -1,0 +1,171 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-sshd_required:var:1'
+- 'oval:ssg-sshd_not_required_or_unset:def:1'
+- 'oval:ssg-obj_package_openssh-server_installed:obj:1'
+- 'oval:ssg-package_openssh-server_installed:def:1'
+- 'oval:ssg-sshd_requirement_unset:def:1'
+- 'oval:ssg-sshd_required_or_unset:def:1'
+- 'oval:ssg-test_package_openssh-server_removed:tst:1'
+- 'oval:ssg-object_sshd_requirement_unknown:obj:1'
+- 'oval:ssg-test_sshd_requirement_unset:tst:1'
+- 'oval:ssg-test_package_openssh-server_installed:tst:1'
+- 'oval:ssg-test_sshd_not_required:tst:1'
+- 'oval:ssg-object_sshd_required:obj:1'
+- 'oval:ssg-state_sshd_not_required:ste:1'
+- 'oval:ssg-state_sshd_required:ste:1'
+- 'oval:ssg-obj_package_openssh-server_removed:obj:1'
+- 'oval:ssg-state_sshd_requirement_unset:ste:1'
+- 'oval:ssg-object_sshd_not_required:obj:1'
+- 'oval:ssg-test_sshd_required:tst:1'
+- 'oval:ssg-package_openssh-server_removed:def:1'  -->
+  <definition class="compliance" id="oval:ssg-sshd_use_priv_separation:def:1" version="1">
+    <metadata>
+      <title>Use Priviledge Separation</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Use priviledge separation to cause the SSH process to drop
+root privileges when not needed.</description>
+      <reference ref_id="CCE-80908-7" source="CCE"/>
+      <reference ref_id="sshd_use_priv_separation" source="ssg"/>
+    </metadata>
+    <criteria comment="SSH is configured correctly or is not installed" operator="OR">
+      <criteria comment="sshd is not installed" operator="AND">
+        <extend_definition comment="sshd is not required or requirement is unset" definition_ref="oval:ssg-sshd_not_required_or_unset:def:1"/>
+        <extend_definition comment="rpm package openssh-server removed" definition_ref="oval:ssg-package_openssh-server_removed:def:1"/>
+      </criteria>
+      <criteria comment="sshd is installed and configured" operator="AND">
+        <extend_definition comment="sshd is required or requirement is unset" definition_ref="oval:ssg-sshd_required_or_unset:def:1"/>
+        <extend_definition comment="rpm package openssh-server installed" definition_ref="oval:ssg-package_openssh-server_installed:def:1"/>
+        <criterion comment="Check UsePrivilegeSeparation in /etc/ssh/sshd_config" test_ref="oval:ssg-test_sshd_use_priv_separation:tst:1"/>
+      </criteria>
+    </criteria>
+  </definition>
+  <external_variable comment="May be defined by Profiles to explicitly say if sshd is required or not" datatype="int" id="oval:ssg-sshd_required:var:1" version="1"/>
+  <definition class="compliance" id="oval:ssg-sshd_not_required_or_unset:def:1" version="1">
+    <metadata>
+      <title>SSHD is not required to be installed or requirement not set</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>If SSHD is not required, we check it is not installed. If SSH requirement is unset, we are good.</description>
+      <reference ref_id="sshd_not_required_or_unset" source="ssg"/>
+    </metadata>
+    <criteria comment="SSH not required or not set" operator="OR">
+      <criterion test_ref="oval:ssg-test_sshd_not_required:tst:1"/>
+      <extend_definition comment="SSH requirement is unset" definition_ref="oval:ssg-sshd_requirement_unset:def:1"/>
+    </criteria>
+  </definition>
+  <linux:rpminfo_object id="oval:ssg-obj_package_openssh-server_installed:obj:1" version="1">
+    <linux:name>openssh-server</linux:name>
+  </linux:rpminfo_object>
+  <definition class="compliance" id="oval:ssg-package_openssh-server_installed:def:1" version="1">
+    <metadata>
+      <title>Package openssh-server Installed</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The RPM package openssh-server should be installed.</description>
+      <reference ref_id="package_openssh-server_installed" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="package openssh-server is installed" test_ref="oval:ssg-test_package_openssh-server_installed:tst:1"/>
+    </criteria>
+  </definition>
+  <definition class="compliance" id="oval:ssg-sshd_requirement_unset:def:1" version="1">
+    <metadata>
+      <title>It doesn't matter if sshd is installed or not</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Test if value sshd_required is 0.</description>
+      <reference ref_id="sshd_requirement_unset" source="ssg"/>
+    </metadata>
+    <criteria operator="AND">
+      <criterion test_ref="oval:ssg-test_sshd_requirement_unset:tst:1"/>
+    </criteria>
+  </definition>
+  <definition class="compliance" id="oval:ssg-sshd_required_or_unset:def:1" version="1">
+    <metadata>
+      <title>SSHD is required to be installed or requirement not set</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>If SSHD is required, we check it is installed. If SSH requirement is unset, we are good.</description>
+      <reference ref_id="sshd_required_or_unset" source="ssg"/>
+    </metadata>
+    <criteria comment="SSH required or not set" operator="OR">
+      <criterion test_ref="oval:ssg-test_sshd_required:tst:1"/>
+      <extend_definition comment="SSH requirement is unset" definition_ref="oval:ssg-sshd_requirement_unset:def:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="tests the value of UsePrivilegeSeparation setting in the /etc/ssh/sshd_config file" id="oval:ssg-test_sshd_use_priv_separation:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-obj_sshd_use_priv_separation:obj:1"/>
+  </ind:textfilecontent54_test>
+  <linux:rpminfo_test check="all" check_existence="none_exist" comment="package openssh-server is removed" id="oval:ssg-test_package_openssh-server_removed:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_package_openssh-server_removed:obj:1"/>
+  </linux:rpminfo_test>
+  <ind:variable_object id="oval:ssg-object_sshd_requirement_unknown:obj:1" version="1">
+    <ind:var_ref>oval:ssg-sshd_required:var:1</ind:var_ref>
+  </ind:variable_object>
+  <ind:variable_test check="all" check_existence="at_least_one_exists" comment="Verify if Value of sshd_required is the default" id="oval:ssg-test_sshd_requirement_unset:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_sshd_requirement_unknown:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_sshd_requirement_unset:ste:1"/>
+  </ind:variable_test>
+  <linux:rpminfo_test check="all" check_existence="all_exist" comment="package openssh-server is installed" id="oval:ssg-test_package_openssh-server_installed:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_package_openssh-server_installed:obj:1"/>
+  </linux:rpminfo_test>
+  <ind:variable_test check="all" check_existence="at_least_one_exists" comment="Verify if Profile set Value sshd_required as not required" id="oval:ssg-test_sshd_not_required:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_sshd_not_required:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_sshd_not_required:ste:1"/>
+  </ind:variable_test>
+  <ind:variable_object id="oval:ssg-object_sshd_required:obj:1" version="1">
+    <ind:var_ref>oval:ssg-sshd_required:var:1</ind:var_ref>
+  </ind:variable_object>
+  <ind:variable_state id="oval:ssg-state_sshd_not_required:ste:1" version="1">
+    <ind:value datatype="int" operation="equals">1</ind:value>
+  </ind:variable_state>
+  <ind:variable_state id="oval:ssg-state_sshd_required:ste:1" version="1">
+    <ind:value datatype="int" operation="equals">2</ind:value>
+  </ind:variable_state>
+  <linux:rpminfo_object id="oval:ssg-obj_package_openssh-server_removed:obj:1" version="1">
+    <linux:name>openssh-server</linux:name>
+  </linux:rpminfo_object>
+  <ind:textfilecontent54_object id="oval:ssg-obj_sshd_use_priv_separation:obj:1" version="1">
+    <ind:filepath>/etc/ssh/sshd_config</ind:filepath>
+    <ind:pattern operation="pattern match">^[\s]*(?i)UsePrivilegeSeparation(?-i)[\s]+sandbox[\s]*(?:|(?:#.*))?$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:variable_state id="oval:ssg-state_sshd_requirement_unset:ste:1" version="1">
+    <ind:value datatype="int" operation="equals">0</ind:value>
+  </ind:variable_state>
+  <ind:variable_object id="oval:ssg-object_sshd_not_required:obj:1" version="1">
+    <ind:var_ref>oval:ssg-sshd_required:var:1</ind:var_ref>
+  </ind:variable_object>
+  <ind:variable_test check="all" check_existence="at_least_one_exists" comment="Verify if Profile set Value sshd_required as required" id="oval:ssg-test_sshd_required:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_sshd_required:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_sshd_required:ste:1"/>
+  </ind:variable_test>
+  <definition class="compliance" id="oval:ssg-package_openssh-server_removed:def:1" version="1">
+    <metadata>
+      <title>Package openssh-server Removed</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The RPM package openssh-server should be removed.</description>
+      <reference ref_id="package_openssh-server_removed" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="package openssh-server is removed" test_ref="oval:ssg-test_package_openssh-server_removed:tst:1"/>
+    </criteria>
+  </definition>
+</def-group>

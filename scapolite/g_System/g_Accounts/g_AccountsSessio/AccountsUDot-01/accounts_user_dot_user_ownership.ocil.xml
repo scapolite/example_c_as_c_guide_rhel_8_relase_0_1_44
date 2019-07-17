@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-accounts_user_dot_user_ownership_ocil:questionnaire:1">
+          <title>User Initialization Files Must Be Owned By the Primary User</title>
+          <actions>
+            <test_action_ref>ocil:ssg-accounts_user_dot_user_ownership_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-accounts_user_dot_user_ownership_question:question:1">
+          <question_text>To verify all local initialization files for interactive users are owned by the
+primary user, run the following command:
+$ sudo ls -al /home/USER/.*
+The user initialization files should be owned by USER.
+      Is it the case that they are not?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-accounts_user_dot_user_ownership_action:testaction:1" question_ref="ocil:ssg-accounts_user_dot_user_ownership_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

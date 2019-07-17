@@ -1,0 +1,9 @@
+include install_libreswan
+
+class install_libreswan {
+  package { 'libreswan':
+    ensure => 'installed',
+  }
+}
+
+              

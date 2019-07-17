@@ -1,0 +1,22 @@
+<ocil-group><questionnaire  id="ocil:ssg-sudo_remove_no_authenticate_ocil:questionnaire:1">
+          <title>Ensure Users Re-Authenticate for Privilege Escalation - sudo !authenticate</title>
+          <actions>
+            <test_action_ref>ocil:ssg-sudo_remove_no_authenticate_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-sudo_remove_no_authenticate_action:testaction:1" question_ref="ocil:ssg-sudo_remove_no_authenticate_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-sudo_remove_no_authenticate_question:question:1">
+          <question_text>To determine if !authenticate has not been configured for sudo, run the following command:
+$ sudo grep -r \!authenticate /etc/sudoers /etc/sudoers.d/
+The command should return no output.
+      Is it the case that !authenticate is enabled in sudo?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-package_tmux_installed:def:1" version="1">
+    <metadata>
+      <title>Package tmux Installed</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The RPM package tmux should be installed.</description>
+      <reference ref_id="CCE-80644-8" source="CCE"/>
+      <reference ref_id="package_tmux_installed" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="package tmux is installed" test_ref="oval:ssg-test_package_tmux_installed:tst:1"/>
+    </criteria>
+  </definition>
+  <linux:rpminfo_test check="all" check_existence="all_exist" comment="package tmux is installed" id="oval:ssg-test_package_tmux_installed:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_package_tmux_installed:obj:1"/>
+  </linux:rpminfo_test>
+  <linux:rpminfo_object id="oval:ssg-obj_package_tmux_installed:obj:1" version="1">
+    <linux:name>tmux</linux:name>
+  </linux:rpminfo_object>
+</def-group>

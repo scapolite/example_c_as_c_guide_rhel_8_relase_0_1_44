@@ -1,0 +1,22 @@
+<ocil-group><questionnaire  id="ocil:ssg-set_firewalld_default_zone_ocil:questionnaire:1">
+          <title>Set Default firewalld Zone for Incoming Packets</title>
+          <actions>
+            <test_action_ref>ocil:ssg-set_firewalld_default_zone_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-set_firewalld_default_zone_question:question:1">
+          <question_text>Inspect the file /etc/firewalld/firewalld.conf to determine
+the default zone for the firewalld. It should be set to DefaultZone=drop:
+$ sudo grep DefaultZone /etc/firewalld/firewalld.conf
+      Is it the case that the default zone is not set to DROP?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-set_firewalld_default_zone_action:testaction:1" question_ref="ocil:ssg-set_firewalld_default_zone_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

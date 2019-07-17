@@ -1,0 +1,25 @@
+<ocil-group><questionnaire  id="ocil:ssg-aide_periodic_cron_checking_ocil:questionnaire:1">
+          <title>Configure Periodic Execution of AIDE</title>
+          <actions>
+            <test_action_ref>ocil:ssg-aide_periodic_cron_checking_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-aide_periodic_cron_checking_action:testaction:1" question_ref="ocil:ssg-aide_periodic_cron_checking_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-aide_periodic_cron_checking_question:question:1">
+          <question_text>To determine that periodic AIDE execution has been scheduled, run the following command:
+$ grep aide /etc/crontab
+The output should return some similiar to the following:
+05 4 * * * root /usr/sbin/aide --check
+
+NOTE: The usage of special cron times, such as @daily or @weekly, is acceptable.
+      Is it the case that there is no output?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

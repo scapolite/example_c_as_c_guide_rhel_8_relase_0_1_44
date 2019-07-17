@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-account_disable_post_pw_expiration:def:1" version="2">
+    <metadata>
+      <title>Set Accounts to Expire Following Password Expiration</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The accounts should be configured to expire automatically following password expiration.</description>
+      <reference ref_id="CCE-80954-1" source="CCE"/>
+      <reference ref_id="account_disable_post_pw_expiration" source="ssg"/>
+    </metadata>
+    <criteria comment="the value INACTIVE parameter should be set appropriately in /etc/default/useradd">
+      <criterion test_ref="oval:ssg-test_etc_default_useradd_inactive:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_state id="oval:ssg-state_etc_default_useradd_inactive:ste:1" version="1">
+    <ind:subexpression datatype="int" operation="less than or equal" var_ref="oval:ssg-var_account_disable_post_pw_expiration:var:1"/>
+  </ind:textfilecontent54_state>
+  <ind:textfilecontent54_object id="oval:ssg-object_etc_default_useradd_inactive:obj:1" version="1">
+    <ind:filepath>/etc/default/useradd</ind:filepath>
+    <ind:pattern operation="pattern match">^\s*INACTIVE\s*=\s*(\d+)\s*$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" comment="the value INACTIVE parameter should be set appropriately in /etc/default/useradd" id="oval:ssg-test_etc_default_useradd_inactive:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_etc_default_useradd_inactive:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_etc_default_useradd_inactive:ste:1"/>
+    <ind:state state_ref="oval:ssg-state_etc_default_useradd_inactive_nonnegative:ste:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_state id="oval:ssg-state_etc_default_useradd_inactive_nonnegative:ste:1" version="1">
+    <ind:subexpression datatype="int" operation="greater than">-1</ind:subexpression>
+  </ind:textfilecontent54_state>
+  <external_variable comment="inactive days expiration" datatype="int" id="oval:ssg-var_account_disable_post_pw_expiration:var:1" version="1"/>
+</def-group>

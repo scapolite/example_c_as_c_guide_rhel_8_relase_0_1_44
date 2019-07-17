@@ -1,0 +1,27 @@
+<ocil-group><questionnaire  id="ocil:ssg-rsyslog_remote_loghost_ocil:questionnaire:1">
+          <title>Ensure Logs Sent To Remote Host</title>
+          <actions>
+            <test_action_ref>ocil:ssg-rsyslog_remote_loghost_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-rsyslog_remote_loghost_action:testaction:1" question_ref="ocil:ssg-rsyslog_remote_loghost_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-rsyslog_remote_loghost_question:question:1">
+          <question_text>To ensure logs are sent to a remote host, examine the file
+/etc/rsyslog.conf.
+If using UDP, a line similar to the following should be present:
+ *.* @loghost.example.com
+If using TCP, a line similar to the following should be present:
+ *.* @@loghost.example.com
+If using RELP, a line similar to the following should be present:
+ *.* :omrelp:loghost.example.com
+      Is it the case that none of these are present?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

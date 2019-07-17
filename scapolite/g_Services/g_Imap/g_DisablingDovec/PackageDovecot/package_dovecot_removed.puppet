@@ -1,0 +1,9 @@
+include remove_dovecot
+
+class remove_dovecot {
+  package { 'dovecot':
+    ensure => 'purged',
+  }
+}
+
+              

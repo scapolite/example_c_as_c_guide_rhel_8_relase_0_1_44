@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-sebool_glance_api_can_network_ocil:questionnaire:1">
+          <title>Disable the glance_api_can_network SELinux Boolean</title>
+          <actions>
+            <test_action_ref>ocil:ssg-sebool_glance_api_can_network_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-sebool_glance_api_can_network_question:question:1">
+          <question_text>
+Run the following command to determine if the glance_api_can_network SELinux boolean is disabled:
+$ getsebool glance_api_can_network
+If properly configured, the output should show the following:
+glance_api_can_network --&gt; off
+      Is it the case that glance_api_can_network is not disabled?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-sebool_glance_api_can_network_action:testaction:1" question_ref="ocil:ssg-sebool_glance_api_can_network_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

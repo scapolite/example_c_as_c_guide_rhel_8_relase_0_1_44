@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-aide_scan_notification_ocil:questionnaire:1">
+          <title>Configure Notification of Post-AIDE Scan Details</title>
+          <actions>
+            <test_action_ref>ocil:ssg-aide_scan_notification_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-aide_scan_notification_question:question:1">
+          <question_text>To determine that periodic AIDE execution has been scheduled, run the following command:
+$ grep aide /etc/crontab
+The output should return something similar to the following:
+05 4 * * * root /usr/sbin/aide --check | /bin/mail -s "$(hostname) - AIDE Integrity Check" root@localhost
+      Is it the case that AIDE has not been configured or has not been configured to notify personnel of scan details?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-aide_scan_notification_action:testaction:1" question_ref="ocil:ssg-aide_scan_notification_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

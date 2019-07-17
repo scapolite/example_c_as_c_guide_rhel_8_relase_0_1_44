@@ -1,0 +1,37 @@
+<ocil-group><questionnaire  id="ocil:ssg-sysctl_kernel_exec_shield_ocil:questionnaire:1">
+          <title>Enable ExecShield via sysctl</title>
+          <actions>
+            <test_action_ref>ocil:ssg-sysctl_kernel_exec_shield_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-sysctl_kernel_exec_shield_action:testaction:1" question_ref="ocil:ssg-sysctl_kernel_exec_shield_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-sysctl_kernel_exec_shield_question:question:1">
+          <question_text>To verify ExecShield is enabled on 64-bit Red Hat Enterprise Linux 7 systems,
+run the following command:
+$ dmesg | grep '[NX|DX]*protection'
+The output should not contain 'disabled by kernel command line option'.
+To verify that ExecShield has not been disabled in the kernel configuration,
+run the following command:
+$ sudo grep noexec /boot/grub2/grub.cfg
+The output should not return noexec=off.
+For 32-bit Red Hat Enterprise Linux 7 systems, run the following command:
+$ sysctl kernel.exec-shield
+The output should be:
+To set the runtime status of the kernel.exec-shield kernel parameter,
+run the following command:
+$ sudo sysctl -w kernel.exec-shield=1
+
+If this is not the system default value, add the following line to a file in the
+directory /etc/sysctl.d:
+kernel.exec-shield = 1
+      Is it the case that ExecShield is not supported by the hardware, is not enabled, or has been disabled by the kernel configuration.?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

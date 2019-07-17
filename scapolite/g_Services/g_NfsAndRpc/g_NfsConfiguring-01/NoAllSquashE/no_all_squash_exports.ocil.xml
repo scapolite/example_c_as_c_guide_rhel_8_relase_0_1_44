@@ -1,0 +1,21 @@
+<ocil-group><questionnaire  id="ocil:ssg-no_all_squash_exports_ocil:questionnaire:1">
+          <title>Ensure All-Squashing Disabled On All Exports</title>
+          <actions>
+            <test_action_ref>ocil:ssg-no_all_squash_exports_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-no_all_squash_exports_question:question:1">
+          <question_text>To verify all squashing has been disabled, run the following command:
+$ grep all_squash /etc/exports
+      Is it the case that there is output?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-no_all_squash_exports_action:testaction:1" question_ref="ocil:ssg-no_all_squash_exports_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

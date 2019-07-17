@@ -1,0 +1,21 @@
+<ocil-group><questionnaire  id="ocil:ssg-no_root_webbrowsing_ocil:questionnaire:1">
+          <title>Restrict Web Browser Use for Administrative Accounts</title>
+          <actions>
+            <test_action_ref>ocil:ssg-no_root_webbrowsing_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-no_root_webbrowsing_action:testaction:1" question_ref="ocil:ssg-no_root_webbrowsing_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-no_root_webbrowsing_question:question:1">
+          <question_text>Check the root home directory for a .mozilla directory. If
+one exists, ensure browsing is limited to local service administration.
+      Is it the case that this is not the case?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

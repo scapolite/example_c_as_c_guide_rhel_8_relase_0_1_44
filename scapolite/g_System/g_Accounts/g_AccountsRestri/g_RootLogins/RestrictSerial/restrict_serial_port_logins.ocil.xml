@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-restrict_serial_port_logins_ocil:questionnaire:1">
+          <title>Restrict Serial Port Root Logins</title>
+          <actions>
+            <test_action_ref>ocil:ssg-restrict_serial_port_logins_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-restrict_serial_port_logins_question:question:1">
+          <question_text>To check for serial port entries which permit root login,
+run the following command:
+$ sudo grep ^ttyS/[0-9] /etc/securetty
+If any output is returned, then root login over serial ports is permitted.
+      Is it the case that root login over serial ports is permitted?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-restrict_serial_port_logins_action:testaction:1" question_ref="ocil:ssg-restrict_serial_port_logins_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

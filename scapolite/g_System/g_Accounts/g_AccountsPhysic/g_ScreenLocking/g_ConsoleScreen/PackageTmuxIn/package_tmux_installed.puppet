@@ -1,0 +1,9 @@
+include install_tmux
+
+class install_tmux {
+  package { 'tmux':
+    ensure => 'installed',
+  }
+}
+
+                  

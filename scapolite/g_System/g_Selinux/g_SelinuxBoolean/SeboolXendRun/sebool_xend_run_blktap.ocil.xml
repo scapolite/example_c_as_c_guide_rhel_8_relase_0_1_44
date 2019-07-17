@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-sebool_xend_run_blktap_ocil:questionnaire:1">
+          <title>Enable the xend_run_blktap SELinux Boolean</title>
+          <actions>
+            <test_action_ref>ocil:ssg-sebool_xend_run_blktap_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-sebool_xend_run_blktap_action:testaction:1" question_ref="ocil:ssg-sebool_xend_run_blktap_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-sebool_xend_run_blktap_question:question:1">
+          <question_text>
+Run the following command to determine if the xend_run_blktap SELinux boolean is enabled:
+$ getsebool xend_run_blktap
+If properly configured, the output should show the following:
+xend_run_blktap --&gt; on
+      Is it the case that xend_run_blktap is not enabled?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

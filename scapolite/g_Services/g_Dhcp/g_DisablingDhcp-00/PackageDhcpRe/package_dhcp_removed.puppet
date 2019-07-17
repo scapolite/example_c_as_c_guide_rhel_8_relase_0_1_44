@@ -1,0 +1,9 @@
+include remove_dhcp
+
+class remove_dhcp {
+  package { 'dhcp':
+    ensure => 'purged',
+  }
+}
+
+              

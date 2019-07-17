@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-obj_mcafee_hbss_hips_installed:obj:1'
+- 'oval:ssg-test_mcafee_hbss_hips_installed:tst:1'  -->
+  <definition class="compliance" id="oval:ssg-install_mcafee_hbss_hips:def:1" version="1">
+    <metadata>
+      <title>Install the Host Intrusion Prevention System (HIPS) Module</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Install the McAfee Host Intrusion Prevention System (HIPS) Module if it is
+      absolutely necessary. If SELinux is enabled, do not install or enable this module.</description>
+      <reference ref_id="install_mcafee_hbss_hips" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="McAfee IPS  is installed" test_ref="oval:ssg-test_mcafee_hbss_hips_installed:tst:1"/>
+    </criteria>
+  </definition>
+  <linux:rpminfo_object id="oval:ssg-obj_mcafee_hbss_hips_installed:obj:1" version="1">
+    <linux:name>MFEhiplsm</linux:name>
+  </linux:rpminfo_object>
+  <linux:rpminfo_test check="all" check_existence="all_exist" comment="McAfee IPS is installed" id="oval:ssg-test_mcafee_hbss_hips_installed:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_mcafee_hbss_hips_installed:obj:1"/>
+  </linux:rpminfo_test>
+</def-group>

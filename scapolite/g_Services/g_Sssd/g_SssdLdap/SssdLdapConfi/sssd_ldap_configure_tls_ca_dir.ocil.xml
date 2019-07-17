@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-sssd_ldap_configure_tls_ca_dir_ocil:questionnaire:1">
+          <title>Configure SSSD LDAP Backend Client CA Certificate Location</title>
+          <actions>
+            <test_action_ref>ocil:ssg-sssd_ldap_configure_tls_ca_dir_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-sssd_ldap_configure_tls_ca_dir_action:testaction:1" question_ref="ocil:ssg-sssd_ldap_configure_tls_ca_dir_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-sssd_ldap_configure_tls_ca_dir_question:question:1">
+          <question_text>To verify the operating system implements cryptography to protect the integrity of
+remote ldap access sessions, run the following command:
+$ sudo grep ldap_tls_cacertdir /etc/sssd/sssd.conf
+The output should return the following with a correctly configured CA cert path:
+ldap_tls_cacertdir /path/to/tls/cacert
+      Is it the case that the TLS CA cert is not configured?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

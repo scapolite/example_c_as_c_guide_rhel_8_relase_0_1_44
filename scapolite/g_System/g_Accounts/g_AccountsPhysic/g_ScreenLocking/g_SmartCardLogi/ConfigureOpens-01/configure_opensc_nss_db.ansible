@@ -1,0 +1,51 @@
+- name: Check existence of pkcs11-switch
+  stat:
+    path: /usr/bin/pkcs11-switch
+  register: pkcs11switch
+  when: ansible_virtualization_role != "guest" or ansible_virtualization_type != "docker"
+  tags:
+    - configure_opensc_nss_db
+    - medium_severity
+    - configure_strategy
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+    - CCE-80767-7
+    - NIST-800-53-IA-2(2)
+    - PCI-DSS-Req-8.3
+
+- name: Get NSS database smart card configuration
+  command: /usr/bin/pkcs11-switch
+  changed_when: true
+  register: pkcsw_output
+  when:
+    - pkcs11switch.stat.exists
+    - ansible_virtualization_role != "guest" or ansible_virtualization_type != "docker"
+  tags:
+    - configure_opensc_nss_db
+    - medium_severity
+    - configure_strategy
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+    - CCE-80767-7
+    - NIST-800-53-IA-2(2)
+    - PCI-DSS-Req-8.3
+
+- name: Configure NSS DB To Use opensc
+  command: /usr/bin/pkcs11-switch opensc
+  when:
+    - pkcs11switch.stat.exists and pkcsw_output.stdout != "opensc"
+    - ansible_virtualization_role != "guest" or ansible_virtualization_type != "docker"
+  tags:
+    - configure_opensc_nss_db
+    - medium_severity
+    - configure_strategy
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+    - CCE-80767-7
+    - NIST-800-53-IA-2(2)
+    - PCI-DSS-Req-8.3
+
+                  

@@ -1,0 +1,9 @@
+include install_opensc
+
+class install_opensc {
+  package { 'opensc':
+    ensure => 'installed',
+  }
+}
+
+                  

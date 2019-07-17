@@ -1,0 +1,25 @@
+<ocil-group><questionnaire  id="ocil:ssg-dconf_gnome_enable_smartcard_auth_ocil:questionnaire:1">
+          <title>Enable the GNOME3 Login Smartcard Authentication</title>
+          <actions>
+            <test_action_ref>ocil:ssg-dconf_gnome_enable_smartcard_auth_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-dconf_gnome_enable_smartcard_auth_question:question:1">
+          <question_text>To ensure smart card authentication on the login screen is enabled, run the following command:
+$ grep enable-smartcard-authentication /etc/dconf/db/gdm.d/*
+The output should be true.
+To ensure that users cannot disable smart card authentication on the login screen, run the following:
+$ grep enable-smartcard-authentication /etc/dconf/db/gdm.d/locks/*
+If properly configured, the output should be /org/gnome/login-screen/enable-smartcard-authentication
+      Is it the case that enable-smartcard-authentication has not been configured or is disabled?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-dconf_gnome_enable_smartcard_auth_action:testaction:1" question_ref="ocil:ssg-dconf_gnome_enable_smartcard_auth_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

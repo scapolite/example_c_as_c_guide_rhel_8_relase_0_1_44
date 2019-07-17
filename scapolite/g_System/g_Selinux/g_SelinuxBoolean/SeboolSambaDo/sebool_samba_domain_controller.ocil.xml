@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-sebool_samba_domain_controller_ocil:questionnaire:1">
+          <title>Disable the samba_domain_controller SELinux Boolean</title>
+          <actions>
+            <test_action_ref>ocil:ssg-sebool_samba_domain_controller_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-sebool_samba_domain_controller_question:question:1">
+          <question_text>
+Run the following command to determine if the samba_domain_controller SELinux boolean is disabled:
+$ getsebool samba_domain_controller
+If properly configured, the output should show the following:
+samba_domain_controller --&gt; off
+      Is it the case that samba_domain_controller is not disabled?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-sebool_samba_domain_controller_action:testaction:1" question_ref="ocil:ssg-sebool_samba_domain_controller_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

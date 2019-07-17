@@ -1,0 +1,114 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-obj_package_sssd_installed:obj:1'
+- 'oval:ssg-test_package_sssd_installed:tst:1'  -->
+  <definition class="compliance" id="oval:ssg-service_sssd_enabled:def:1" version="1">
+    <metadata>
+      <title>Service sssd Enabled</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The sssd service should be enabled if possible.</description>
+      <reference ref_id="service_sssd_enabled" source="ssg"/>
+    </metadata>
+    <criteria comment="package sssd installed and service sssd is configured to start" operator="AND">
+      <extend_definition comment="sssd installed" definition_ref="oval:ssg-package_sssd_installed:def:1"/>
+      <criteria comment="service sssd is configured to start" operator="OR">
+        <criterion comment="sssd runlevel 0" test_ref="oval:ssg-test_runlevel0_sssd_on:tst:1"/>
+        <criterion comment="sssd runlevel 1" test_ref="oval:ssg-test_runlevel1_sssd_on:tst:1"/>
+        <criterion comment="sssd runlevel 2" test_ref="oval:ssg-test_runlevel2_sssd_on:tst:1"/>
+        <criterion comment="sssd runlevel 3" test_ref="oval:ssg-test_runlevel3_sssd_on:tst:1"/>
+        <criterion comment="sssd runlevel 4" test_ref="oval:ssg-test_runlevel4_sssd_on:tst:1"/>
+        <criterion comment="sssd runlevel 5" test_ref="oval:ssg-test_runlevel5_sssd_on:tst:1"/>
+        <criterion comment="sssd runlevel 6" test_ref="oval:ssg-test_runlevel6_sssd_on:tst:1"/>
+      </criteria>
+    </criteria>
+  </definition>
+  <unix:runlevel_object id="oval:ssg-obj_runlevel1_sssd_on:obj:1" version="1">
+    <unix:service_name>sssd</unix:service_name>
+    <unix:runlevel operation="equals">1</unix:runlevel>
+  </unix:runlevel_object>
+  <unix:runlevel_object id="oval:ssg-obj_runlevel4_sssd_on:obj:1" version="1">
+    <unix:service_name>sssd</unix:service_name>
+    <unix:runlevel operation="equals">4</unix:runlevel>
+  </unix:runlevel_object>
+  <unix:runlevel_test check="all" check_existence="any_exist" comment="Runlevel test" id="oval:ssg-test_runlevel3_sssd_on:tst:1" version="2">
+    <unix:object object_ref="oval:ssg-obj_runlevel3_sssd_on:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_service_sssd_on:ste:1"/>
+  </unix:runlevel_test>
+  <unix:runlevel_state comment="configured to start" id="oval:ssg-state_service_sssd_on:ste:1" version="1">
+    <unix:start datatype="boolean">true</unix:start>
+    <unix:kill datatype="boolean">false</unix:kill>
+  </unix:runlevel_state>
+  <unix:runlevel_object id="oval:ssg-obj_runlevel3_sssd_on:obj:1" version="1">
+    <unix:service_name>sssd</unix:service_name>
+    <unix:runlevel operation="equals">3</unix:runlevel>
+  </unix:runlevel_object>
+  <linux:rpminfo_object id="oval:ssg-obj_package_sssd_installed:obj:1" version="1">
+    <linux:name>sssd</linux:name>
+  </linux:rpminfo_object>
+  <definition class="compliance" id="oval:ssg-package_sssd_installed:def:1" version="1">
+    <metadata>
+      <title>Package sssd Installed</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The RPM package sssd should be installed.</description>
+      <reference ref_id="package_sssd_installed" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="package sssd is installed" test_ref="oval:ssg-test_package_sssd_installed:tst:1"/>
+    </criteria>
+  </definition>
+  <unix:runlevel_object id="oval:ssg-obj_runlevel5_sssd_on:obj:1" version="1">
+    <unix:service_name>sssd</unix:service_name>
+    <unix:runlevel operation="equals">5</unix:runlevel>
+  </unix:runlevel_object>
+  <unix:runlevel_test check="all" check_existence="any_exist" comment="Runlevel test" id="oval:ssg-test_runlevel2_sssd_on:tst:1" version="2">
+    <unix:object object_ref="oval:ssg-obj_runlevel2_sssd_on:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_service_sssd_on:ste:1"/>
+  </unix:runlevel_test>
+  <linux:rpminfo_test check="all" check_existence="all_exist" comment="package sssd is installed" id="oval:ssg-test_package_sssd_installed:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_package_sssd_installed:obj:1"/>
+  </linux:rpminfo_test>
+  <unix:runlevel_object id="oval:ssg-obj_runlevel6_sssd_on:obj:1" version="1">
+    <unix:service_name>sssd</unix:service_name>
+    <unix:runlevel operation="equals">6</unix:runlevel>
+  </unix:runlevel_object>
+  <unix:runlevel_test check="all" check_existence="any_exist" comment="Runlevel test" id="oval:ssg-test_runlevel1_sssd_on:tst:1" version="2">
+    <unix:object object_ref="oval:ssg-obj_runlevel1_sssd_on:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_service_sssd_on:ste:1"/>
+  </unix:runlevel_test>
+  <unix:runlevel_test check="all" check_existence="any_exist" comment="Runlevel test" id="oval:ssg-test_runlevel0_sssd_on:tst:1" version="2">
+    <unix:object object_ref="oval:ssg-obj_runlevel0_sssd_on:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_service_sssd_on:ste:1"/>
+  </unix:runlevel_test>
+  <unix:runlevel_object id="oval:ssg-obj_runlevel2_sssd_on:obj:1" version="1">
+    <unix:service_name>sssd</unix:service_name>
+    <unix:runlevel operation="equals">2</unix:runlevel>
+  </unix:runlevel_object>
+  <unix:runlevel_test check="all" check_existence="any_exist" comment="Runlevel test" id="oval:ssg-test_runlevel6_sssd_on:tst:1" version="2">
+    <unix:object object_ref="oval:ssg-obj_runlevel6_sssd_on:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_service_sssd_on:ste:1"/>
+  </unix:runlevel_test>
+  <unix:runlevel_object id="oval:ssg-obj_runlevel0_sssd_on:obj:1" version="1">
+    <unix:service_name>sssd</unix:service_name>
+    <unix:runlevel operation="equals">0</unix:runlevel>
+  </unix:runlevel_object>
+  <unix:runlevel_test check="all" check_existence="any_exist" comment="Runlevel test" id="oval:ssg-test_runlevel5_sssd_on:tst:1" version="2">
+    <unix:object object_ref="oval:ssg-obj_runlevel5_sssd_on:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_service_sssd_on:ste:1"/>
+  </unix:runlevel_test>
+  <unix:runlevel_test check="all" check_existence="any_exist" comment="Runlevel test" id="oval:ssg-test_runlevel4_sssd_on:tst:1" version="2">
+    <unix:object object_ref="oval:ssg-obj_runlevel4_sssd_on:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_service_sssd_on:ste:1"/>
+  </unix:runlevel_test>
+</def-group>

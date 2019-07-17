@@ -1,0 +1,28 @@
+<ocil-group><questionnaire  id="ocil:ssg-sshd_disable_rhosts_rsa_ocil:questionnaire:1">
+          <title>Disable SSH Support for Rhosts RSA Authentication</title>
+          <actions>
+            <test_action_ref>ocil:ssg-sshd_disable_rhosts_rsa_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-sshd_disable_rhosts_rsa_question:question:1">
+          <question_text>To check which SSH protocol version is allowed, check version of
+openssh-server with following command:
+$ rpm -qi openssh-server | grep Version
+Versions equal to or higher than 7.4 have deprecated the RhostsRSAAuthentication option.
+If version is lower than 7.4, run the following command to check configuration:
+To determine how the SSH daemon's RhostsRSAAuthentication option is set, run the following command:
+$ sudo grep -i RhostsRSAAuthentication /etc/ssh/sshd_config
+If no line, a commented line, or a line indicating the value no is returned, then the required value is set.
+
+      Is it the case that the required value is not set?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-sshd_disable_rhosts_rsa_action:testaction:1" question_ref="ocil:ssg-sshd_disable_rhosts_rsa_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

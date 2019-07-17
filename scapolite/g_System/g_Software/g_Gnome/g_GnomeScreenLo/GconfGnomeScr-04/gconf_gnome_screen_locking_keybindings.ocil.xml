@@ -1,0 +1,22 @@
+<ocil-group><questionnaire  id="ocil:ssg-gconf_gnome_screen_locking_keybindings_ocil:questionnaire:1">
+          <title>Set GNOME Screen Locking Keybindings</title>
+          <actions>
+            <test_action_ref>ocil:ssg-gconf_gnome_screen_locking_keybindings_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-gconf_gnome_screen_locking_keybindings_action:testaction:1" question_ref="ocil:ssg-gconf_gnome_screen_locking_keybindings_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-gconf_gnome_screen_locking_keybindings_question:question:1">
+          <question_text>To check the screensaver locking keybindings, run the following command:
+$ gconftool-2 -g /apps/gnome_settings_daemon/keybindings/screensaver
+If properly configured, the output should be &lt;Control&gt;&lt;Alt&gt;l.
+      Is it the case that GNOME screensaver locking keybindings are configured and cannot be changed?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

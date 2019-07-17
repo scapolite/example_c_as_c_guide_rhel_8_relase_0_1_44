@@ -1,0 +1,115 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-test_package_audit_installed:tst:1'
+- 'oval:ssg-obj_package_audit_installed:obj:1'  -->
+  <definition class="compliance" id="oval:ssg-service_auditd_enabled:def:1" version="1">
+    <metadata>
+      <title>Service auditd Enabled</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The auditd service should be enabled if possible.</description>
+      <reference ref_id="CCE-80872-5" source="CCE"/>
+      <reference ref_id="service_auditd_enabled" source="ssg"/>
+    </metadata>
+    <criteria comment="package audit installed and service auditd is configured to start" operator="AND">
+      <extend_definition comment="audit installed" definition_ref="oval:ssg-package_audit_installed:def:1"/>
+      <criteria comment="service auditd is configured to start" operator="OR">
+        <criterion comment="auditd runlevel 0" test_ref="oval:ssg-test_runlevel0_auditd_on:tst:1"/>
+        <criterion comment="auditd runlevel 1" test_ref="oval:ssg-test_runlevel1_auditd_on:tst:1"/>
+        <criterion comment="auditd runlevel 2" test_ref="oval:ssg-test_runlevel2_auditd_on:tst:1"/>
+        <criterion comment="auditd runlevel 3" test_ref="oval:ssg-test_runlevel3_auditd_on:tst:1"/>
+        <criterion comment="auditd runlevel 4" test_ref="oval:ssg-test_runlevel4_auditd_on:tst:1"/>
+        <criterion comment="auditd runlevel 5" test_ref="oval:ssg-test_runlevel5_auditd_on:tst:1"/>
+        <criterion comment="auditd runlevel 6" test_ref="oval:ssg-test_runlevel6_auditd_on:tst:1"/>
+      </criteria>
+    </criteria>
+  </definition>
+  <unix:runlevel_object id="oval:ssg-obj_runlevel3_auditd_on:obj:1" version="1">
+    <unix:service_name>auditd</unix:service_name>
+    <unix:runlevel operation="equals">3</unix:runlevel>
+  </unix:runlevel_object>
+  <linux:rpminfo_test check="all" check_existence="all_exist" comment="package audit is installed" id="oval:ssg-test_package_audit_installed:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_package_audit_installed:obj:1"/>
+  </linux:rpminfo_test>
+  <unix:runlevel_test check="all" check_existence="any_exist" comment="Runlevel test" id="oval:ssg-test_runlevel0_auditd_on:tst:1" version="2">
+    <unix:object object_ref="oval:ssg-obj_runlevel0_auditd_on:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_service_auditd_on:ste:1"/>
+  </unix:runlevel_test>
+  <unix:runlevel_test check="all" check_existence="any_exist" comment="Runlevel test" id="oval:ssg-test_runlevel2_auditd_on:tst:1" version="2">
+    <unix:object object_ref="oval:ssg-obj_runlevel2_auditd_on:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_service_auditd_on:ste:1"/>
+  </unix:runlevel_test>
+  <unix:runlevel_object id="oval:ssg-obj_runlevel5_auditd_on:obj:1" version="1">
+    <unix:service_name>auditd</unix:service_name>
+    <unix:runlevel operation="equals">5</unix:runlevel>
+  </unix:runlevel_object>
+  <unix:runlevel_test check="all" check_existence="any_exist" comment="Runlevel test" id="oval:ssg-test_runlevel6_auditd_on:tst:1" version="2">
+    <unix:object object_ref="oval:ssg-obj_runlevel6_auditd_on:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_service_auditd_on:ste:1"/>
+  </unix:runlevel_test>
+  <unix:runlevel_test check="all" check_existence="any_exist" comment="Runlevel test" id="oval:ssg-test_runlevel4_auditd_on:tst:1" version="2">
+    <unix:object object_ref="oval:ssg-obj_runlevel4_auditd_on:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_service_auditd_on:ste:1"/>
+  </unix:runlevel_test>
+  <unix:runlevel_test check="all" check_existence="any_exist" comment="Runlevel test" id="oval:ssg-test_runlevel5_auditd_on:tst:1" version="2">
+    <unix:object object_ref="oval:ssg-obj_runlevel5_auditd_on:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_service_auditd_on:ste:1"/>
+  </unix:runlevel_test>
+  <unix:runlevel_test check="all" check_existence="any_exist" comment="Runlevel test" id="oval:ssg-test_runlevel1_auditd_on:tst:1" version="2">
+    <unix:object object_ref="oval:ssg-obj_runlevel1_auditd_on:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_service_auditd_on:ste:1"/>
+  </unix:runlevel_test>
+  <unix:runlevel_object id="oval:ssg-obj_runlevel4_auditd_on:obj:1" version="1">
+    <unix:service_name>auditd</unix:service_name>
+    <unix:runlevel operation="equals">4</unix:runlevel>
+  </unix:runlevel_object>
+  <unix:runlevel_object id="oval:ssg-obj_runlevel0_auditd_on:obj:1" version="1">
+    <unix:service_name>auditd</unix:service_name>
+    <unix:runlevel operation="equals">0</unix:runlevel>
+  </unix:runlevel_object>
+  <unix:runlevel_object id="oval:ssg-obj_runlevel1_auditd_on:obj:1" version="1">
+    <unix:service_name>auditd</unix:service_name>
+    <unix:runlevel operation="equals">1</unix:runlevel>
+  </unix:runlevel_object>
+  <unix:runlevel_object id="oval:ssg-obj_runlevel6_auditd_on:obj:1" version="1">
+    <unix:service_name>auditd</unix:service_name>
+    <unix:runlevel operation="equals">6</unix:runlevel>
+  </unix:runlevel_object>
+  <unix:runlevel_object id="oval:ssg-obj_runlevel2_auditd_on:obj:1" version="1">
+    <unix:service_name>auditd</unix:service_name>
+    <unix:runlevel operation="equals">2</unix:runlevel>
+  </unix:runlevel_object>
+  <unix:runlevel_state comment="configured to start" id="oval:ssg-state_service_auditd_on:ste:1" version="1">
+    <unix:start datatype="boolean">true</unix:start>
+    <unix:kill datatype="boolean">false</unix:kill>
+  </unix:runlevel_state>
+  <definition class="compliance" id="oval:ssg-package_audit_installed:def:1" version="1">
+    <metadata>
+      <title>Package audit Installed</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The RPM package audit should be installed.</description>
+      <reference ref_id="package_audit_installed" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="package audit is installed" test_ref="oval:ssg-test_package_audit_installed:tst:1"/>
+    </criteria>
+  </definition>
+  <unix:runlevel_test check="all" check_existence="any_exist" comment="Runlevel test" id="oval:ssg-test_runlevel3_auditd_on:tst:1" version="2">
+    <unix:object object_ref="oval:ssg-obj_runlevel3_auditd_on:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_service_auditd_on:ste:1"/>
+  </unix:runlevel_test>
+  <linux:rpminfo_object id="oval:ssg-obj_package_audit_installed:obj:1" version="1">
+    <linux:name>audit</linux:name>
+  </linux:rpminfo_object>
+</def-group>

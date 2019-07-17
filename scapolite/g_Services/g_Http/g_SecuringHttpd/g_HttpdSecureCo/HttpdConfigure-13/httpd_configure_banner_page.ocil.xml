@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-httpd_configure_banner_page_ocil:questionnaire:1">
+          <title>Configure A Banner Page For Each Website</title>
+          <actions>
+            <test_action_ref>ocil:ssg-httpd_configure_banner_page_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-httpd_configure_banner_page_action:testaction:1" question_ref="ocil:ssg-httpd_configure_banner_page_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-httpd_configure_banner_page_question:question:1">
+          <question_text>The document, DoDI 8500.01, establishes the policy on the use of DoD
+information systems. It requires the use of a standard Notice and Consent Banner
+and standard text to be included in user agreements. The banner should be set
+to the following:
+      Is it the case that it is not display the required banner?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

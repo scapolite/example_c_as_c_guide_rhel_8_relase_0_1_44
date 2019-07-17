@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-test_sysctl_crypto_fips_enabled:tst:1'
+- 'oval:ssg-object_sysctl_crypto_fips_enabled:obj:1'
+- 'oval:ssg-state_sysctl_crypto_fips_enabled:ste:1'  -->
+  <definition class="compliance" id="oval:ssg-sysctl_crypto_fips_enabled:def:1" version="1">
+    <metadata>
+      <title>Kernel &quot;crypto.fips_enabled&quot; Parameter Runtime Check</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The kernel &quot;crypto.fips_enabled&quot; parameter should be set to &quot;1&quot; in system runtime.</description>
+      <reference ref_id="sysctl_crypto_fips_enabled" source="ssg"/>
+    </metadata>
+    <criteria operator="AND">
+      <criterion comment="kernel runtime parameter crypto.fips_enabled set to 1" test_ref="oval:ssg-test_sysctl_crypto_fips_enabled:tst:1"/>
+    </criteria>
+  </definition>
+  <unix:sysctl_test check="all" check_existence="all_exist" comment="kernel runtime parameter crypto.fips_enabled set to 1" id="oval:ssg-test_sysctl_crypto_fips_enabled:tst:1" version="1">
+    <unix:object object_ref="oval:ssg-object_sysctl_crypto_fips_enabled:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_sysctl_crypto_fips_enabled:ste:1"/>
+  </unix:sysctl_test>
+  <unix:sysctl_object id="oval:ssg-object_sysctl_crypto_fips_enabled:obj:1" version="1">
+    <unix:name>crypto.fips_enabled</unix:name>
+  </unix:sysctl_object>
+  <unix:sysctl_state id="oval:ssg-state_sysctl_crypto_fips_enabled:ste:1" version="1">
+    <unix:value datatype="int" operation="equals">1</unix:value>
+  </unix:sysctl_state>
+</def-group>

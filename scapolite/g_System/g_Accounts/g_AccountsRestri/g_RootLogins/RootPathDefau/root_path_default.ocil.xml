@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-root_path_default_ocil:questionnaire:1">
+          <title>Root Path Must Be Vendor Default</title>
+          <actions>
+            <test_action_ref>ocil:ssg-root_path_default_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-root_path_default_question:question:1">
+          <question_text>To view the root user's PATH, run the following command:
+$ sudo env | grep PATH
+If correctly configured, the PATH must: use vendor default settings,
+have no empty entries, and have no entries beginning with a character
+other than a slash (/).
+      Is it the case that any of these conditions are not met?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-root_path_default_action:testaction:1" question_ref="ocil:ssg-root_path_default_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

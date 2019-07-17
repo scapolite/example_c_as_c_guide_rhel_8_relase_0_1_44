@@ -1,0 +1,21 @@
+- name: Enable Use of Strict Mode Checking
+  lineinfile:
+    create: true
+    dest: /etc/ssh/sshd_config
+    regexp: (?i)^#?strictmodes
+    line: StrictModes yes
+    validate: /usr/sbin/sshd -t -f %s
+  when: ansible_virtualization_role != "guest" or ansible_virtualization_type != "docker"
+  tags:
+    - sshd_enable_strictmodes
+    - medium_severity
+    - restrict_strategy
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+    - CCE-80904-6
+    - NIST-800-53-AC-6
+    - NIST-800-53-AC-17(b)
+    - NIST-800-171-3.1.12
+
+              

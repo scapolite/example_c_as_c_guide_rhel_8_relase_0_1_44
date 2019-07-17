@@ -1,0 +1,30 @@
+<ocil-group><questionnaire  id="ocil:ssg-tftpd_uses_secure_mode_ocil:questionnaire:1">
+          <title>Ensure tftp Daemon Uses Secure Mode</title>
+          <actions>
+            <test_action_ref>ocil:ssg-tftpd_uses_secure_mode_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-tftpd_uses_secure_mode_question:question:1">
+          <question_text>If TFTP is not installed, this is not applicable. To determine if TFTP is
+installed, run the following command:
+$ rpm -qa | grep tftp
+
+Verify tftp is configured by with the -s option by
+running the following command:
+grep "server_args" /etc/xinetd.d/tftp
+The output should indicate the server_args variable is configured
+with the -s flag, matching the example below:
+$ grep "server_args" /etc/xinetd.d/tftp
+server_args = -s /var/lib/tftpboot
+      Is it the case that this flag is missing?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-tftpd_uses_secure_mode_action:testaction:1" question_ref="ocil:ssg-tftpd_uses_secure_mode_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

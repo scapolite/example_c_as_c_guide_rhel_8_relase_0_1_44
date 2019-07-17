@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-postfix_client_configure_mail_alias_ocil:questionnaire:1">
+          <title>Configure System to Forward All Mail For The Root Account</title>
+          <actions>
+            <test_action_ref>ocil:ssg-postfix_client_configure_mail_alias_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-postfix_client_configure_mail_alias_action:testaction:1" question_ref="ocil:ssg-postfix_client_configure_mail_alias_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-postfix_client_configure_mail_alias_question:question:1">
+          <question_text>Find the list of alias maps used by the Postfix mail server:
+$ sudo postconf alias_maps
+Query the Postfix alias maps for an alias for the root user:
+$ sudo postmap -q root hash:/etc/aliases
+The output should return an alias.
+      Is it the case that it is not?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

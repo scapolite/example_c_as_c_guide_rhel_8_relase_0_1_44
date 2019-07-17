@@ -1,0 +1,22 @@
+<ocil-group><questionnaire  id="ocil:ssg-accounts_root_path_dirs_no_write_ocil:questionnaire:1">
+          <title>Ensure that Root's Path Does Not Include World or Group-Writable Directories</title>
+          <actions>
+            <test_action_ref>ocil:ssg-accounts_root_path_dirs_no_write_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-accounts_root_path_dirs_no_write_action:testaction:1" question_ref="ocil:ssg-accounts_root_path_dirs_no_write_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-accounts_root_path_dirs_no_write_question:question:1">
+          <question_text>To ensure write permissions are disabled for group and other
+ for each element in root's path, run the following command:
+# ls -ld DIR
+      Is it the case that group or other write permissions exist?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

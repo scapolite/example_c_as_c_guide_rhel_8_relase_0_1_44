@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-sssd_offline_cred_expiration_ocil:questionnaire:1">
+          <title>Configure SSSD to Expire Offline Credentials</title>
+          <actions>
+            <test_action_ref>ocil:ssg-sssd_offline_cred_expiration_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-sssd_offline_cred_expiration_question:question:1">
+          <question_text>To verify that SSSD expires offline credentials, run the following command:
+$ sudo grep offline_credentials_expiration /etc/sssd/sssd.conf
+If configured properly, output should be
+offline_credentials_expiration = 1
+      Is it the case that it does not exist or is not configured properly?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-sssd_offline_cred_expiration_action:testaction:1" question_ref="ocil:ssg-sssd_offline_cred_expiration_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

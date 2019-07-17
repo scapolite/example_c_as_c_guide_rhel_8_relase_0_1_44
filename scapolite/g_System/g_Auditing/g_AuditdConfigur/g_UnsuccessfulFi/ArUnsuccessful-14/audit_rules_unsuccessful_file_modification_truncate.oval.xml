@@ -1,0 +1,323 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-object_system_info_architecture_aarch_64:obj:1'
+- 'oval:ssg-var_arufm_truncate_tail:var:1'
+- 'oval:ssg-test_32bit_arufm_eperm_truncate_augenrules:tst:1'
+- 'oval:ssg-audit_rules_auditctl:def:1'
+- 'oval:ssg-object_system_info_architecture_ppc_64:obj:1'
+- 'oval:ssg-var_64bit_arufm_eperm_truncate_regex:var:1'
+- 'oval:ssg-object_32bit_arufm_eacces_truncate_auditctl:obj:1'
+- 'oval:ssg-object_64bit_arufm_eacces_truncate_auditctl:obj:1'
+- 'oval:ssg-test_system_info_architecture_ppcle_64:tst:1'
+- 'oval:ssg-system_info_architecture_aarch_64:def:1'
+- 'oval:ssg-object_32bit_arufm_eperm_truncate_augenrules:obj:1'
+- 'oval:ssg-test_64bit_arufm_eacces_truncate_auditctl:tst:1'
+- 'oval:ssg-system_info_architecture_ppc_64:def:1'
+- 'oval:ssg-var_32bit_arufm_eacces_truncate_regex:var:1'
+- 'oval:ssg-object_system_info_architecture_ppcle_64:obj:1'
+- 'oval:ssg-object_64bit_arufm_eacces_truncate_augenrules:obj:1'
+- 'oval:ssg-object_audit_rules_augenrules:obj:1'
+- 'oval:ssg-object_system_info_architecture_x86_64:obj:1'
+- 'oval:ssg-state_system_info_architecture_x86_64:ste:1'
+- 'oval:ssg-system_info_architecture_64bit:def:1'
+- 'oval:ssg-var_32bit_arufm_eperm_truncate_regex:var:1'
+- 'oval:ssg-test_system_info_architecture_ppc_64:tst:1'
+- 'oval:ssg-test_system_info_architecture_aarch_64:tst:1'
+- 'oval:ssg-system_info_architecture_x86_64:def:1'
+- 'oval:ssg-audit_rules_augenrules:def:1'
+- 'oval:ssg-test_audit_rules_augenrules:tst:1'
+- 'oval:ssg-state_system_info_architecture_ppcle_64:ste:1'
+- 'oval:ssg-object_audit_rules_auditctl:obj:1'
+- 'oval:ssg-test_audit_rules_auditctl:tst:1'
+- 'oval:ssg-var_32bit_arufm_truncate_head:var:1'
+- 'oval:ssg-test_64bit_arufm_eacces_truncate_augenrules:tst:1'
+- 'oval:ssg-object_32bit_arufm_eacces_truncate_augenrules:obj:1'
+- 'oval:ssg-test_system_info_architecture_x86_64:tst:1'
+- 'oval:ssg-test_64bit_arufm_eperm_truncate_augenrules:tst:1'
+- 'oval:ssg-var_64bit_arufm_eacces_truncate_regex:var:1'
+- 'oval:ssg-test_32bit_arufm_eacces_truncate_augenrules:tst:1'
+- 'oval:ssg-test_64bit_arufm_eperm_truncate_auditctl:tst:1'
+- 'oval:ssg-state_system_info_architecture_aarch_64:ste:1'
+- 'oval:ssg-state_system_info_architecture_ppc_64:ste:1'
+- 'oval:ssg-test_32bit_arufm_eacces_truncate_auditctl:tst:1'
+- 'oval:ssg-test_32bit_arufm_eperm_truncate_auditctl:tst:1'
+- 'oval:ssg-object_64bit_arufm_eperm_truncate_auditctl:obj:1'
+- 'oval:ssg-object_32bit_arufm_eperm_truncate_auditctl:obj:1'
+- 'oval:ssg-var_64bit_arufm_truncate_head:var:1'
+- 'oval:ssg-object_64bit_arufm_eperm_truncate_augenrules:obj:1'  -->
+  <definition class="compliance" id="oval:ssg-audit_rules_unsuccessful_file_modification_truncate:def:1" version="1">
+    <metadata>
+      <title>Ensure auditd Collects Unauthorized Access Attempts to Files (unsuccessful) - truncate</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Audit rules about the unauthorized access attempts to files (unsuccessful) are enabled.</description>
+      <reference ref_id="CCE-80756-0" source="CCE"/>
+      <reference ref_id="audit_rules_unsuccessful_file_modification_truncate" source="ssg"/>
+    </metadata>
+    <criteria operator="OR">
+      <criteria operator="AND">
+        <extend_definition comment="audit augenrules" definition_ref="oval:ssg-audit_rules_augenrules:def:1"/>
+        <criterion comment="audit augenrules 32-bit file eacces" test_ref="oval:ssg-test_32bit_arufm_eacces_truncate_augenrules:tst:1"/>
+        <criterion comment="audit augenrules 32-bit file eperm" test_ref="oval:ssg-test_32bit_arufm_eperm_truncate_augenrules:tst:1"/>
+        <criteria operator="OR">
+          <extend_definition comment="64-bit system" definition_ref="oval:ssg-system_info_architecture_64bit:def:1" negate="true"/>
+          <criteria operator="AND">
+            <criterion comment="audit augenrules 64-bit file eacces" test_ref="oval:ssg-test_64bit_arufm_eacces_truncate_augenrules:tst:1"/>
+            <criterion comment="audit augenrules 64-bit file eperm" test_ref="oval:ssg-test_64bit_arufm_eperm_truncate_augenrules:tst:1"/>
+          </criteria>
+        </criteria>
+      </criteria>
+      <criteria operator="AND">
+        <extend_definition comment="audit auditctl" definition_ref="oval:ssg-audit_rules_auditctl:def:1"/>
+        <criterion comment="audit auditctl 32-bit file eacces" test_ref="oval:ssg-test_32bit_arufm_eacces_truncate_auditctl:tst:1"/>
+        <criterion comment="audit auditctl 32-bit file eperm" test_ref="oval:ssg-test_32bit_arufm_eperm_truncate_auditctl:tst:1"/>
+        <criteria operator="OR">
+          <extend_definition comment="64-bit_system" definition_ref="oval:ssg-system_info_architecture_64bit:def:1" negate="true"/>
+          <criteria operator="AND">
+            <criterion comment="audit auditctl 64-bit file eacces" test_ref="oval:ssg-test_64bit_arufm_eacces_truncate_auditctl:tst:1"/>
+            <criterion comment="audit auditctl 64-bit file eperm" test_ref="oval:ssg-test_64bit_arufm_eperm_truncate_auditctl:tst:1"/>
+          </criteria>
+        </criteria>
+      </criteria>
+    </criteria>
+  </definition>
+  <unix:uname_object comment="64 bit architecture" id="oval:ssg-object_system_info_architecture_aarch_64:obj:1" version="1"/>
+  <constant_variable comment="audit rule auid and key" datatype="string" id="oval:ssg-var_arufm_truncate_tail:var:1" version="1">
+    <value>[\s]+(?:-F\s+auid&gt;=1000[\s]+)(?:-F\s+auid!=(unset|4294967295)[\s]+)(?:-k[\s]+|-F[\s]+key=)[\S]+[\s]*$</value>
+  </constant_variable>
+  <ind:textfilecontent54_test check="all" comment="audit augenrules 32-bit file eperm" id="oval:ssg-test_32bit_arufm_eperm_truncate_augenrules:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_32bit_arufm_eperm_truncate_augenrules:obj:1"/>
+  </ind:textfilecontent54_test>
+  <definition class="compliance" id="oval:ssg-audit_rules_auditctl:def:1" version="1">
+    <metadata>
+      <title>Record Any Attempts to Run semanage</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Test if auditctl is in use for audit rules.</description>
+      <reference ref_id="audit_rules_auditctl" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="audit auditctl" test_ref="oval:ssg-test_audit_rules_auditctl:tst:1"/>
+    </criteria>
+  </definition>
+  <unix:uname_object comment="64 bit architecture" id="oval:ssg-object_system_info_architecture_ppc_64:obj:1" version="1"/>
+  <local_variable comment="Expression to match 64bit truncate EPERM syscall" datatype="string" id="oval:ssg-var_64bit_arufm_eperm_truncate_regex:var:1" version="1">
+    <concat>
+      <variable_component var_ref="oval:ssg-var_64bit_arufm_truncate_head:var:1"/>
+      <literal_component>(?:-F\s+exit=-EPERM)</literal_component>
+      <variable_component var_ref="oval:ssg-var_arufm_truncate_tail:var:1"/>
+    </concat>
+  </local_variable>
+  <ind:textfilecontent54_object id="oval:ssg-object_32bit_arufm_eacces_truncate_auditctl:obj:1" version="1">
+    <ind:filepath>/etc/audit/audit.rules</ind:filepath>
+    <ind:pattern operation="pattern match" var_ref="oval:ssg-var_32bit_arufm_eacces_truncate_regex:var:1"/>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_object id="oval:ssg-object_64bit_arufm_eacces_truncate_auditctl:obj:1" version="1">
+    <ind:filepath>/etc/audit/audit.rules</ind:filepath>
+    <ind:pattern operation="pattern match" var_ref="oval:ssg-var_64bit_arufm_eacces_truncate_regex:var:1"/>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <unix:uname_test check="all" comment="64 bit architecture" id="oval:ssg-test_system_info_architecture_ppcle_64:tst:1" version="1">
+    <unix:object object_ref="oval:ssg-object_system_info_architecture_ppcle_64:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_system_info_architecture_ppcle_64:ste:1"/>
+  </unix:uname_test>
+  <definition class="compliance" id="oval:ssg-system_info_architecture_aarch_64:def:1" version="1">
+    <metadata>
+      <title>Test for aarch_64 Architecture</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Generic test for aarch_64 architecture to be used by other tests</description>
+      <reference ref_id="system_info_architecture_aarch_64" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="Generic test for aarch_64 architecture" test_ref="oval:ssg-test_system_info_architecture_aarch_64:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_object id="oval:ssg-object_32bit_arufm_eperm_truncate_augenrules:obj:1" version="1">
+    <ind:filepath operation="pattern match">^/etc/audit/rules\.d/.*\.rules$</ind:filepath>
+    <ind:pattern operation="pattern match" var_ref="oval:ssg-var_32bit_arufm_eperm_truncate_regex:var:1"/>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" comment="audit auditctl 64-bit file eacces" id="oval:ssg-test_64bit_arufm_eacces_truncate_auditctl:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_64bit_arufm_eacces_truncate_auditctl:obj:1"/>
+  </ind:textfilecontent54_test>
+  <definition class="compliance" id="oval:ssg-system_info_architecture_ppc_64:def:1" version="1">
+    <metadata>
+      <title>Test for PPC and PPCLE Architecture</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Generic test for PPC PPC64LE architecture to be used by other tests</description>
+      <reference ref_id="system_info_architecture_ppc_64" source="ssg"/>
+    </metadata>
+    <criteria operator="OR">
+      <criterion comment="Generic test for ppc64 architecture" test_ref="oval:ssg-test_system_info_architecture_ppc_64:tst:1"/>
+      <criterion comment="Generic test for ppcle64 architecture" test_ref="oval:ssg-test_system_info_architecture_ppcle_64:tst:1"/>
+    </criteria>
+  </definition>
+  <local_variable comment="Expression to match 32bit truncate EACCES syscall" datatype="string" id="oval:ssg-var_32bit_arufm_eacces_truncate_regex:var:1" version="1">
+    <concat>
+      <variable_component var_ref="oval:ssg-var_32bit_arufm_truncate_head:var:1"/>
+      <literal_component>(?:-F\s+exit=-EACCES)</literal_component>
+      <variable_component var_ref="oval:ssg-var_arufm_truncate_tail:var:1"/>
+    </concat>
+  </local_variable>
+  <unix:uname_object comment="64 bit architecture" id="oval:ssg-object_system_info_architecture_ppcle_64:obj:1" version="1"/>
+  <ind:textfilecontent54_object id="oval:ssg-object_64bit_arufm_eacces_truncate_augenrules:obj:1" version="1">
+    <ind:filepath operation="pattern match">^/etc/audit/rules\.d/.*\.rules$</ind:filepath>
+    <ind:pattern operation="pattern match" var_ref="oval:ssg-var_64bit_arufm_eacces_truncate_regex:var:1"/>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_object id="oval:ssg-object_audit_rules_augenrules:obj:1" version="1">
+    <ind:filepath>/usr/lib/systemd/system/auditd.service</ind:filepath>
+    <ind:pattern operation="pattern match">^ExecStartPost=\-\/sbin\/augenrules.*$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <unix:uname_object comment="64 bit architecture" id="oval:ssg-object_system_info_architecture_x86_64:obj:1" version="1"/>
+  <unix:uname_state comment="64 bit architecture" id="oval:ssg-state_system_info_architecture_x86_64:ste:1" version="1">
+    <unix:processor_type operation="equals">x86_64</unix:processor_type>
+  </unix:uname_state>
+  <definition class="compliance" id="oval:ssg-system_info_architecture_64bit:def:1" version="1">
+    <metadata>
+      <title>Test for 64-bit Architecture</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Generic test for 64-bit architectures to be used by other tests</description>
+      <reference ref_id="system_info_architecture_64bit" source="ssg"/>
+    </metadata>
+    <criteria operator="OR">
+      <extend_definition comment="Generic test for x86_64 architecture" definition_ref="oval:ssg-system_info_architecture_x86_64:def:1"/>
+      <extend_definition comment="Generic test for ppc64 architecture" definition_ref="oval:ssg-system_info_architecture_ppc_64:def:1"/>
+      <extend_definition comment="Generic test for aarch64 architecture" definition_ref="oval:ssg-system_info_architecture_aarch_64:def:1"/>
+    </criteria>
+  </definition>
+  <local_variable comment="Expression to match 32bit truncate EPERM EACCES syscall" datatype="string" id="oval:ssg-var_32bit_arufm_eperm_truncate_regex:var:1" version="1">
+    <concat>
+      <variable_component var_ref="oval:ssg-var_32bit_arufm_truncate_head:var:1"/>
+      <literal_component>(?:-F\s+exit=-EPERM)</literal_component>
+      <variable_component var_ref="oval:ssg-var_arufm_truncate_tail:var:1"/>
+    </concat>
+  </local_variable>
+  <unix:uname_test check="all" comment="64 bit architecture" id="oval:ssg-test_system_info_architecture_ppc_64:tst:1" version="1">
+    <unix:object object_ref="oval:ssg-object_system_info_architecture_ppc_64:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_system_info_architecture_ppc_64:ste:1"/>
+  </unix:uname_test>
+  <unix:uname_test check="all" comment="64 bit architecture" id="oval:ssg-test_system_info_architecture_aarch_64:tst:1" version="1">
+    <unix:object object_ref="oval:ssg-object_system_info_architecture_aarch_64:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_system_info_architecture_aarch_64:ste:1"/>
+  </unix:uname_test>
+  <definition class="compliance" id="oval:ssg-system_info_architecture_x86_64:def:1" version="1">
+    <metadata>
+      <title>Test for x86_64 Architecture</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Generic test for x86_64 architecture to be used by other tests</description>
+      <reference ref_id="system_info_architecture_x86_64" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="Generic test for x86_64 architecture" test_ref="oval:ssg-test_system_info_architecture_x86_64:tst:1"/>
+    </criteria>
+  </definition>
+  <definition class="compliance" id="oval:ssg-audit_rules_augenrules:def:1" version="1">
+    <metadata>
+      <title>Record Any Attempts to Run semanage</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Test if augenrules is enabled for audit rules.</description>
+      <reference ref_id="audit_rules_augenrules" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="audit augenrules" test_ref="oval:ssg-test_audit_rules_augenrules:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_test check="all" comment="audit augenrules" id="oval:ssg-test_audit_rules_augenrules:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_audit_rules_augenrules:obj:1"/>
+  </ind:textfilecontent54_test>
+  <unix:uname_state comment="64 bit architecture" id="oval:ssg-state_system_info_architecture_ppcle_64:ste:1" version="1">
+    <unix:processor_type operation="equals">ppc64le</unix:processor_type>
+  </unix:uname_state>
+  <ind:textfilecontent54_object id="oval:ssg-object_audit_rules_auditctl:obj:1" version="1">
+    <ind:filepath>/usr/lib/systemd/system/auditd.service</ind:filepath>
+    <ind:pattern operation="pattern match">^ExecStartPost=\-\/sbin\/auditctl.*$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" comment="audit auditctl" id="oval:ssg-test_audit_rules_auditctl:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_audit_rules_auditctl:obj:1"/>
+  </ind:textfilecontent54_test>
+  <constant_variable comment="audit rule arch and syscal" datatype="string" id="oval:ssg-var_32bit_arufm_truncate_head:var:1" version="1">
+    <value>^[\s]*-a[\s]+always,exit[\s]+(?:-F[\s]+arch=b32[\s]+)(?:-S[\s]+(?:|(?:[\S]+,)+)(truncate)(?:|(?:,[\S]+)+))[\s]+</value>
+  </constant_variable>
+  <ind:textfilecontent54_test check="all" comment="audit augenrules 64-bit file eacces" id="oval:ssg-test_64bit_arufm_eacces_truncate_augenrules:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_64bit_arufm_eacces_truncate_augenrules:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object id="oval:ssg-object_32bit_arufm_eacces_truncate_augenrules:obj:1" version="1">
+    <ind:filepath operation="pattern match">^/etc/audit/rules\.d/.*\.rules$</ind:filepath>
+    <ind:pattern operation="pattern match" var_ref="oval:ssg-var_32bit_arufm_eacces_truncate_regex:var:1"/>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <unix:uname_test check="all" comment="64 bit architecture" id="oval:ssg-test_system_info_architecture_x86_64:tst:1" version="1">
+    <unix:object object_ref="oval:ssg-object_system_info_architecture_x86_64:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_system_info_architecture_x86_64:ste:1"/>
+  </unix:uname_test>
+  <ind:textfilecontent54_test check="all" comment="audit augenrules 64-bit file eperm" id="oval:ssg-test_64bit_arufm_eperm_truncate_augenrules:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_64bit_arufm_eperm_truncate_augenrules:obj:1"/>
+  </ind:textfilecontent54_test>
+  <local_variable comment="Expression to match 64bit truncate EACCES syscall" datatype="string" id="oval:ssg-var_64bit_arufm_eacces_truncate_regex:var:1" version="1">
+    <concat>
+      <variable_component var_ref="oval:ssg-var_64bit_arufm_truncate_head:var:1"/>
+      <literal_component>(?:-F\s+exit=-EACCES)</literal_component>
+      <variable_component var_ref="oval:ssg-var_arufm_truncate_tail:var:1"/>
+    </concat>
+  </local_variable>
+  <ind:textfilecontent54_test check="all" comment="audit augenrules 32-bit file eacces" id="oval:ssg-test_32bit_arufm_eacces_truncate_augenrules:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_32bit_arufm_eacces_truncate_augenrules:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_test check="all" comment="audit auditctl 64-bit file eperm" id="oval:ssg-test_64bit_arufm_eperm_truncate_auditctl:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_64bit_arufm_eperm_truncate_auditctl:obj:1"/>
+  </ind:textfilecontent54_test>
+  <unix:uname_state comment="64 bit architecture" id="oval:ssg-state_system_info_architecture_aarch_64:ste:1" version="1">
+    <unix:processor_type operation="equals">aarch64</unix:processor_type>
+  </unix:uname_state>
+  <unix:uname_state comment="64 bit architecture" id="oval:ssg-state_system_info_architecture_ppc_64:ste:1" version="1">
+    <unix:processor_type operation="equals">ppc64</unix:processor_type>
+  </unix:uname_state>
+  <ind:textfilecontent54_test check="all" comment="audit auditctl 32-bit file eacces" id="oval:ssg-test_32bit_arufm_eacces_truncate_auditctl:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_32bit_arufm_eacces_truncate_auditctl:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_test check="all" comment="audit auditctl 32-bit file eperm" id="oval:ssg-test_32bit_arufm_eperm_truncate_auditctl:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_32bit_arufm_eperm_truncate_auditctl:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object id="oval:ssg-object_64bit_arufm_eperm_truncate_auditctl:obj:1" version="1">
+    <ind:filepath>/etc/audit/audit.rules</ind:filepath>
+    <ind:pattern operation="pattern match" var_ref="oval:ssg-var_64bit_arufm_eperm_truncate_regex:var:1"/>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_object id="oval:ssg-object_32bit_arufm_eperm_truncate_auditctl:obj:1" version="1">
+    <ind:filepath>/etc/audit/audit.rules</ind:filepath>
+    <ind:pattern operation="pattern match" var_ref="oval:ssg-var_32bit_arufm_eperm_truncate_regex:var:1"/>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <constant_variable comment="audit rule arch and syscal" datatype="string" id="oval:ssg-var_64bit_arufm_truncate_head:var:1" version="1">
+    <value>^[\s]*-a[\s]+always,exit[\s]+(?:-F[\s]+arch=b64[\s]+)(?:-S[\s]+(?:|(?:[\S]+,)+)(truncate)(?:|(?:,[\S]+)+))[\s]+</value>
+  </constant_variable>
+  <ind:textfilecontent54_object id="oval:ssg-object_64bit_arufm_eperm_truncate_augenrules:obj:1" version="1">
+    <ind:filepath operation="pattern match">^/etc/audit/rules\.d/.*\.rules$</ind:filepath>
+    <ind:pattern operation="pattern match" var_ref="oval:ssg-var_64bit_arufm_eperm_truncate_regex:var:1"/>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+</def-group>

@@ -1,0 +1,31 @@
+<ocil-group><questionnaire  id="ocil:ssg-dconf_gnome_disable_automount_ocil:questionnaire:1">
+          <title>Disable GNOME3 Automounting</title>
+          <actions>
+            <test_action_ref>ocil:ssg-dconf_gnome_disable_automount_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-dconf_gnome_disable_automount_action:testaction:1" question_ref="ocil:ssg-dconf_gnome_disable_automount_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-dconf_gnome_disable_automount_question:question:1">
+          <question_text>These settings can be verified by running the following:
+$ gsettings get org.gnome.desktop.media-handling automount
+$ gsettings get org.gnome.desktop.media-handling automount-open
+$ gsettings get org.gnome.desktop.media-handling autorun-never
+If properly configured, the output for automount should be false.
+If properly configured, the output for automount-openshould be false.
+If properly configured, the output for autorun-never should be true.
+To ensure that users cannot enable automount and autorun in GNOME3, run the following:
+$ grep 'automount\|autorun' /etc/dconf/db/local.d/locks/*
+If properly configured, the output for automount should be /org/gnome/desktop/media-handling/automount
+If properly configured, the output for automount-open should be /org/gnome/desktop/media-handling/auto-open
+If properly configured, the output for autorun-never should be /org/gnome/desktop/media-handling/autorun-never
+      Is it the case that GNOME automounting is not disabled?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

@@ -1,0 +1,21 @@
+<ocil-group><questionnaire  id="ocil:ssg-file_ownership_home_directories_ocil:questionnaire:1">
+          <title>All Interactive User Home Directories Must Be Owned By The Primary User</title>
+          <actions>
+            <test_action_ref>ocil:ssg-file_ownership_home_directories_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-file_ownership_home_directories_action:testaction:1" question_ref="ocil:ssg-file_ownership_home_directories_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-file_ownership_home_directories_question:question:1">
+          <question_text>To verify the home directory ownership, run the following command:
+$ sudo ls -ld $(egrep ':[0-9]{4}' /etc/passwd | cut -d: -f6)
+      Is it the case that the user ownership is incorrect?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

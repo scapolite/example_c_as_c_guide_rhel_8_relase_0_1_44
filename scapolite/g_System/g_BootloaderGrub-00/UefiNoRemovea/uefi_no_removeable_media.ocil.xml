@@ -1,0 +1,27 @@
+<ocil-group><questionnaire  id="ocil:ssg-uefi_no_removeable_media_ocil:questionnaire:1">
+          <title>UEFI Boat Loader Is Not Installed On Removeable Media</title>
+          <actions>
+            <test_action_ref>ocil:ssg-uefi_no_removeable_media_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-uefi_no_removeable_media_action:testaction:1" question_ref="ocil:ssg-uefi_no_removeable_media_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-uefi_no_removeable_media_question:question:1">
+          <question_text>To verify the system is not configured to use a boot loader on removable media,
+run the following command:
+$ sudo grep "set root='hd0" /boot/efi/EFI/redhat/grub.cfg
+The output should return something similar to:
+set root='hd0,msdos1'
+usb0, cd, fd0, etc. are some examples of removeable
+media which should not exist in the line:
+set root='hd0,msdos1'
+      Is it the case that it is not?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

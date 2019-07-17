@@ -1,0 +1,74 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-file_permissions_unauthorized_sgid:def:1" version="2">
+    <metadata>
+      <title>Find setgid files system packages</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>All files with setgid should be owned by a base system package</description>
+      <reference ref_id="CCE-80816-2" source="CCE"/>
+      <reference ref_id="file_permissions_unauthorized_sgid" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="Check all setgid files" test_ref="oval:ssg-check_setgid_files:tst:1"/>
+    </criteria>
+  </definition>
+  <unix:file_state id="oval:ssg-state_sgid_whitelist:ste:1" version="1">
+    <unix:filepath var_check="at least one" var_ref="oval:ssg-var_sgid_whitelist:var:1"/>
+  </unix:file_state>
+  <unix:file_test check="all" check_existence="none_exist" comment="setgid files outside system RPMs" id="oval:ssg-check_setgid_files:tst:1" version="1">
+    <unix:object object_ref="oval:ssg-object_file_permissions_unauthorized_sgid:obj:1"/>
+  </unix:file_test>
+  <constant_variable comment="sgid whitelist" datatype="string" id="oval:ssg-var_sgid_whitelist:var:1" version="1">
+    <value>/usr/bin/cgclassify</value>
+    <value>/usr/bin/cgexec</value>
+    <value>/usr/sbin/netreport</value>
+    <value>/usr/lib/vte-2.90/gnome-pty-helper</value>
+    <value>/usr/lib/vte-2.91/gnome-pty-helper</value>
+    <value>/usr/lib64/vte/gnome-pty-helper</value>
+    <value>/usr/lib64/vte-2.90/gnome-pty-helper</value>
+    <value>/usr/lib64/vte-2.91/gnome-pty-helper</value>
+    <value>/usr/libexec/abrt-action-install-debuginfo-to-abrt-cache</value>
+    <value>/usr/libexec/openssh/ssh-keysign</value>
+    <value>/usr/bin/crontab</value>
+    <value>/usr/bin/gnomine</value>
+    <value>/usr/bin/iagno</value>
+    <value>/usr/bin/locate</value>
+    <value>/usr/bin/lockfile</value>
+    <value>/usr/bin/same-gnome</value>
+    <value>/usr/bin/screen</value>
+    <value>/usr/bin/ssh-agent</value>
+    <value>/usr/bin/wall</value>
+    <value>/usr/bin/write</value>
+    <value>/usr/lib/vte/gnome-pty-helper</value>
+    <value>/usr/libexec/kde4/kdesud</value>
+    <value>/usr/libexec/utempter/utempter</value>
+    <value>/usr/lib/mailman/cgi-bin/admindb</value>
+    <value>/usr/lib/mailman/cgi-bin/admin</value>
+    <value>/usr/lib/mailman/cgi-bin/confirm</value>
+    <value>/usr/lib/mailman/cgi-bin/create</value>
+    <value>/usr/lib/mailman/cgi-bin/edithtml</value>
+    <value>/usr/lib/mailman/cgi-bin/listinfo</value>
+    <value>/usr/lib/mailman/cgi-bin/options</value>
+    <value>/usr/lib/mailman/cgi-bin/private</value>
+    <value>/usr/lib/mailman/cgi-bin/rmlist</value>
+    <value>/usr/lib/mailman/cgi-bin/roster</value>
+    <value>/usr/lib/mailman/cgi-bin/subscribe</value>
+    <value>/usr/lib/mailman/mail/mailman</value>
+    <value>/usr/sbin/lockdev</value>
+    <value>/usr/sbin/postdrop</value>
+    <value>/usr/sbin/postqueue</value>
+    <value>/usr/sbin/sendmail.sendmail</value>
+  </constant_variable>
+  <unix:file_state id="oval:ssg-state_file_permissions_unauthorized_sgid:ste:1" version="1">
+    <unix:sgid datatype="boolean">true</unix:sgid>
+  </unix:file_state>
+  <unix:file_object comment="files with sgid set" id="oval:ssg-object_file_permissions_unauthorized_sgid:obj:1" version="1">
+    <unix:behaviors max_depth="-1" recurse="directories" recurse_direction="down" recurse_file_system="local"/>
+    <unix:path operation="equals">/</unix:path>
+    <unix:filename operation="pattern match">^.*$</unix:filename>
+    <filter action="include">oval:ssg-state_file_permissions_unauthorized_sgid:ste:1</filter>
+    <filter action="exclude">oval:ssg-state_sgid_whitelist:ste:1</filter>
+  </unix:file_object>
+</def-group>

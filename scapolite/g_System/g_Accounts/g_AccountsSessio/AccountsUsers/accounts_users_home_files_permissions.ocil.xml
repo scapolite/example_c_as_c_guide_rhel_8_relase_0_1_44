@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-accounts_users_home_files_permissions_ocil:questionnaire:1">
+          <title>All User Files and Directories In The Home Directory Must Have Mode 0750 Or Less Permissive</title>
+          <actions>
+            <test_action_ref>ocil:ssg-accounts_users_home_files_permissions_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-accounts_users_home_files_permissions_action:testaction:1" question_ref="ocil:ssg-accounts_users_home_files_permissions_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-accounts_users_home_files_permissions_question:question:1">
+          <question_text>To verify all files and directories contained in interactive user home
+directory, excluding local initialization files, have a mode of 0750,
+run the following command:
+$ sudo ls -lLR /home/USER
+      Is it the case that home directory files or folders have incorrect permissions?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

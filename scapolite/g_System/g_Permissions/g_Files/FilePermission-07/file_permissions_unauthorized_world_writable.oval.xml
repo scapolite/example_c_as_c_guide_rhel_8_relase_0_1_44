@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-file_permissions_unauthorized_world_writable:def:1" version="1">
+    <metadata>
+      <title>Find Unauthorized World-Writable Files</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The world-write permission should be disabled for all files.</description>
+      <reference ref_id="CCE-80818-8" source="CCE"/>
+      <reference ref_id="file_permissions_unauthorized_world_writable" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion test_ref="oval:ssg-test_file_permissions_unauthorized_world_write:tst:1"/>
+    </criteria>
+  </definition>
+  <unix:file_state id="oval:ssg-state_file_permissions_unauthorized_world_write_exclude_special_selinux_files:ste:1" version="1">
+    <unix:filepath operation="pattern match">^/selinux/(?:(?:member)|(?:user)|(?:relabel)|(?:create)|(?:access)|(?:context))$</unix:filepath>
+  </unix:file_state>
+  <unix:file_state id="oval:ssg-state_file_permissions_unauthorized_world_write_exclude_proc:ste:1" version="1">
+    <unix:filepath operation="pattern match">^/proc/.*$</unix:filepath>
+  </unix:file_state>
+  <unix:file_state id="oval:ssg-state_file_permissions_unauthorized_world_write:ste:1" version="1">
+    <unix:type operation="equals">regular</unix:type>
+    <unix:owrite datatype="boolean">true</unix:owrite>
+  </unix:file_state>
+  <unix:file_state id="oval:ssg-state_file_permissions_unauthorized_world_write_exclude_sys:ste:1" version="1">
+    <unix:filepath operation="pattern match">^/sys/.*$</unix:filepath>
+  </unix:file_state>
+  <unix:file_object comment="world writable" id="oval:ssg-object_file_permissions_unauthorized_world_write:obj:1" version="1">
+    <unix:behaviors max_depth="-1" recurse="directories" recurse_direction="down" recurse_file_system="local"/>
+    <unix:path operation="equals">/</unix:path>
+    <unix:filename operation="pattern match">^.*$</unix:filename>
+    <filter action="include">oval:ssg-state_file_permissions_unauthorized_world_write:ste:1</filter>
+    <filter action="exclude">oval:ssg-state_file_permissions_unauthorized_world_write_exclude_special_selinux_files:ste:1</filter>
+    <filter action="exclude">oval:ssg-state_file_permissions_unauthorized_world_write_exclude_proc:ste:1</filter>
+    <filter action="exclude">oval:ssg-state_file_permissions_unauthorized_world_write_exclude_sys:ste:1</filter>
+  </unix:file_object>
+  <unix:file_test check="all" check_existence="none_exist" comment="world writable files" id="oval:ssg-test_file_permissions_unauthorized_world_write:tst:1" version="1">
+    <unix:object object_ref="oval:ssg-object_file_permissions_unauthorized_world_write:obj:1"/>
+  </unix:file_test>
+</def-group>

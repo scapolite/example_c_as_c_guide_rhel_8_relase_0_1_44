@@ -1,0 +1,68 @@
+<?xml version="1.0" ?>
+<def-group>
+  <definition class="compliance" id="oval:ssg-root_path_no_dot:def:1" version="2">
+    <metadata>
+      <title>Ensure that No Dangerous Directories Exist in Root's Path</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The environment variable PATH should be set correctly for
+      the root user.</description>
+      <reference ref_id="root_path_no_dot" source="ssg"/>
+    </metadata>
+    <criteria comment="environment variable PATH contains dangerous path" operator="AND">
+      <criterion comment="environment variable PATH starts with : or ." test_ref="oval:ssg-test_env_var_begins:tst:1"/>
+      <criterion comment="environment variable PATH contains : twice in a row" test_ref="oval:ssg-test_env_var_contains_doublecolon:tst:1"/>
+      <criterion comment="environment variable PATH contains . twice in a row" test_ref="oval:ssg-test_env_var_contains_doubleperiod:tst:1"/>
+      <criterion comment="environment variable PATH ends with : or ." test_ref="oval:ssg-test_env_var_ends:tst:1"/>
+      <criterion comment="environment variable PATH doesn't begin with a /" test_ref="oval:ssg-test_env_var_begins_slash:tst:1"/>
+      <criterion comment="environment variable PATH doesn't contain relative paths" test_ref="oval:ssg-test_env_var_contains_relative_path:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:environmentvariable58_object id="oval:ssg-object_root_path_no_dot:obj:1" version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <ind:pid datatype="int" xsi:nil="true"/>
+    <ind:name>PATH</ind:name>
+  </ind:environmentvariable58_object>
+  <ind:environmentvariable58_state comment="ends with colon or period" id="oval:ssg-state_ends_colon_period:ste:1" version="1">
+    <ind:value operation="pattern match">[:\.]$</ind:value>
+  </ind:environmentvariable58_state>
+  <ind:environmentvariable58_state comment="period twice in a row" id="oval:ssg-state_contains_double_period:ste:1" version="1">
+    <ind:value operation="pattern match">\.\.</ind:value>
+  </ind:environmentvariable58_state>
+  <ind:environmentvariable58_test check="none satisfy" comment="environment variable PATH ends with : or ." id="oval:ssg-test_env_var_ends:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_root_path_no_dot:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_ends_colon_period:ste:1"/>
+  </ind:environmentvariable58_test>
+  <ind:environmentvariable58_test check="none satisfy" comment="environment variable PATH doesn't contain : twice in a row" id="oval:ssg-test_env_var_contains_doublecolon:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_root_path_no_dot:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_contains_double_colon:ste:1"/>
+  </ind:environmentvariable58_test>
+  <ind:environmentvariable58_state comment="starts with colon or period" id="oval:ssg-state_begins_colon_period:ste:1" version="1">
+    <ind:value operation="pattern match">^[:\.]</ind:value>
+  </ind:environmentvariable58_state>
+  <ind:environmentvariable58_state comment="begins with a slash" id="oval:ssg-state_begins_slash:ste:1" version="1">
+    <ind:value operation="pattern match">^[^/]</ind:value>
+  </ind:environmentvariable58_state>
+  <ind:environmentvariable58_test check="none satisfy" comment="environment variable PATH doesn't contain . twice in a row" id="oval:ssg-test_env_var_contains_doubleperiod:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_root_path_no_dot:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_contains_double_period:ste:1"/>
+  </ind:environmentvariable58_test>
+  <ind:environmentvariable58_test check="none satisfy" comment="environment variable PATH starts with an absolute path /" id="oval:ssg-test_env_var_begins_slash:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_root_path_no_dot:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_begins_slash:ste:1"/>
+  </ind:environmentvariable58_test>
+  <ind:environmentvariable58_test check="none satisfy" comment="environment variable PATH starts with : or ." id="oval:ssg-test_env_var_begins:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_root_path_no_dot:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_begins_colon_period:ste:1"/>
+  </ind:environmentvariable58_test>
+  <ind:environmentvariable58_test check="none satisfy" comment="environment variable PATH contains relative paths" id="oval:ssg-test_env_var_contains_relative_path:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_root_path_no_dot:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_contains_relative_path:ste:1"/>
+  </ind:environmentvariable58_test>
+  <ind:environmentvariable58_state comment="elements begin with a slash" id="oval:ssg-state_contains_relative_path:ste:1" version="1">
+    <ind:value operation="pattern match">[^\\]:[^/]</ind:value>
+  </ind:environmentvariable58_state>
+  <ind:environmentvariable58_state comment="colon twice in a row" id="oval:ssg-state_contains_double_colon:ste:1" version="1">
+    <ind:value operation="pattern match">::</ind:value>
+  </ind:environmentvariable58_state>
+</def-group>

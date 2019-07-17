@@ -1,0 +1,22 @@
+<ocil-group><questionnaire  id="ocil:ssg-aide_verify_acls_ocil:questionnaire:1">
+          <title>Configure AIDE to Verify Access Control Lists (ACLs)</title>
+          <actions>
+            <test_action_ref>ocil:ssg-aide_verify_acls_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-aide_verify_acls_action:testaction:1" question_ref="ocil:ssg-aide_verify_acls_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-aide_verify_acls_question:question:1">
+          <question_text>To determine that AIDE is verifying ACLs, run the following command:
+$ grep acl /etc/aide.conf
+Verify that the acl option is added to the correct ruleset.
+      Is it the case that the acl option is missing or not added to the correct ruleset?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

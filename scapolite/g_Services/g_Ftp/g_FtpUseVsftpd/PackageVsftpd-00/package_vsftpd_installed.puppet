@@ -1,0 +1,9 @@
+include install_vsftpd
+
+class install_vsftpd {
+  package { 'vsftpd':
+    ensure => 'installed',
+  }
+}
+
+              

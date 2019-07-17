@@ -1,0 +1,72 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-object_grub2_default_exists:obj:1'
+- 'oval:ssg-test_grub2_default_exists:tst:1'  -->
+  <definition class="compliance" id="oval:ssg-grub2_enable_iommu_force:def:1" version="1">
+    <metadata>
+      <title>Force IOMMU usage in GRUB2</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Look for argument iommu=force in the kernel line in /etc/default/grub.</description>
+      <reference ref_id="grub2_enable_iommu_force" source="ssg"/>
+    </metadata>
+    <criteria operator="AND">
+      <extend_definition comment="check for GRUB_CMDLINE_LINUX_DEFAULT exists in /etc/default/grub" definition_ref="oval:ssg-grub2_default_exists:def:1"/>
+      <criteria operator="OR">
+        <criterion comment="check for iommu=force in /etc/default/grub via GRUB_CMDLINE_LINUX_DEFAULT" test_ref="oval:ssg-test_grub2_enable_force_iommu_default:tst:1"/>
+        <criterion comment="check for iommu=force in /etc/default/grub via GRUB_CMDLINE_LINUX" test_ref="oval:ssg-test_grub2_enable_force_iommu:tst:1"/>
+      </criteria>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_object id="oval:ssg-object_grub2_default_exists:obj:1" version="1">
+    <ind:filepath>/etc/default/grub</ind:filepath>
+    <ind:pattern operation="pattern match">^\s*GRUB_CMDLINE_LINUX_DEFAULT=.*$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <definition class="compliance" id="oval:ssg-grub2_default_exists:def:1" version="1">
+    <metadata>
+      <title>GRUB_CMDLINE_LINUX_DEFAULT existance check</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Check if GRUB_CMDLINE_LINUX_DEFAULT exists in /etc/default/grub.</description>
+      <reference ref_id="grub2_default_exists" source="ssg"/>
+    </metadata>
+    <criteria operator="AND">
+      <criterion comment="check for GRUB_CMDLINE_LINUX_DEFAULT exists in /etc/default/grub" test_ref="oval:ssg-test_grub2_default_exists:tst:1"/>
+    </criteria>
+  </definition>
+  <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="check for GRUB_CMDLINE_LINUX_DEFAULT in /etc/default/grub" id="oval:ssg-test_grub2_default_exists:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_grub2_default_exists:obj:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_state id="oval:ssg-state_grub2_enable_force_iommu:ste:1" version="1">
+    <ind:subexpression datatype="string" operation="pattern match">^.*iommu=force.*$</ind:subexpression>
+  </ind:textfilecontent54_state>
+  <ind:textfilecontent54_object id="oval:ssg-object_grub2_enable_force_iommu:obj:1" version="1">
+    <ind:filepath>/etc/default/grub</ind:filepath>
+    <ind:pattern operation="pattern match">^\s*GRUB_CMDLINE_LINUX=&quot;(.*)&quot;$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="check for iommu=force in /etc/default/grub via GRUB_CMDLINE_LINUX" id="oval:ssg-test_grub2_enable_force_iommu:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_grub2_enable_force_iommu:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_grub2_enable_force_iommu:ste:1"/>
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object id="oval:ssg-object_grub2_enable_force_iommu_default:obj:1" version="1">
+    <ind:filepath>/etc/default/grub</ind:filepath>
+    <ind:pattern operation="pattern match">^\s*GRUB_CMDLINE_LINUX_DEFAULT=&quot;(.*)&quot;$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="check for fips=1 in /etc/default/grub via GRUB_CMDLINE_LINUX_DEFAULT" id="oval:ssg-test_grub2_enable_force_iommu_default:tst:1" version="1">
+    <ind:object object_ref="oval:ssg-object_grub2_enable_force_iommu_default:obj:1"/>
+    <ind:state state_ref="oval:ssg-state_grub2_enable_force_iommu:ste:1"/>
+  </ind:textfilecontent54_test>
+</def-group>

@@ -1,0 +1,115 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-test_package_cronie_installed:tst:1'
+- 'oval:ssg-obj_package_cronie_installed:obj:1'  -->
+  <definition class="compliance" id="oval:ssg-service_crond_enabled:def:1" version="1">
+    <metadata>
+      <title>Service crond Enabled</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The crond service should be enabled if possible.</description>
+      <reference ref_id="CCE-80875-8" source="CCE"/>
+      <reference ref_id="service_crond_enabled" source="ssg"/>
+    </metadata>
+    <criteria comment="package cronie installed and service crond is configured to start" operator="AND">
+      <extend_definition comment="cronie installed" definition_ref="oval:ssg-package_cronie_installed:def:1"/>
+      <criteria comment="service crond is configured to start" operator="OR">
+        <criterion comment="crond runlevel 0" test_ref="oval:ssg-test_runlevel0_crond_on:tst:1"/>
+        <criterion comment="crond runlevel 1" test_ref="oval:ssg-test_runlevel1_crond_on:tst:1"/>
+        <criterion comment="crond runlevel 2" test_ref="oval:ssg-test_runlevel2_crond_on:tst:1"/>
+        <criterion comment="crond runlevel 3" test_ref="oval:ssg-test_runlevel3_crond_on:tst:1"/>
+        <criterion comment="crond runlevel 4" test_ref="oval:ssg-test_runlevel4_crond_on:tst:1"/>
+        <criterion comment="crond runlevel 5" test_ref="oval:ssg-test_runlevel5_crond_on:tst:1"/>
+        <criterion comment="crond runlevel 6" test_ref="oval:ssg-test_runlevel6_crond_on:tst:1"/>
+      </criteria>
+    </criteria>
+  </definition>
+  <unix:runlevel_object id="oval:ssg-obj_runlevel4_crond_on:obj:1" version="1">
+    <unix:service_name>crond</unix:service_name>
+    <unix:runlevel operation="equals">4</unix:runlevel>
+  </unix:runlevel_object>
+  <linux:rpminfo_test check="all" check_existence="all_exist" comment="package cronie is installed" id="oval:ssg-test_package_cronie_installed:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_package_cronie_installed:obj:1"/>
+  </linux:rpminfo_test>
+  <unix:runlevel_test check="all" check_existence="any_exist" comment="Runlevel test" id="oval:ssg-test_runlevel0_crond_on:tst:1" version="2">
+    <unix:object object_ref="oval:ssg-obj_runlevel0_crond_on:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_service_crond_on:ste:1"/>
+  </unix:runlevel_test>
+  <unix:runlevel_test check="all" check_existence="any_exist" comment="Runlevel test" id="oval:ssg-test_runlevel1_crond_on:tst:1" version="2">
+    <unix:object object_ref="oval:ssg-obj_runlevel1_crond_on:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_service_crond_on:ste:1"/>
+  </unix:runlevel_test>
+  <unix:runlevel_object id="oval:ssg-obj_runlevel6_crond_on:obj:1" version="1">
+    <unix:service_name>crond</unix:service_name>
+    <unix:runlevel operation="equals">6</unix:runlevel>
+  </unix:runlevel_object>
+  <linux:rpminfo_object id="oval:ssg-obj_package_cronie_installed:obj:1" version="1">
+    <linux:name>cronie</linux:name>
+  </linux:rpminfo_object>
+  <unix:runlevel_object id="oval:ssg-obj_runlevel0_crond_on:obj:1" version="1">
+    <unix:service_name>crond</unix:service_name>
+    <unix:runlevel operation="equals">0</unix:runlevel>
+  </unix:runlevel_object>
+  <unix:runlevel_object id="oval:ssg-obj_runlevel2_crond_on:obj:1" version="1">
+    <unix:service_name>crond</unix:service_name>
+    <unix:runlevel operation="equals">2</unix:runlevel>
+  </unix:runlevel_object>
+  <definition class="compliance" id="oval:ssg-package_cronie_installed:def:1" version="1">
+    <metadata>
+      <title>Package cronie Installed</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The RPM package cronie should be installed.</description>
+      <reference ref_id="package_cronie_installed" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="package cronie is installed" test_ref="oval:ssg-test_package_cronie_installed:tst:1"/>
+    </criteria>
+  </definition>
+  <unix:runlevel_object id="oval:ssg-obj_runlevel5_crond_on:obj:1" version="1">
+    <unix:service_name>crond</unix:service_name>
+    <unix:runlevel operation="equals">5</unix:runlevel>
+  </unix:runlevel_object>
+  <unix:runlevel_object id="oval:ssg-obj_runlevel3_crond_on:obj:1" version="1">
+    <unix:service_name>crond</unix:service_name>
+    <unix:runlevel operation="equals">3</unix:runlevel>
+  </unix:runlevel_object>
+  <unix:runlevel_test check="all" check_existence="any_exist" comment="Runlevel test" id="oval:ssg-test_runlevel6_crond_on:tst:1" version="2">
+    <unix:object object_ref="oval:ssg-obj_runlevel6_crond_on:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_service_crond_on:ste:1"/>
+  </unix:runlevel_test>
+  <unix:runlevel_test check="all" check_existence="any_exist" comment="Runlevel test" id="oval:ssg-test_runlevel4_crond_on:tst:1" version="2">
+    <unix:object object_ref="oval:ssg-obj_runlevel4_crond_on:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_service_crond_on:ste:1"/>
+  </unix:runlevel_test>
+  <unix:runlevel_test check="all" check_existence="any_exist" comment="Runlevel test" id="oval:ssg-test_runlevel3_crond_on:tst:1" version="2">
+    <unix:object object_ref="oval:ssg-obj_runlevel3_crond_on:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_service_crond_on:ste:1"/>
+  </unix:runlevel_test>
+  <unix:runlevel_object id="oval:ssg-obj_runlevel1_crond_on:obj:1" version="1">
+    <unix:service_name>crond</unix:service_name>
+    <unix:runlevel operation="equals">1</unix:runlevel>
+  </unix:runlevel_object>
+  <unix:runlevel_test check="all" check_existence="any_exist" comment="Runlevel test" id="oval:ssg-test_runlevel5_crond_on:tst:1" version="2">
+    <unix:object object_ref="oval:ssg-obj_runlevel5_crond_on:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_service_crond_on:ste:1"/>
+  </unix:runlevel_test>
+  <unix:runlevel_state comment="configured to start" id="oval:ssg-state_service_crond_on:ste:1" version="1">
+    <unix:start datatype="boolean">true</unix:start>
+    <unix:kill datatype="boolean">false</unix:kill>
+  </unix:runlevel_state>
+  <unix:runlevel_test check="all" check_existence="any_exist" comment="Runlevel test" id="oval:ssg-test_runlevel2_crond_on:tst:1" version="2">
+    <unix:object object_ref="oval:ssg-obj_runlevel2_crond_on:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_service_crond_on:ste:1"/>
+  </unix:runlevel_test>
+</def-group>

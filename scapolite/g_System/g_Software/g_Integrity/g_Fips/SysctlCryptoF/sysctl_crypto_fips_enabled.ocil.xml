@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-sysctl_crypto_fips_enabled_ocil:questionnaire:1">
+          <title>Set kernel parameter 'crypto.fips_enabled' to 1</title>
+          <actions>
+            <test_action_ref>ocil:ssg-sysctl_crypto_fips_enabled_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-sysctl_crypto_fips_enabled_action:testaction:1" question_ref="ocil:ssg-sysctl_crypto_fips_enabled_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-sysctl_crypto_fips_enabled_question:question:1">
+          <question_text>To verify that kernel parameter 'crypto.fips_enabled' is set properly, run the following command:
+sysctl crypto.fips_enabled
+The output should contain the following:
+crypto.fips_enabled =  1
+      Is it the case that crypto.fips_enabled is not 1?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

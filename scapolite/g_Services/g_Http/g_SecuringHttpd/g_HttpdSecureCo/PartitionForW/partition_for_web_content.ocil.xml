@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-partition_for_web_content_ocil:questionnaire:1">
+          <title>Ensure Web Content Located on Separate partition</title>
+          <actions>
+            <test_action_ref>ocil:ssg-partition_for_web_content_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-partition_for_web_content_question:question:1">
+          <question_text>To verify that each web content directory exists on separate partitions,
+run the following command:
+$ grep `grep -i documentroot /etc/httpd/conf/httpd.conf | awk -F'"' '{print $2}'` /etc/fstab
+Each of the corresponding DocumentRoot entries should have a
+corresponding entry in /etc/fstab.
+      Is it the case that it is not?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-partition_for_web_content_action:testaction:1" question_ref="ocil:ssg-partition_for_web_content_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

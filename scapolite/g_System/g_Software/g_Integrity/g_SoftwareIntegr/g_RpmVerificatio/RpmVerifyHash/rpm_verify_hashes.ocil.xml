@@ -1,0 +1,22 @@
+<ocil-group><questionnaire  id="ocil:ssg-rpm_verify_hashes_ocil:questionnaire:1">
+          <title>Verify File Hashes with RPM</title>
+          <actions>
+            <test_action_ref>ocil:ssg-rpm_verify_hashes_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-rpm_verify_hashes_action:testaction:1" question_ref="ocil:ssg-rpm_verify_hashes_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-rpm_verify_hashes_question:question:1">
+          <question_text>The following command will list which files on the system
+have file hashes different from what is expected by the RPM database.
+$ rpm -Va | awk '$1 ~ /..5/ &amp;&amp; $2 != "c"'
+      Is it the case that there is output?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

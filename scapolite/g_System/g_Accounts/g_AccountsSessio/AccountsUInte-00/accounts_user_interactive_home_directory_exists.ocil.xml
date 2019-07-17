@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-accounts_user_interactive_home_directory_exists_ocil:questionnaire:1">
+          <title>All Interactive Users Home Directories Must Exist</title>
+          <actions>
+            <test_action_ref>ocil:ssg-accounts_user_interactive_home_directory_exists_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-accounts_user_interactive_home_directory_exists_action:testaction:1" question_ref="ocil:ssg-accounts_user_interactive_home_directory_exists_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-accounts_user_interactive_home_directory_exists_question:question:1">
+          <question_text>To verify the assigned home directory of all interactive users on the system
+exist, run the following command:
+$ sudo pwck -r
+The output should not return any interactive users.
+      Is it the case that users home directory does not exist?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

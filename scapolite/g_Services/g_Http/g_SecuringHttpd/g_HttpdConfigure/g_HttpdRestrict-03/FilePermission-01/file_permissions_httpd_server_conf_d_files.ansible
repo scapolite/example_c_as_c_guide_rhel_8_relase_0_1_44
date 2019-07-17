@@ -1,0 +1,28 @@
+- name: Test for existence /etc/httpd/conf.d/*
+  stat:
+    path: /etc/httpd/conf.d/*
+  register: file_exists
+  tags:
+    - file_permissions_httpd_server_conf_d_files
+    - unknown_severity
+    - configure_strategy
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+    - NIST-800-53-CM-7
+
+- name: Ensure permission 0640 on /etc/httpd/conf.d/*
+  file:
+    path: /etc/httpd/conf.d/*
+    mode: 416
+  when: file_exists.stat is defined and file_exists.stat.exists
+  tags:
+    - file_permissions_httpd_server_conf_d_files
+    - unknown_severity
+    - configure_strategy
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+    - NIST-800-53-CM-7
+
+                  

@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-ensure_logrotate_activated_ocil:questionnaire:1">
+          <title>Ensure Logrotate Runs Periodically</title>
+          <actions>
+            <test_action_ref>ocil:ssg-ensure_logrotate_activated_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-ensure_logrotate_activated_action:testaction:1" question_ref="ocil:ssg-ensure_logrotate_activated_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-ensure_logrotate_activated_question:question:1">
+          <question_text>To determine the status and frequency of logrotate, run the following command:
+$ sudo grep logrotate /var/log/cron*
+If logrotate is configured properly, output should include references to
+/etc/cron.daily.
+      Is it the case that logrotate is not configured to run daily?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

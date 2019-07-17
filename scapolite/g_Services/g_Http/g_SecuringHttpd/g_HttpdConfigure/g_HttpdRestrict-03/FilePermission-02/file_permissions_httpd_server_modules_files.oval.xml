@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-test_package_httpd_removed:tst:1'
+- 'oval:ssg-obj_package_httpd_removed:obj:1'
+- 'oval:ssg-package_httpd_removed:def:1'  -->
+  <definition class="compliance" id="oval:ssg-file_permissions_httpd_server_modules_files:def:1" version="2">
+    <metadata>
+      <title>Verify Permissions On Apache Web Server Configuration Files</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The /etc/httpd/conf.modules.d/* files should have the appropriate permissions (0640 or stronger).</description>
+      <reference ref_id="file_permissions_httpd_server_modules_files" source="ssg"/>
+    </metadata>
+    <criteria operator="OR">
+      <extend_definition comment="httpd not present or in use" definition_ref="oval:ssg-package_httpd_removed:def:1"/>
+      <criterion test_ref="oval:ssg-test_file_permissions_httpd_server_modules_files:tst:1"/>
+    </criteria>
+  </definition>
+  <linux:rpminfo_test check="all" check_existence="none_exist" comment="package httpd is removed" id="oval:ssg-test_package_httpd_removed:tst:1" version="1">
+    <linux:object object_ref="oval:ssg-obj_package_httpd_removed:obj:1"/>
+  </linux:rpminfo_test>
+  <linux:rpminfo_object id="oval:ssg-obj_package_httpd_removed:obj:1" version="1">
+    <linux:name>httpd</linux:name>
+  </linux:rpminfo_object>
+  <unix:file_state id="oval:ssg-state_wrong_file_permissions_httpd_server_modules_files:ste:1" operator="AND" version="2">
+    <unix:suid datatype="boolean">false</unix:suid>
+    <unix:sgid datatype="boolean">false</unix:sgid>
+    <unix:sticky datatype="boolean">false</unix:sticky>
+    <unix:uexec datatype="boolean">false</unix:uexec>
+    <unix:gwrite datatype="boolean">false</unix:gwrite>
+    <unix:gexec datatype="boolean">false</unix:gexec>
+    <unix:oread datatype="boolean">false</unix:oread>
+    <unix:owrite datatype="boolean">false</unix:owrite>
+    <unix:oexec datatype="boolean">false</unix:oexec>
+  </unix:file_state>
+  <unix:file_test check="all" check_existence="all_exist" comment="/etc/httpd/conf.modules.d/* permissions" id="oval:ssg-test_file_permissions_httpd_server_modules_files:tst:1" version="1">
+    <unix:object object_ref="oval:ssg-object_file_permissions_httpd_server_modules_files:obj:1"/>
+    <unix:state state_ref="oval:ssg-state_wrong_file_permissions_httpd_server_modules_files:ste:1"/>
+  </unix:file_test>
+  <definition class="compliance" id="oval:ssg-package_httpd_removed:def:1" version="1">
+    <metadata>
+      <title>Package httpd Removed</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>The RPM package httpd should be removed.</description>
+      <reference ref_id="package_httpd_removed" source="ssg"/>
+    </metadata>
+    <criteria>
+      <criterion comment="package httpd is removed" test_ref="oval:ssg-test_package_httpd_removed:tst:1"/>
+    </criteria>
+  </definition>
+  <unix:file_object comment="/etc/httpd/conf.modules.d/* permissions" id="oval:ssg-object_file_permissions_httpd_server_modules_files:obj:1" version="1">
+    <unix:behaviors max_depth="-1" recurse="directories" recurse_direction="down" recurse_file_system="local"/>
+    <unix:path operation="equals">/etc/httpd/conf.modules.d/</unix:path>
+    <unix:filename operation="pattern match">^.*$</unix:filename>
+  </unix:file_object>
+</def-group>

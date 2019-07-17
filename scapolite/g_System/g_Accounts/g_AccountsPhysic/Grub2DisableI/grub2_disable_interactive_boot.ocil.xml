@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-grub2_disable_interactive_boot_ocil:questionnaire:1">
+          <title>Verify that Interactive Boot is Disabled</title>
+          <actions>
+            <test_action_ref>ocil:ssg-grub2_disable_interactive_boot_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-grub2_disable_interactive_boot_action:testaction:1" question_ref="ocil:ssg-grub2_disable_interactive_boot_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-grub2_disable_interactive_boot_question:question:1">
+          <question_text>Inspect /etc/default/grub for any instances of
+systemd.confirm_spawn=(1|yes|true|on) in the kernel boot arguments.
+Presence of a systemd.confirm_spawn=(1|yes|true|on) indicates
+that interactive boot is enabled at boot time.
+      Is it the case that Interactive boot is enabled at boot time?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

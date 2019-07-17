@@ -1,0 +1,21 @@
+<ocil-group><questionnaire  id="ocil:ssg-install_hids_ocil:questionnaire:1">
+          <title>Install Intrusion Detection Software</title>
+          <actions>
+            <test_action_ref>ocil:ssg-install_hids_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-install_hids_action:testaction:1" question_ref="ocil:ssg-install_hids_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-install_hids_question:question:1">
+          <question_text>Inspect the system to determine if intrusion detection software has been installed.
+Verify this intrusion detection software is active.
+      Is it the case that no host-based intrusion detection tools are installed?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

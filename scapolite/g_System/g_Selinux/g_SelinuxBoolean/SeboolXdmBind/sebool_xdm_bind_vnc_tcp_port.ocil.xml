@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-sebool_xdm_bind_vnc_tcp_port_ocil:questionnaire:1">
+          <title>Disable the xdm_bind_vnc_tcp_port SELinux Boolean</title>
+          <actions>
+            <test_action_ref>ocil:ssg-sebool_xdm_bind_vnc_tcp_port_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-sebool_xdm_bind_vnc_tcp_port_action:testaction:1" question_ref="ocil:ssg-sebool_xdm_bind_vnc_tcp_port_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-sebool_xdm_bind_vnc_tcp_port_question:question:1">
+          <question_text>
+Run the following command to determine if the xdm_bind_vnc_tcp_port SELinux boolean is disabled:
+$ getsebool xdm_bind_vnc_tcp_port
+If properly configured, the output should show the following:
+xdm_bind_vnc_tcp_port --&gt; off
+      Is it the case that xdm_bind_vnc_tcp_port is not disabled?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

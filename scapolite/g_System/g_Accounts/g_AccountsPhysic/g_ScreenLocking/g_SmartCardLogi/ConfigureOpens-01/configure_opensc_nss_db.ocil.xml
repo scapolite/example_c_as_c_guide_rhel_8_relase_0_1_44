@@ -1,0 +1,23 @@
+<ocil-group><questionnaire  id="ocil:ssg-configure_opensc_nss_db_ocil:questionnaire:1">
+          <title>Configure NSS DB To Use opensc</title>
+          <actions>
+            <test_action_ref>ocil:ssg-configure_opensc_nss_db_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-configure_opensc_nss_db_question:question:1">
+          <question_text>To verify that opensc is configured in the NSS database,
+run the following command:
+$ pkcs11-switch
+The output should return opensc
+      Is it the case that opensc is not in use by the nss database?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-configure_opensc_nss_db_action:testaction:1" question_ref="ocil:ssg-configure_opensc_nss_db_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

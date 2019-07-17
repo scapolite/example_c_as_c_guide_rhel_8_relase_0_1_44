@@ -1,0 +1,27 @@
+<ocil-group><questionnaire  id="ocil:ssg-httpd_configure_perl_taint_ocil:questionnaire:1">
+          <title>Configure HTTP PERL Scripts To Use TAINT Option</title>
+          <actions>
+            <test_action_ref>ocil:ssg-httpd_configure_perl_taint_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-httpd_configure_perl_taint_question:question:1">
+          <question_text>To verify if the mod_perl is installed, run the following command:
+$ rpm -qa | grep mod_perl
+If the mod_perl module is installed, verify that PerlSwitches -T
+is enabled in /etc/httpd/conf.d/perl.conf by running the following
+command:
+$ grep -i "PerlSwitches -T" /etc/httpd/conf.d/perl.conf
+The output should return uncommented:
+PerlSwitches -T
+      Is it the case that it is not?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-httpd_configure_perl_taint_action:testaction:1" question_ref="ocil:ssg-httpd_configure_perl_taint_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<def-group>
+  <!--ATTENTION: some OVAL entities defined below ALSO OCCUR in OVAL definitions
+for other rules - a mechanism generating SCAP from these sources must ensure that
+multiple definitions of the same entity are exactly the same.
+When using 'localized' per-rule OVAL, as encouraged by the Scapolite format
+it is probaly preferable to structure OVAL differently and work with shared OVAL files.
+The OVAL presented here has been exported automatically but no such optimization
+using shared OVAL files has been carried out.
+Here is the list of identifies for OVAL entities that also occur in other rules:
+ - 'oval:ssg-object_etc_system_fips:obj:1'
+- 'oval:ssg-test_etc_system_fips:tst:1'  -->
+  <definition class="compliance" id="oval:ssg-etc_system_fips_exists:def:1" version="1">
+    <metadata>
+      <title>Check /etc/system-fips exists</title>
+      <affected family="unix">
+        <platform>Red Hat Enterprise Linux 8</platform>
+      </affected>
+      <description>Check /etc/system-fips exists</description>
+      <reference ref_id="etc_system_fips_exists" source="ssg"/>
+    </metadata>
+    <criteria operator="AND">
+      <criterion comment="/etc/system-fips exists" test_ref="oval:ssg-test_etc_system_fips:tst:1"/>
+    </criteria>
+  </definition>
+  <unix:file_object id="oval:ssg-object_etc_system_fips:obj:1" version="1">
+    <unix:filepath>/etc/system-fips</unix:filepath>
+  </unix:file_object>
+  <unix:file_test check="all" check_existence="all_exist" comment="/etc/system-fips exists" id="oval:ssg-test_etc_system_fips:tst:1" version="1">
+    <unix:object object_ref="oval:ssg-object_etc_system_fips:obj:1"/>
+  </unix:file_test>
+</def-group>

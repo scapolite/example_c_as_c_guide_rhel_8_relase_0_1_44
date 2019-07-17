@@ -1,0 +1,30 @@
+<ocil-group><questionnaire  id="ocil:ssg-httpd_public_resources_not_shared_ocil:questionnaire:1">
+          <title>Public web server resources must not be shared with private assets</title>
+          <actions>
+            <test_action_ref>ocil:ssg-httpd_public_resources_not_shared_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-httpd_public_resources_not_shared_action:testaction:1" question_ref="ocil:ssg-httpd_public_resources_not_shared_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-httpd_public_resources_not_shared_question:question:1">
+          <question_text>Configure the public web server to not have a trusted relationship with
+any system resources that is also not accessible to the public. Web
+content is not to be shared via Microsoft shares or NFS mounts.
+
+Determine whether the public web server has a two-way trust relationship
+with any private asset located within the network. Private web server
+resources (e.g. drives, folders, printers, etc.) will not be directly
+mapped to or shared with public web servers.
+      Is it the case that sharing is selected for any web folder, this is a finding.
+
+If private resources (e.g. drives, partitions, folders/directories,
+printers, etc.) are sharedw ith the public web server?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

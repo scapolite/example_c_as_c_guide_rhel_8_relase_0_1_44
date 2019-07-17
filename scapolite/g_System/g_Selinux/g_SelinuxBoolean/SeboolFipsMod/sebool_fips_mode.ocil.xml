@@ -1,0 +1,24 @@
+<ocil-group><questionnaire  id="ocil:ssg-sebool_fips_mode_ocil:questionnaire:1">
+          <title>Enable the fips_mode SELinux Boolean</title>
+          <actions>
+            <test_action_ref>ocil:ssg-sebool_fips_mode_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-sebool_fips_mode_action:testaction:1" question_ref="ocil:ssg-sebool_fips_mode_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-sebool_fips_mode_question:question:1">
+          <question_text>
+Run the following command to determine if the fips_mode SELinux boolean is enabled:
+$ getsebool fips_mode
+If properly configured, the output should show the following:
+fips_mode --&gt; on
+      Is it the case that fips_mode is not enabled?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

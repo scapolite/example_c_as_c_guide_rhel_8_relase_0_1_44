@@ -1,0 +1,25 @@
+<ocil-group><questionnaire  id="ocil:ssg-file_ownership_var_log_audit_ocil:questionnaire:1">
+          <title>System Audit Logs Must Be Owned By Root</title>
+          <actions>
+            <test_action_ref>ocil:ssg-file_ownership_var_log_audit_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question_test_action  id="ocil:ssg-file_ownership_var_log_audit_action:testaction:1" question_ref="ocil:ssg-file_ownership_var_log_audit_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <boolean_question  id="ocil:ssg-file_ownership_var_log_audit_question:question:1">
+          <question_text>
+To properly set the owner of /var/log/audit, run the command:
+$ sudo chown root /var/log/audit 
+
+To properly set the owner of /var/log/audit/*, run the command:
+$ sudo chown root /var/log/audit/* 
+      Is it the case that ?
+      </question_text>
+        </boolean_question>
+        </ocil-group>

@@ -1,0 +1,26 @@
+<ocil-group><questionnaire  id="ocil:ssg-smartcard_configure_cert_checking_ocil:questionnaire:1">
+          <title>Configure Smart Card Certificate Status Checking</title>
+          <actions>
+            <test_action_ref>ocil:ssg-smartcard_configure_cert_checking_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-smartcard_configure_cert_checking_question:question:1">
+          <question_text>To verify the operating system implements certificate status checking for PKI
+authentication, run the following command:
+$ sudo grep -i cert_policy /etc/pam_pkcs11/pam_pkcs11.conf
+The output should return multiple lines similiar to the following:
+cert_policy = ca, ocsp_on, signature;
+cert_policy = ca, ocsp_on, signature;
+cert_policy = ca, ocsp_on, signature;
+      Is it the case that ocsp_on is not configured?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-smartcard_configure_cert_checking_action:testaction:1" question_ref="ocil:ssg-smartcard_configure_cert_checking_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

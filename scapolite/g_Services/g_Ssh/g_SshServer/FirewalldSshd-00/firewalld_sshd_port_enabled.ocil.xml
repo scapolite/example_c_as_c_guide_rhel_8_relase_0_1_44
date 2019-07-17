@@ -1,0 +1,38 @@
+<ocil-group><questionnaire  id="ocil:ssg-firewalld_sshd_port_enabled_ocil:questionnaire:1">
+          <title>Enable SSH Server firewalld Firewall Exception</title>
+          <actions>
+            <test_action_ref>ocil:ssg-firewalld_sshd_port_enabled_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-firewalld_sshd_port_enabled_question:question:1">
+          <question_text>
+
+To determine if firewalld is configured to allow access to ssh
+on port 22/tcp, run the following command(s):
+
+    firewall-cmd --list-ports
+
+
+    firewall-cmd --list-services
+
+If firewalld is configured to allow access through the firewall, something similar to the following will be output:
+
+If it is a service:
+ssh
+
+
+If it is a port:
+22/tcp
+
+      Is it the case that ?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-firewalld_sshd_port_enabled_action:testaction:1" question_ref="ocil:ssg-firewalld_sshd_port_enabled_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

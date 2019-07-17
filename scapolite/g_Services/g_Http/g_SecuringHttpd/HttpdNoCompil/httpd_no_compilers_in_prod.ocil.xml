@@ -1,0 +1,29 @@
+<ocil-group><questionnaire  id="ocil:ssg-httpd_no_compilers_in_prod_ocil:questionnaire:1">
+          <title>Installation of a compiler on production web server is prohibited</title>
+          <actions>
+            <test_action_ref>ocil:ssg-httpd_no_compilers_in_prod_action:testaction:1</test_action_ref>
+          </actions>
+        </questionnaire>
+        <boolean_question  id="ocil:ssg-httpd_no_compilers_in_prod_question:question:1">
+          <question_text>Query the SA and the Web Manager to determine if a compiler is present on
+the server.
+      Is it the case that the web server is part of an application suite and a comiler is needed
+for installation, patching, and upgrading of the suite or if the compiler
+is embedded and can't be removed without breaking the suite, document the
+installation of the compiler with the ISSO/ISSM and verify that the compiler
+is restricted to administrative users only. If documented and restricted to
+administrative users, this is not a finding.
+
+If an undocumented compiler is present, and available to non-administrative
+users?
+      </question_text>
+        </boolean_question>
+        <boolean_question_test_action  id="ocil:ssg-httpd_no_compilers_in_prod_action:testaction:1" question_ref="ocil:ssg-httpd_no_compilers_in_prod_question:question:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        </ocil-group>

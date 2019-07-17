@@ -1,0 +1,9 @@
+include install_openssh-server
+
+class install_openssh-server {
+  package { 'openssh-server':
+    ensure => 'installed',
+  }
+}
+
+            

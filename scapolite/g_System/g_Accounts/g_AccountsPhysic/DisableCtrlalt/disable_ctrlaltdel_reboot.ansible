@@ -1,0 +1,17 @@
+- name: Disable Ctrl-Alt-Del Reboot Activation
+  systemd:
+    name: ctrl-alt-del.target
+    masked: true
+  when: ansible_virtualization_role != "guest" or ansible_virtualization_type != "docker"
+  tags:
+    - disable_ctrlaltdel_reboot
+    - high_severity
+    - disable_strategy
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+    - CCE-80785-9
+    - NIST-800-53-AC-6
+    - NIST-800-171-3.4.5
+
+              
